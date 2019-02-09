@@ -117,5 +117,24 @@ namespace ProcessManagmentUnitTests
             Assert.AreEqual(BuildStatus.Preparing, actualProcessResult.Status);
             Assert.IsInstanceOfType(actualProcessResult.Error, typeof(WorkingDirNotSpecified));
         }
+
+        [TestMethod]
+        public async Task TestDeletingWithNotificator()
+        {
+            FilesHelper.CreateJunkFiles(WorkingDirPathsHelper.CommonNoOutput());
+
+            id = Guid.NewGuid().ToString();
+
+            ProcessCondition processCondition = new ProcessCondition
+            {
+                Language = LANG,
+                Id = id,
+                WorkingDirPath = WorkingDirPathsHelper.CommonNoOutput()
+            };
+
+            await processManager.ProcessTask(processCondition);
+
+            Assert.IsTrue(FilesHelper.JunkFilesDeleted(WorkingDirPathsHelper.CommonNoOutput()));
+        }
     }
 }
