@@ -143,8 +143,6 @@ namespace ProcessManagmentUnitTests
         NoInput,
         [Description("no_src")]
         NoSrc,
-        [Description("empty_project")]
-        CSharpEmpty,
         [Description("existed_project")]
         CSharpExisted
     }

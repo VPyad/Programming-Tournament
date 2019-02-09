@@ -48,5 +48,17 @@ namespace ProcessManagmentUnitTests
 
             return deleted.All(x => x == false);
         }
+
+        public static string ReadOutputFileContent(string dir)
+        {
+            string content = "";
+
+            if (string.IsNullOrEmpty(dir))
+                return content;
+
+            content = File.ReadAllText(dir);
+
+            return content;
+        }
     }
 }
