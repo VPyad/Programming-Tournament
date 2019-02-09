@@ -14,6 +14,11 @@ namespace ProcessManagmentUnitTests
         private const string WINDOWS_PC_ROOT_DIR = @"C:\Users\vpyad\Documents\Repos\in-rush-sample-projects-project-structure\";
         private const string UBUNTU_PC_ROOT_DIR = @"/home/vadim/Desktop/in-rush-sample-projects-project-structure/";
 
+        private const string COMMON_TESTS_DIR = "general_tests";
+        private const string NO_INPUT_DIR = "no_input";
+        private const string NO_SRC_DIR = "no_src";
+        private const string NO_OUTPUT_DIR = "no_output";
+
         public static string ComposePath(string rootPath, Lang lang, Scenario scenario)
         {
             StringBuilder sb = new StringBuilder();
@@ -55,6 +60,48 @@ namespace ProcessManagmentUnitTests
         public static string PascalSuccess(string rootDir = ROOT_PROJECTS_REPO_DIR) => ComposePath(rootDir, Lang.Pascal, Scenario.Success);
         public static string PascalCompileError(string rootDir = ROOT_PROJECTS_REPO_DIR) => ComposePath(rootDir, Lang.Pascal, Scenario.CompileError);
         public static string PascalRuntimeError(string rootDir = ROOT_PROJECTS_REPO_DIR) => ComposePath(rootDir, Lang.Pascal, Scenario.RuntimeError);
+
+        public static string CommonNoInput(string rootDir = ROOT_PROJECTS_REPO_DIR)
+        {
+            StringBuilder sb = new StringBuilder();
+
+            string separator = GetPathSeparator();
+
+            sb.Append(rootDir)
+                .Append(COMMON_TESTS_DIR)
+                .Append(separator)
+                .Append(NO_INPUT_DIR);
+
+            return sb.ToString();
+        }
+
+        public static string CommonNoOutput(string rootDir = ROOT_PROJECTS_REPO_DIR)
+        {
+            StringBuilder sb = new StringBuilder();
+
+            string separator = GetPathSeparator();
+
+            sb.Append(rootDir)
+                .Append(COMMON_TESTS_DIR)
+                .Append(separator)
+                .Append(NO_OUTPUT_DIR);
+
+            return sb.ToString();
+        }
+
+        public static string CommonNoSrc(string rootDir = ROOT_PROJECTS_REPO_DIR)
+        {
+            StringBuilder sb = new StringBuilder();
+
+            string separator = GetPathSeparator();
+
+            sb.Append(rootDir)
+                .Append(COMMON_TESTS_DIR)
+                .Append(separator)
+                .Append(NO_SRC_DIR);
+
+            return sb.ToString();
+        }
 
         private static string GetPathSeparator()
         {
@@ -100,7 +147,6 @@ namespace ProcessManagmentUnitTests
         CSharpEmpty,
         [Description("existed_project")]
         CSharpExisted
-
     }
 
     public static class EnumDescExtension
