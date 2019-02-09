@@ -114,5 +114,50 @@ namespace ProcessManagmentUnitTests
             Assert.AreEqual(BuildStatus.Execution, actualProcessResult.Status);
             Assert.IsInstanceOfType(actualProcessResult.Error, typeof(ExecutionFailed));
         }
+
+        [TestMethod]
+        public async Task TestSuccessScenarioWithRetriever()
+        {
+            id = Guid.NewGuid().ToString();
+
+            ProcessCondition processCondition = new ProcessCondition
+            {
+                Language = LANG,
+                Id = id,
+                WorkingDirPath = WorkingDirPathsHelper.JavaSuccess()
+            };
+
+            await processManager.ProcessTask(processCondition);
+
+            ProcessResult processResult = processManager.RetrieveProcessResult(id);
+
+            Assert.IsNotNull(processResult);
+            Assert.AreEqual(id, processResult.Condition.Id);
+            Assert.AreEqual(ProcessState.Completed, processResult.State);
+            Assert.AreEqual(BuildStatus.Complete, processResult.Status);
+        }
+
+        [TestMethod]
+        public async Task TestCompileErrorScenarioWithRetriever()
+        {
+            id = Guid.NewGuid().ToString();
+
+            ProcessCondition processCondition = new ProcessCondition
+            {
+                Language = LANG,
+                Id = id,
+                WorkingDirPath = WorkingDirPathsHelper.JavaCompileError()
+            };
+
+            await processManager.ProcessTask(processCondition);
+
+            ProcessResult processResult = processManager.RetrieveProcessResult(id);
+
+            Assert.IsNotNull(processResult);
+            Assert.AreEqual(id, processResult.Condition.Id);
+            Assert.AreEqual(ProcessState.Error, processResult.State);
+            Assert.AreEqual(BuildStatus.Building, processResult.Status);
+            Assert.IsInstanceOfType(processResult.Error, typeof(BuildFailed));
+        }
     }
 }
