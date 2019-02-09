@@ -13,6 +13,17 @@ namespace ProcessManagment.BuildSystem
         public int? Timeout { get; set; } = null;
 
         public string Id { get; set; }
+
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+
+            sb.Append("Language: ").AppendLine(Language.ToString())
+                .Append("Working dir path").AppendLine(WorkingDirPath)
+                .Append("Id: ").AppendLine(Id);
+
+            return sb.ToString();
+        }
     }
 
     public enum SupportedLanguage

@@ -6,9 +6,9 @@ using System.Text;
 
 namespace ProcessManagment
 {
-    public class ProcessCreator
+    internal class ProcessCreator
     {
-        public static Process Create(string dir, string args)
+        internal static Process Create(string dir, string args)
         {
             Process proc = new Process();
 

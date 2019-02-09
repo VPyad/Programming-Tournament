@@ -24,6 +24,22 @@ namespace ProcessManagment.BuildSystem
         public double ProcessorTimeUsage { get; internal set; }
 
         public double ExecutionTime { get; internal set; }
+
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+
+            sb.Append("Status: ").AppendLine(Status.ToString())
+                //.AppendLine("Condition: ").AppendLine(Condition.ToString())
+                .Append("Log file: ").AppendLine(LogFilePath)
+                .Append("Output file: ").AppendLine(OutputFilePath)
+                .Append("Error: ").AppendLine(Error.ToString())
+                .Append("State: ").AppendLine(State.ToString())
+                .Append("Processor time usage: ").AppendLine(ProcessorTimeUsage.ToString())
+                .Append("Execution time: ").AppendLine(ExecutionTime.ToString());
+
+            return sb.ToString();
+        }
     }
 
     /// <summary>
