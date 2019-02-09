@@ -95,6 +95,7 @@ namespace ProcessManagment.BuildSystem
                 }
 
                 result = processor.ProcessExecutionArtifacts(result);
+                processStatusChanged.StatusChanged(result);
 
                 if (result.State == ProcessState.InProgress)
                 {

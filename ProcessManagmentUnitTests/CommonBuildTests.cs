@@ -3,6 +3,7 @@ using ProcessManagment.BuildSystem;
 using ProcessManagment.Errors;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -16,20 +17,25 @@ namespace ProcessManagmentUnitTests
         private string id = "";
         private const SupportedLanguage LANG = SupportedLanguage.CPP;
 
+        private List<BuildStatus> buildStatuses;
+
         public CommonBuildTests()
         {
             processManager = new ProcessManager(this);
+            buildStatuses = new List<BuildStatus>();
         }
 
         public void StatusChanged(ProcessResult processResult)
         {
             actualProcessResult = processResult;
+            buildStatuses.Add(actualProcessResult.Status);
         }
 
         [TestCleanup]
         public void CleanUp()
         {
             processManager.RemoveProcessResult(id);
+            buildStatuses.Clear();
         }
 
         [TestMethod]
@@ -135,6 +141,40 @@ namespace ProcessManagmentUnitTests
             await processManager.ProcessTask(processCondition);
 
             Assert.IsTrue(FilesHelper.JunkFilesDeleted(WorkingDirPathsHelper.CommonNoOutput()));
+        }
+
+        [TestMethod]
+        public async Task TestStatusChangesWithNotificator()
+        {
+            id = Guid.NewGuid().ToString();
+
+            ProcessCondition processCondition = new ProcessCondition
+            {
+                Language = LANG,
+                Id = id,
+                WorkingDirPath = WorkingDirPathsHelper.CppSuccess()
+            };
+
+            await processManager.ProcessTask(processCondition);
+
+            List<bool> statuses = new List<bool>
+            {
+                buildStatuses[0] == BuildStatus.WaitingToBuild,
+                buildStatuses[1] == BuildStatus.BuildStarting,
+                buildStatuses[2] == BuildStatus.Preparing,
+                buildStatuses[3] == BuildStatus.BuildSystemTest,
+                buildStatuses[4] == BuildStatus.Building,
+                buildStatuses[5] == BuildStatus.ProcessingBuildingArtifacts,
+                buildStatuses[6] == BuildStatus.Execution,
+                buildStatuses[7] == BuildStatus.ProcessingExecutionArtifacts,
+                buildStatuses[8] == BuildStatus.Complete
+            };
+
+            Assert.IsNotNull(actualProcessResult);
+            Assert.AreEqual(id, actualProcessResult.Condition.Id);
+            Assert.AreEqual(ProcessState.Completed, actualProcessResult.State);
+            Assert.AreEqual(BuildStatus.Complete, actualProcessResult.Status);
+            Assert.AreEqual(true, statuses.All(x => x == true));
         }
     }
 }
