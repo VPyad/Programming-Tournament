@@ -5,7 +5,9 @@ VisualStudioVersion = 15.0.28010.2036
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Programming-Tournament", "Programming-Tournament\Programming-Tournament.csproj", "{B578EEE5-D1D0-4397-AB85-CC2AA926ED21}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProcessManagment", "ProcessManagment\ProcessManagment.csproj", "{ADB1B1E0-849C-493E-8A1B-3F03F87E62AA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProcessManagment", "ProcessManagment\ProcessManagment.csproj", "{ADB1B1E0-849C-493E-8A1B-3F03F87E62AA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProcessManagmentUnitTests", "ProcessManagmentUnitTests\ProcessManagmentUnitTests.csproj", "{FC90D01F-EF00-4F1F-9C50-E9B0D6546BAD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{ADB1B1E0-849C-493E-8A1B-3F03F87E62AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ADB1B1E0-849C-493E-8A1B-3F03F87E62AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ADB1B1E0-849C-493E-8A1B-3F03F87E62AA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FC90D01F-EF00-4F1F-9C50-E9B0D6546BAD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC90D01F-EF00-4F1F-9C50-E9B0D6546BAD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FC90D01F-EF00-4F1F-9C50-E9B0D6546BAD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC90D01F-EF00-4F1F-9C50-E9B0D6546BAD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
