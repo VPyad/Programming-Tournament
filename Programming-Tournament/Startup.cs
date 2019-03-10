@@ -12,6 +12,8 @@ using Microsoft.EntityFrameworkCore;
 using Programming_Tournament.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Programming_Tournament.Areas.Identity.Managers;
+using Programming_Tournament.Areas.Identity.Models;
 
 namespace Programming_Tournament
 {
@@ -37,14 +39,15 @@ namespace Programming_Tournament
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<IdentityUser>()
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+            services.AddIdentity<ApplicationUser, IdentityRole>()
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IServiceProvider serviceProvider)
         {
             if (env.IsDevelopment())
             {
@@ -69,6 +72,9 @@ namespace Programming_Tournament
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            RolesManager.CreateRoles(serviceProvider).Wait();
+            UsersManager.CreateSuperUser(serviceProvider, Configuration).Wait();
         }
     }
 }
