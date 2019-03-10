@@ -73,8 +73,8 @@ namespace Programming_Tournament
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
 
-            RolesManager.CreateRoles(serviceProvider).Wait();
-            UsersManager.CreateSuperUser(serviceProvider, Configuration).Wait();
+            //RolesManager.CreateRoles(serviceProvider).Wait();
+            //UsersManager.CreateSuperUser(serviceProvider, Configuration).Wait();
         }
     }
 }
