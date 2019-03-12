@@ -8,7 +8,7 @@ namespace Programming_Tournament.Areas.Identity.Models
 {
     public class Сurriculum
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int СurriculumId { get; set; }
 
         public string Name { get; set; }

@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Programming_Tournament.Data;
 
 namespace Programming_Tournament.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190312201031_RemoveTablesFromContext")]
+    partial class RemoveTablesFromContext
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -139,8 +141,6 @@ namespace Programming_Tournament.Data.Migrations
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
 
-                    b.Property<int>("DegreeType");
-
                     b.Property<int?>("DocNo");
 
                     b.Property<string>("Email")
@@ -148,11 +148,7 @@ namespace Programming_Tournament.Data.Migrations
 
                     b.Property<bool>("EmailConfirmed");
 
-                    b.Property<long?>("FacultyId");
-
                     b.Property<string>("FirstName");
-
-                    b.Property<long?>("LecternId");
 
                     b.Property<bool>("LockoutEnabled");
 
@@ -181,13 +177,7 @@ namespace Programming_Tournament.Data.Migrations
 
                     b.Property<int?>("YearNo");
 
-                    b.Property<int?>("СurriculumId");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("FacultyId");
-
-                    b.HasIndex("LecternId");
 
                     b.HasIndex("NormalizedEmail")
                         .HasName("EmailIndex");
@@ -197,48 +187,7 @@ namespace Programming_Tournament.Data.Migrations
                         .HasName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
-                    b.HasIndex("СurriculumId");
-
                     b.ToTable("AspNetUsers");
-                });
-
-            modelBuilder.Entity("Programming_Tournament.Areas.Identity.Models.Faculty", b =>
-                {
-                    b.Property<long>("FacultyId")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Name");
-
-                    b.HasKey("FacultyId");
-
-                    b.ToTable("Faculties");
-                });
-
-            modelBuilder.Entity("Programming_Tournament.Areas.Identity.Models.Lectern", b =>
-                {
-                    b.Property<long>("LecternId")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Name");
-
-                    b.HasKey("LecternId");
-
-                    b.ToTable("Lecterns");
-                });
-
-            modelBuilder.Entity("Programming_Tournament.Areas.Identity.Models.Сurriculum", b =>
-                {
-                    b.Property<int>("СurriculumId")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Name");
-
-                    b.HasKey("СurriculumId");
-
-                    b.ToTable("Сurriculums");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -284,21 +233,6 @@ namespace Programming_Tournament.Data.Migrations
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("Programming_Tournament.Areas.Identity.Models.ApplicationUser", b =>
-                {
-                    b.HasOne("Programming_Tournament.Areas.Identity.Models.Faculty", "Faculty")
-                        .WithMany()
-                        .HasForeignKey("FacultyId");
-
-                    b.HasOne("Programming_Tournament.Areas.Identity.Models.Lectern", "Lectern")
-                        .WithMany()
-                        .HasForeignKey("LecternId");
-
-                    b.HasOne("Programming_Tournament.Areas.Identity.Models.Сurriculum", "Сurriculum")
-                        .WithMany()
-                        .HasForeignKey("СurriculumId");
                 });
 #pragma warning restore 612, 618
         }

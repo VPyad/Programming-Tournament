@@ -8,7 +8,7 @@ namespace Programming_Tournament.Areas.Identity.Models
 {
     public class Faculty
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long FacultyId { get; set; }
 
         public string Name { get; set; }

@@ -8,7 +8,7 @@ namespace Programming_Tournament.Areas.Identity.Models
 {
     public class Lectern
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long LecternId { get; set; }
 
         public string Name { get; set; }

@@ -12,8 +12,14 @@ namespace Programming_Tournament.Data
         {
             if (!context.Faculties.Any())
             {
-                context.Faculties.Add(new Faculty { Name = "ПММ" });
-                context.Faculties.Add(new Faculty { Name = "ФКН" });
+                var faculties = new Faculty[]
+                {
+                    new Faculty { Name = "ПММ" },
+                    new Faculty { Name = "ФКН" }
+                };
+
+                foreach (var item in faculties)
+                    context.Faculties.Add(item);
 
                 context.SaveChanges();
             }
@@ -39,7 +45,7 @@ namespace Programming_Tournament.Data
                 context.Сurriculums.Add(new Сurriculum { Name = "ФИИТ" });
                 context.Сurriculums.Add(new Сurriculum { Name = "ПМИ" });
                 context.Сurriculums.Add(new Сurriculum { Name = "Бизнес информатика" });
-                
+
                 // ФКН
                 context.Сurriculums.Add(new Сurriculum { Name = "Корпоративные информационные системы с базами данных" });
                 context.Сurriculums.Add(new Сurriculum { Name = "Параллельные и распределенные вычислительные системы" });
