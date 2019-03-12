@@ -9,9 +9,12 @@ namespace Programming_Tournament.Data
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
-            : base(options)
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
         }
+
+        public DbSet<Faculty> Faculties { get; set; }
+        public DbSet<Lectern> Lecterns { get; set; }
+        public DbSet<Сurriculum> Сurriculums { get; set; }
     }
 }

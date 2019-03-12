@@ -9,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Programming_Tournament.Areas.Identity.Managers;
+using Programming_Tournament.Data;
 
 namespace Programming_Tournament
 {
@@ -29,6 +30,8 @@ namespace Programming_Tournament
                     RolesManager.CreateRoles(serviceProvider).Wait();
                     UsersManager.CreateSuperUser(serviceProvider, configuration).Wait();
 
+                    var context = services.GetRequiredService<ApplicationDbContext>();
+                    DbInitializer.Initialize(context);
                 }
                 catch (Exception exception)
                 {
