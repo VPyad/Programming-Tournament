@@ -26,7 +26,7 @@ namespace Programming_Tournament.Areas.Identity.Pages.Application
 
         public IEnumerable<Lectern> Lecterns { get; set; }
 
-        LecturerApplicationModel(ApplicationDbContext context)
+        public LecturerApplicationModel(ApplicationDbContext context)
         {
             this.context= context;
         }
