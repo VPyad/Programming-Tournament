@@ -21,8 +21,8 @@ namespace Programming_Tournament.Areas.Identity.Models
 
         public int? DocNo { get; set; }
 
-        public Faculty Faculty { get; set; }
+        public long FacultyId { get; set; }
 
-        public Lectern Lectern { get; set; }
+        public long LecternId { get; set; }
     }
 }
