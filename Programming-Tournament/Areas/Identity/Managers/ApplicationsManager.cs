@@ -25,5 +25,17 @@ namespace Programming_Tournament.Areas.Identity.Managers
         {
             return context.Lecterns.ToList();
         }
+
+        public void SaveApplication(LecturerApplication lecturerApplication)
+        {
+            context.LecturerApplications.Add(lecturerApplication);
+            context.SaveChanges();
+        }
+
+        public void SaveApplication(StudentApplication studentApplication)
+        {
+            context.StudentApplications.Add(studentApplication);
+            context.SaveChanges();
+        }
     }
 }

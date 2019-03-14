@@ -17,6 +17,7 @@ namespace Programming_Tournament.Areas.Identity.Pages.Application
     public class LecturerApplicationModel : PageModel
     {
         private readonly ApplicationDbContext context;
+        private readonly ApplicationsManager applicationsManager;
 
         [BindProperty]
         public InputModel Input { get; set; }
@@ -30,6 +31,7 @@ namespace Programming_Tournament.Areas.Identity.Pages.Application
         public LecturerApplicationModel(ApplicationDbContext context)
         {
             this.context= context;
+            applicationsManager = new ApplicationsManager(this.context);
         }
 
         public class InputModel
@@ -70,15 +72,40 @@ namespace Programming_Tournament.Areas.Identity.Pages.Application
 
         public void OnGet()
         {
-            var applicationsManager = new ApplicationsManager(context);
-
             Faculties = applicationsManager.GetFaculties();
             Lecterns = applicationsManager.GetLecterns();
         }
 
-        public void OnPost()
+        public IActionResult OnPost(string returnUrl = null)
         {
+            returnUrl = returnUrl ?? Url.Content("~/");
 
+            if (ModelState.IsValid)
+            {
+                var application = MapModel(Input);
+                applicationsManager.SaveApplication(application);
+
+                return LocalRedirect("/Identity/Application/ApplicationSent");
+            }
+
+            return Page();
+        }
+
+        private LecturerApplication MapModel(InputModel inputModel)
+        {
+            LecturerApplication application = new LecturerApplication
+            {
+                DocNo = inputModel.DocNo,
+                Email = inputModel.Email,
+                FacultyId = inputModel.FacultyId,
+                LecternId = inputModel.LecternId,
+                Password = inputModel.Password,
+                FirstName = inputModel.FirstName,
+                SecondName = inputModel.SecondName,
+                IsRegistered = false
+            };
+
+            return application;
         }
     }
 }
