@@ -86,7 +86,7 @@ namespace Programming_Tournament.Areas.Identity.Pages.Application
             Curriculums = applicationsManager.GetCurriculums();
         }
 
-        public IActionResult OnPoset(string returnUrl = null)
+        public IActionResult OnPost(string returnUrl = null)
         {
             returnUrl = returnUrl ?? Url.Content("~/");
 
