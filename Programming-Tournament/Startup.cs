@@ -14,6 +14,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Programming_Tournament.Areas.Identity.Managers;
 using Programming_Tournament.Areas.Identity.Models;
+using System.Globalization;
+using Microsoft.AspNetCore.Localization;
 
 namespace Programming_Tournament
 {
@@ -39,9 +41,12 @@ namespace Programming_Tournament
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
+
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
+
+            services.AddLocalization(x => x.ResourcesPath = "Resources");
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
@@ -66,15 +71,25 @@ namespace Programming_Tournament
 
             app.UseAuthentication();
 
+            IList<CultureInfo> supportedCultures = new List<CultureInfo>
+            {
+                new CultureInfo("en-US"),
+                new CultureInfo("ru-RU"),
+            };
+
+            app.UseRequestLocalization(new RequestLocalizationOptions
+            {
+                DefaultRequestCulture = new RequestCulture("ru-RU"),
+                SupportedCultures = supportedCultures,
+                SupportedUICultures = supportedCultures
+            });
+
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
-
-            //RolesManager.CreateRoles(serviceProvider).Wait();
-            //UsersManager.CreateSuperUser(serviceProvider, Configuration).Wait();
         }
     }
 }
