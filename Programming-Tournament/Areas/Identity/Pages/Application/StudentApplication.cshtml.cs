@@ -90,7 +90,34 @@ namespace Programming_Tournament.Areas.Identity.Pages.Application
         {
             returnUrl = returnUrl ?? Url.Content("~/");
 
+            if (ModelState.IsValid)
+            {
+                var application = MapModel(Input);
+                applicationsManager.SaveApplication(application);
+
+                return LocalRedirect("/Identity/Application/ApplicationSent");
+            }
+
             return Page();
+        }
+
+        private StudentApplication MapModel(InputModel inputModel)
+        {
+            StudentApplication application = new StudentApplication
+            {
+                DocNo = inputModel.DocNo,
+                Email = inputModel.Email,
+                FacultyId = inputModel.FacultyId,
+                LecternId = inputModel.LecternId,
+                Password = inputModel.Password,
+                FirstName = inputModel.FirstName,
+                SecondName = inputModel.SecondName,
+                IsRegistered = false,
+                DegreeType = inputModel.DegreeType,
+                CurriculumId = inputModel.CurriculumId
+            };
+
+            return application;
         }
     }
 }
