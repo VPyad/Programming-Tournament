@@ -22,6 +22,6 @@ namespace Programming_Tournament.Areas.Identity.Models
 
         public Lectern Lectern { get; set; }
 
-        public Сurriculum Сurriculum { get; set; }
+        public Curriculum Сurriculum { get; set; }
     }
 }

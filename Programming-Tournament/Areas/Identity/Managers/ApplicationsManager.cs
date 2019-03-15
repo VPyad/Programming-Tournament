@@ -26,6 +26,11 @@ namespace Programming_Tournament.Areas.Identity.Managers
             return context.Lecterns.ToList();
         }
 
+        public IEnumerable<Curriculum> GetCurriculums()
+        {
+            return context.Сurriculums.ToList();
+        }
+
         public void SaveApplication(LecturerApplication lecturerApplication)
         {
             context.LecturerApplications.Add(lecturerApplication);

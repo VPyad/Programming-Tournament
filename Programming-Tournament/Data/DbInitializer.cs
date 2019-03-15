@@ -42,14 +42,14 @@ namespace Programming_Tournament.Data
             if (!context.Сurriculums.Any())
             {
                 // ПММ
-                context.Сurriculums.Add(new Сurriculum { Name = "ФИИТ" });
-                context.Сurriculums.Add(new Сurriculum { Name = "ПМИ" });
-                context.Сurriculums.Add(new Сurriculum { Name = "Бизнес информатика" });
+                context.Сurriculums.Add(new Curriculum { Name = "ФИИТ" });
+                context.Сurriculums.Add(new Curriculum { Name = "ПМИ" });
+                context.Сurriculums.Add(new Curriculum { Name = "Бизнес информатика" });
 
                 // ФКН
-                context.Сurriculums.Add(new Сurriculum { Name = "Корпоративные информационные системы с базами данных" });
-                context.Сurriculums.Add(new Сurriculum { Name = "Параллельные и распределенные вычислительные системы" });
-                context.Сurriculums.Add(new Сurriculum { Name = "Технические средства и методы защиты информации" });
+                context.Сurriculums.Add(new Curriculum { Name = "Корпоративные информационные системы с базами данных" });
+                context.Сurriculums.Add(new Curriculum { Name = "Параллельные и распределенные вычислительные системы" });
+                context.Сurriculums.Add(new Curriculum { Name = "Технические средства и методы защиты информации" });
 
                 context.SaveChanges();
             }

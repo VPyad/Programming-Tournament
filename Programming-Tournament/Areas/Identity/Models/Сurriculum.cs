@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace Programming_Tournament.Areas.Identity.Models
 {
-    public class Сurriculum
+    public class Curriculum
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int СurriculumId { get; set; }
+        public int CurriculumId { get; set; }
 
         public string Name { get; set; }
     }

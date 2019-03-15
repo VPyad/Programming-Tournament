@@ -13,6 +13,6 @@ namespace Programming_Tournament.Areas.Identity.Models
 
         public DegreeType DegreeType { get; set; }
 
-        public Сurriculum Сurriculum { get; set; }
+        public int СurriculumId { get; set; }
     }
 }

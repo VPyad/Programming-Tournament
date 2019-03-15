@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Programming_Tournament.Data;
 
 namespace Programming_Tournament.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190315192254_FixTypeInCurriculumClassName")]
+    partial class FixTypeInCurriculumClassName
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -296,9 +298,11 @@ namespace Programming_Tournament.Data.Migrations
 
                     b.Property<string>("UserId");
 
-                    b.Property<int>("СurriculumId");
+                    b.Property<int?>("СurriculumCurriculumId");
 
                     b.HasKey("StudentApplicationId");
+
+                    b.HasIndex("СurriculumCurriculumId");
 
                     b.ToTable("StudentApplications");
                 });
@@ -358,6 +362,13 @@ namespace Programming_Tournament.Data.Migrations
                         .WithMany()
                         .HasForeignKey("LecternId");
 
+                    b.HasOne("Programming_Tournament.Areas.Identity.Models.Curriculum", "Сurriculum")
+                        .WithMany()
+                        .HasForeignKey("СurriculumCurriculumId");
+                });
+
+            modelBuilder.Entity("Programming_Tournament.Areas.Identity.Models.StudentApplication", b =>
+                {
                     b.HasOne("Programming_Tournament.Areas.Identity.Models.Curriculum", "Сurriculum")
                         .WithMany()
                         .HasForeignKey("СurriculumCurriculumId");
