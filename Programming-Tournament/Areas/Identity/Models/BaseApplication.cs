@@ -13,6 +13,8 @@ namespace Programming_Tournament.Areas.Identity.Models
 
         public string Email { get; set; }
 
+        // Let`s pretend that app does not contains any privacy information and cannot be used against user.
+        // After registration field will be set to empty
         public string Password { get; set; }
 
         public int? DocNo { get; set; }
