@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Programming_Tournament.Areas.Identity.Models;
+using Programming_Tournament.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -69,6 +70,12 @@ namespace Programming_Tournament.Areas.Identity.Managers
                 default:
                     return "";
             }
+        }
+
+        public static bool CanSignIn(ApplicationDbContext context, string email)
+        {
+            return context.Users.Any(x => x.Email == email)
+                && context.Users.FirstOrDefault(x => x.Email == email).Status == UserStatus.Active;
         }
     }
 }

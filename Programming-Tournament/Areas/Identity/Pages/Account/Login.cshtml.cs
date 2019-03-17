@@ -9,7 +9,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using Programming_Tournament.Areas.Identity.Managers;
 using Programming_Tournament.Areas.Identity.Models;
+using Programming_Tournament.Data;
 
 namespace Programming_Tournament.Areas.Identity.Pages.Account
 {
@@ -18,11 +20,13 @@ namespace Programming_Tournament.Areas.Identity.Pages.Account
     {
         private readonly SignInManager<ApplicationUser> signInManager;
         private readonly ILogger<LoginModel> logger;
+        private readonly ApplicationDbContext context;
 
-        public LoginModel(SignInManager<ApplicationUser> signInManager, ILogger<LoginModel> logger)
+        public LoginModel(SignInManager<ApplicationUser> signInManager, ILogger<LoginModel> logger, ApplicationDbContext context)
         {
             this.signInManager = signInManager;
             this.logger = logger;
+            this.context = context;
         }
 
         [BindProperty]
@@ -67,7 +71,14 @@ namespace Programming_Tournament.Areas.Identity.Pages.Account
 
             if (ModelState.IsValid)
             {
+                if (!UsersManager.CanSignIn(context, Input.Email))
+                {
+                    ModelState.AddModelError(string.Empty, "User either not exists or application has not been approved yet");
+                    return Page();
+                }
+
                 var result = await signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: true);
+
                 if (result.Succeeded)
                 {
                     logger.LogInformation("User logged in.");
