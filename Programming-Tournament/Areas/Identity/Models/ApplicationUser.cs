@@ -24,4 +24,12 @@ namespace Programming_Tournament.Areas.Identity.Models
 
         public Curriculum Сurriculum { get; set; }
     }
+
+    public enum UserStatus
+    {
+        Active,
+        Inactive,
+        Rejected,
+        Submitted
+    }
 }

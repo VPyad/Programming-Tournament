@@ -42,5 +42,7 @@ namespace Programming_Tournament.Areas.Identity.Managers
             context.StudentApplications.Add(studentApplication);
             context.SaveChanges();
         }
+
+        public bool ApplicationExist(string email) => context.Users.Any(x => x.Email == email);
     }
 }
