@@ -40,8 +40,7 @@
                     <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
                     @if (!SignInManager.IsSignedIn(User))
                     {
-                        <li> <a asp-area="Identity" asp-page="/Application/LecturerApplication">Apply as lecturer</a> </li>
-                        <li> <a asp-area="Identity" asp-page="/Application/StudentApplication">Apply as student</a> </li>
+                        <li> <a asp-area="Identity" asp-page="/Application/Index">Apply</a> </li>
                     }
                 </ul>
                 <partial name="_LoginPartial" />
