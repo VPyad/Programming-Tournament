@@ -30,7 +30,6 @@ namespace Programming_Tournament.Areas.Identity.Managers
                 var createPowerUser = await UserManager.CreateAsync(poweruser, userPassword);
                 if (createPowerUser.Succeeded)
                 {
-                    // here we assign the new user the "Admin" role 
                     await UserManager.AddToRoleAsync(poweruser, "Admin");
                 }
             }
@@ -44,12 +43,15 @@ namespace Programming_Tournament.Areas.Identity.Managers
 
             string userPassword = application.Password;
             string userEmail = application.Email;
+
+            appUser.UserName = userEmail;
+            appUser.Email = userEmail;
             var user = await UserManager.FindByEmailAsync(userEmail);
 
             if (user == null)
             {
-                var createPowerUser = await UserManager.CreateAsync(appUser, userPassword);
-                if (createPowerUser.Succeeded)
+                var createUser = await UserManager.CreateAsync(appUser, userPassword);
+                if (createUser.Succeeded)
                 {
                     await UserManager.AddToRoleAsync(appUser, GetRole(application.ApplicationType));
                 }

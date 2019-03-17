@@ -25,9 +25,7 @@ namespace Programming_Tournament.Areas.Identity.Pages.Application
         public string ReturnUrl { get; set; }
 
         public IEnumerable<Faculty> Faculties { get; set; }
-
         public IEnumerable<Lectern> Lecterns { get; set; }
-
         public IEnumerable<Curriculum> Curriculums { get; set; }
 
         public IndexModel(ApplicationDbContext context, IServiceProvider serviceProvider, IConfiguration configuration)
@@ -98,11 +96,17 @@ namespace Programming_Tournament.Areas.Identity.Pages.Application
         {
             returnUrl = returnUrl ?? Url.Content("~/");
 
+            Faculties = applicationsManager.GetFaculties();
+            Lecterns = applicationsManager.GetLecterns();
+            Curriculums = applicationsManager.GetCurriculums();
+
             if (ModelState.IsValid)
             {
                 if (applicationsManager.ApplicationExist(Input.Email))
                 {
-                    // TODO: show error state
+                    ModelState.AddModelError(string.Empty, "User with this email has already submitted application");
+
+                    return Page();
                 }
                 else
                 {
@@ -117,6 +121,9 @@ namespace Programming_Tournament.Areas.Identity.Pages.Application
 
         private BaseApplication MapToApplication(InputModel inputModel)
         {
+            var fac = Faculties.FirstOrDefault(x => x.FacultyId == inputModel.FacultyId);
+            var lec = Lecterns.FirstOrDefault(x => x.LecternId == inputModel.LecternId);
+
             var application = new BaseApplication
             {
                 Email = inputModel.Email,

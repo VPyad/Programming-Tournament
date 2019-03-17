@@ -2,7 +2,7 @@
 
 namespace ProgrammingTournament.Migrations
 {
-    public partial class AddStatusProToApplicationUser : Migration
+    public partial class AddStatusPropToApplicationUser : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

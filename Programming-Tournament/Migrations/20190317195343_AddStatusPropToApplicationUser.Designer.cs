@@ -10,8 +10,8 @@ using Programming_Tournament.Data;
 namespace ProgrammingTournament.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190317150953_AddStatusProToApplicationUser")]
-    partial class AddStatusProToApplicationUser
+    [Migration("20190317195343_AddStatusPropToApplicationUser")]
+    partial class AddStatusPropToApplicationUser
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
