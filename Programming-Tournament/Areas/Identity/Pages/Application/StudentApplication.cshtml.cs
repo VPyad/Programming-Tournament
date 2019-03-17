@@ -107,12 +107,12 @@ namespace Programming_Tournament.Areas.Identity.Pages.Application
             {
                 DocNo = inputModel.DocNo,
                 Email = inputModel.Email,
-                FacultyId = inputModel.FacultyId,
-                LecternId = inputModel.LecternId,
+                //FacultyId = inputModel.FacultyId,
+                //LecternId = inputModel.LecternId,
                 Password = inputModel.Password,
                 FirstName = inputModel.FirstName,
                 SecondName = inputModel.SecondName,
-                IsRegistered = false,
+                //IsRegistered = false,
                 DegreeType = inputModel.DegreeType,
                 CurriculumId = inputModel.CurriculumId
             };

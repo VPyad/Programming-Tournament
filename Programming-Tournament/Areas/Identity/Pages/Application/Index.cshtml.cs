@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Extensions.Configuration;
 using Programming_Tournament.Areas.Identity.Managers;
 using Programming_Tournament.Areas.Identity.Models;
 using Programming_Tournament.Data;
@@ -15,6 +16,8 @@ namespace Programming_Tournament.Areas.Identity.Pages.Application
     {
         private readonly ApplicationDbContext context;
         private readonly ApplicationsManager applicationsManager;
+        private readonly IServiceProvider serviceProvider;
+        private readonly IConfiguration configuration;
 
         [BindProperty]
         public InputModel Input { get; set; }
@@ -27,9 +30,12 @@ namespace Programming_Tournament.Areas.Identity.Pages.Application
 
         public IEnumerable<Curriculum> Curriculums { get; set; }
 
-        public IndexModel(ApplicationDbContext context)
+        public IndexModel(ApplicationDbContext context, IServiceProvider serviceProvider, IConfiguration configuration)
         {
             this.context = context;
+            this.configuration = configuration;
+            this.serviceProvider = serviceProvider;
+
             applicationsManager = new ApplicationsManager(this.context);
         }
 
@@ -88,17 +94,54 @@ namespace Programming_Tournament.Areas.Identity.Pages.Application
             Curriculums = applicationsManager.GetCurriculums();
         }
 
-        public IActionResult OnPost(string returnUrl = null)
+        public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
             returnUrl = returnUrl ?? Url.Content("~/");
 
+            if (ModelState.IsValid)
+            {
+                if (applicationsManager.ApplicationExist(Input.Email))
+                {
+                    // TODO: show error state
+                }
+                else
+                {
+                    var application = MapToApplication(Input);
+                    await UsersManager.CreateUser(serviceProvider, configuration, application);
+                    return RedirectToPage("./ApplicationSent");
+                }
+            }
+
             return Page();
+        }
+
+        private BaseApplication MapToApplication(InputModel inputModel)
+        {
+            var application = new BaseApplication
+            {
+                Email = inputModel.Email,
+                Password = inputModel.Password,
+                ApplicationType = inputModel.ApplicationType,
+                DocNo = inputModel.DocNo,
+                FirstName = inputModel.FirstName,
+                SecondName = inputModel.SecondName,
+                Faculty = Faculties.FirstOrDefault(x => x.FacultyId == inputModel.FacultyId),
+                Lectern = Lecterns.FirstOrDefault(x => x.LecternId == inputModel.LecternId)
+            };
+
+            if (inputModel.ApplicationType == ApplicationType.Student)
+            {
+                application.DegreeType = inputModel.DegreeType;
+                application.Curriculum = Curriculums.FirstOrDefault(x => x.CurriculumId == inputModel.CurriculumId);
+            }
+            else
+            {
+                application.DegreeType = DegreeType.Unknown;
+                application.Curriculum = null;
+            }
+
+            return application;
         }
     }
 }
 
-public enum ApplicationType
-{
-    Student,
-    Lecturer
-}

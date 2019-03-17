@@ -8,6 +8,20 @@ namespace Programming_Tournament.Areas.Identity.Models
 {
     public class ApplicationUser : IdentityUser
     {
+        public ApplicationUser() { }
+
+        public ApplicationUser(BaseApplication application)
+        {
+            FirstName = application.FirstName;
+            SecondName = application.SecondName;
+            DocNo = application.DocNo;
+            DegreeType = application.DegreeType;
+            Faculty = application.Faculty;
+            Lectern = application.Lectern;
+            Сurriculum = application.Curriculum;
+            Status = UserStatus.Submitted;
+        }
+
         public string FirstName { get; set; }
 
         public string SecondName { get; set; }
@@ -23,6 +37,8 @@ namespace Programming_Tournament.Areas.Identity.Models
         public Lectern Lectern { get; set; }
 
         public Curriculum Сurriculum { get; set; }
+
+        public UserStatus Status { get; set; }
     }
 
     public enum UserStatus

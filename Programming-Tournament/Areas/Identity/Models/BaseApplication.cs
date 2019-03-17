@@ -13,18 +13,24 @@ namespace Programming_Tournament.Areas.Identity.Models
 
         public string Email { get; set; }
 
-        // Let`s pretend that app does not contains any privacy information and cannot be used against user.
-        // After registration field will be set to empty
         public string Password { get; set; }
 
         public int? DocNo { get; set; }
 
-        public long FacultyId { get; set; }
+        public Faculty Faculty { get; set; }
 
-        public long LecternId { get; set; }
+        public Lectern Lectern { get; set; }
 
-        public string UserId { get; set; }
+        public DegreeType DegreeType { get; set; }
 
-        public bool IsRegistered { get; set; }
+        public Curriculum Curriculum { get; set; }
+
+        public ApplicationType ApplicationType { get; set; }
+    }
+
+    public enum ApplicationType
+    {
+        Student,
+        Lecturer
     }
 }
