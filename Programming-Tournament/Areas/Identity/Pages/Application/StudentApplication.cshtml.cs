@@ -93,7 +93,7 @@ namespace Programming_Tournament.Areas.Identity.Pages.Application
             if (ModelState.IsValid)
             {
                 var application = MapModel(Input);
-                applicationsManager.SaveApplication(application);
+                //applicationsManager.SaveApplication(application);
 
                 return LocalRedirect("/Identity/Application/ApplicationSent");
             }

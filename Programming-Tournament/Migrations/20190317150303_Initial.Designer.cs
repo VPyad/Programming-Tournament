@@ -7,11 +7,11 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Programming_Tournament.Data;
 
-namespace Programming_Tournament.Data.Migrations
+namespace ProgrammingTournament.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190313180738_AddApplicationTables")]
-    partial class AddApplicationTables
+    [Migration("20190317150303_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -183,7 +183,7 @@ namespace Programming_Tournament.Data.Migrations
 
                     b.Property<int?>("YearNo");
 
-                    b.Property<int?>("СurriculumId");
+                    b.Property<int?>("СurriculumCurriculumId");
 
                     b.HasKey("Id");
 
@@ -199,9 +199,22 @@ namespace Programming_Tournament.Data.Migrations
                         .HasName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
-                    b.HasIndex("СurriculumId");
+                    b.HasIndex("СurriculumCurriculumId");
 
                     b.ToTable("AspNetUsers");
+                });
+
+            modelBuilder.Entity("Programming_Tournament.Areas.Identity.Models.Curriculum", b =>
+                {
+                    b.Property<int>("CurriculumId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("CurriculumId");
+
+                    b.ToTable("Сurriculums");
                 });
 
             modelBuilder.Entity("Programming_Tournament.Areas.Identity.Models.Faculty", b =>
@@ -228,19 +241,6 @@ namespace Programming_Tournament.Data.Migrations
                     b.HasKey("LecternId");
 
                     b.ToTable("Lecterns");
-                });
-
-            modelBuilder.Entity("Programming_Tournament.Areas.Identity.Models.Сurriculum", b =>
-                {
-                    b.Property<int>("СurriculumId")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Name");
-
-                    b.HasKey("СurriculumId");
-
-                    b.ToTable("Сurriculums");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -298,9 +298,9 @@ namespace Programming_Tournament.Data.Migrations
                         .WithMany()
                         .HasForeignKey("LecternId");
 
-                    b.HasOne("Programming_Tournament.Areas.Identity.Models.Сurriculum", "Сurriculum")
+                    b.HasOne("Programming_Tournament.Areas.Identity.Models.Curriculum", "Сurriculum")
                         .WithMany()
-                        .HasForeignKey("СurriculumId");
+                        .HasForeignKey("СurriculumCurriculumId");
                 });
 #pragma warning restore 612, 618
         }

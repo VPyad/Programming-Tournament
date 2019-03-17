@@ -16,7 +16,5 @@ namespace Programming_Tournament.Data
         public DbSet<Faculty> Faculties { get; set; }
         public DbSet<Lectern> Lecterns { get; set; }
         public DbSet<Curriculum> Сurriculums { get; set; }
-        public DbSet<LecturerApplication> LecturerApplications { get; set; }
-        public DbSet<StudentApplication> StudentApplications { get; set; }
     }
 }

@@ -31,18 +31,6 @@ namespace Programming_Tournament.Areas.Identity.Managers
             return context.Сurriculums.ToList();
         }
 
-        public void SaveApplication(LecturerApplication lecturerApplication)
-        {
-            context.LecturerApplications.Add(lecturerApplication);
-            context.SaveChanges();
-        }
-
-        public void SaveApplication(StudentApplication studentApplication)
-        {
-            context.StudentApplications.Add(studentApplication);
-            context.SaveChanges();
-        }
-
         public bool ApplicationExist(string email) => context.Users.Any(x => x.Email == email);
     }
 }

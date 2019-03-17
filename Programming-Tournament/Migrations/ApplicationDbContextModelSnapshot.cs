@@ -3,17 +3,15 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Programming_Tournament.Data;
 
-namespace Programming_Tournament.Data.Migrations
+namespace ProgrammingTournament.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190315192254_FixTypeInCurriculumClassName")]
-    partial class FixTypeInCurriculumClassName
+    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -243,70 +241,6 @@ namespace Programming_Tournament.Data.Migrations
                     b.ToTable("Lecterns");
                 });
 
-            modelBuilder.Entity("Programming_Tournament.Areas.Identity.Models.LecturerApplication", b =>
-                {
-                    b.Property<long>("LecturerApplicationId")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int?>("DocNo");
-
-                    b.Property<string>("Email");
-
-                    b.Property<long>("FacultyId");
-
-                    b.Property<string>("FirstName");
-
-                    b.Property<bool>("IsRegistered");
-
-                    b.Property<long>("LecternId");
-
-                    b.Property<string>("Password");
-
-                    b.Property<string>("SecondName");
-
-                    b.Property<string>("UserId");
-
-                    b.HasKey("LecturerApplicationId");
-
-                    b.ToTable("LecturerApplications");
-                });
-
-            modelBuilder.Entity("Programming_Tournament.Areas.Identity.Models.StudentApplication", b =>
-                {
-                    b.Property<long>("StudentApplicationId")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("DegreeType");
-
-                    b.Property<int?>("DocNo");
-
-                    b.Property<string>("Email");
-
-                    b.Property<long>("FacultyId");
-
-                    b.Property<string>("FirstName");
-
-                    b.Property<bool>("IsRegistered");
-
-                    b.Property<long>("LecternId");
-
-                    b.Property<string>("Password");
-
-                    b.Property<string>("SecondName");
-
-                    b.Property<string>("UserId");
-
-                    b.Property<int?>("СurriculumCurriculumId");
-
-                    b.HasKey("StudentApplicationId");
-
-                    b.HasIndex("СurriculumCurriculumId");
-
-                    b.ToTable("StudentApplications");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole")
@@ -362,13 +296,6 @@ namespace Programming_Tournament.Data.Migrations
                         .WithMany()
                         .HasForeignKey("LecternId");
 
-                    b.HasOne("Programming_Tournament.Areas.Identity.Models.Curriculum", "Сurriculum")
-                        .WithMany()
-                        .HasForeignKey("СurriculumCurriculumId");
-                });
-
-            modelBuilder.Entity("Programming_Tournament.Areas.Identity.Models.StudentApplication", b =>
-                {
                     b.HasOne("Programming_Tournament.Areas.Identity.Models.Curriculum", "Сurriculum")
                         .WithMany()
                         .HasForeignKey("СurriculumCurriculumId");
