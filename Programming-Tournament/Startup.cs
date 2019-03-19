@@ -80,9 +80,6 @@ namespace Programming_Tournament
                   template: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
                 );
             });
-
-            //RolesManager.CreateRoles(serviceProvider).Wait();
-            //UsersManager.CreateSuperUser(serviceProvider, Configuration).Wait();
         }
     }
 }
