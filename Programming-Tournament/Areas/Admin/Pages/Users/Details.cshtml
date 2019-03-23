@@ -6,6 +6,93 @@
 
 <h2>Details</h2>
 
+<dl>
+    <dt>
+        @Html.DisplayNameFor(x => x.Model.FirstName)
+    </dt>
+    <dd>
+        @Html.DisplayFor(x => x.Model.FirstName)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(x => x.Model.SecondName)
+    </dt>
+    <dd>
+        @Html.DisplayFor(x => x.Model.SecondName)
+    </dd>
+
+    @if (Model.Model.DocNo.HasValue)
+    {
+        <dt>
+            @Html.DisplayNameFor(x => x.Model.DocNo)
+        </dt>
+        <dd>
+            @Html.DisplayFor(x => x.Model.DocNo.Value)
+        </dd>
+    }
+
+    <dt>
+        @Html.DisplayNameFor(x => x.Model.FacultyName)
+    </dt>
+    <dd>
+        @Html.DisplayFor(x => x.Model.FacultyName)
+    </dd>
+
+
+    <dt>
+        @Html.DisplayNameFor(x => x.Model.LecternName)
+    </dt>
+    <dd>
+        @Html.DisplayFor(x => x.Model.LecternName)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(x => x.Model.UserStatus)
+    </dt>
+    <dd>
+        @Html.DisplayFor(x => x.Model.UserStatus)
+    </dd>
+
+    @if (Model.Model.Type == DetailsModel.UserModel.UserType.Student)
+    {
+        <dt>
+            @Html.DisplayNameFor(x => x.Model.CurriculumName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(x => x.Model.CurriculumName)
+        </dd>
+    }
+
+    @if (Model.Model.Type == DetailsModel.UserModel.UserType.Student)
+    {
+        <dt>
+            @Html.DisplayNameFor(x => x.Model.DegreeType)
+        </dt>
+        <dd>
+            @Html.DisplayFor(x => x.Model.DegreeType)
+        </dd>
+    }
+</dl>
+
+<form asp-route-returnUrl="@Model.ReturnUrl" method="post">
+    <div class="btn-group" role="group">
+        @if (Model.Model.UserStatus == Models.UserStatus.Submitted)
+        {
+            <button type="submit" asp-page-handler="Approve" class="btn btn-primary">Approve</button>
+            <button type="submit" asp-page-handler="Reject" class="btn btn-warning">Reject</button>
+        }
+        @if (Model.Model.UserStatus != Models.UserStatus.Inactive)
+        {
+            <button type="submit" asp-page-handler="Deactivate" class="btn btn-danger">Deactivate</button>
+        }
+        @if (Model.Model.UserStatus == Models.UserStatus.Inactive)
+        {
+            <button type="submit" asp-page-handler="Activate" class="btn btn-primary">Activate</button>
+        }
+        <a asp-page="./Edit" asp-route-id="@Model.UserId" class="btn btn-default">Edit</a>
+    </div>
+</form>
+
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
 }

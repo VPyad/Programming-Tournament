@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Programming_Tournament.Areas.Identity.Models;
@@ -38,7 +39,7 @@ namespace Programming_Tournament.Areas.Identity.Managers
 
         public static async Task CreateUser(IServiceProvider serviceProvider, IConfiguration configuration, BaseApplication application)
         {
-            var UserManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+            var userManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
 
             var appUser = new ApplicationUser(application);
 
@@ -47,14 +48,14 @@ namespace Programming_Tournament.Areas.Identity.Managers
 
             appUser.UserName = userEmail;
             appUser.Email = userEmail;
-            var user = await UserManager.FindByEmailAsync(userEmail);
+            var user = await userManager.FindByEmailAsync(userEmail);
 
             if (user == null)
             {
-                var createUser = await UserManager.CreateAsync(appUser, userPassword);
+                var createUser = await userManager.CreateAsync(appUser, userPassword);
                 if (createUser.Succeeded)
                 {
-                    await UserManager.AddToRoleAsync(appUser, GetRole(application.ApplicationType));
+                    await userManager.AddToRoleAsync(appUser, GetRole(application.ApplicationType));
                 }
             }
         }
@@ -76,6 +77,28 @@ namespace Programming_Tournament.Areas.Identity.Managers
         {
             return context.Users.Any(x => x.Email == email)
                 && context.Users.FirstOrDefault(x => x.Email == email).Status == UserStatus.Active;
+        }
+
+        public static ApplicationUser GetUser(ApplicationDbContext context, string userId)
+        {
+            if (string.IsNullOrEmpty(userId))
+                return null;
+
+            var user = context.Users.Include(x => x.Faculty)
+                .Include(x => x.Сurriculum)
+                .Include(x => x.Lectern)
+                .FirstOrDefault(x => x.Id == userId);
+
+            return user;
+        }
+
+        public static async Task<IEnumerable<string>> GetRolesAsync(IServiceProvider serviceProvider, IConfiguration configuration, ApplicationUser user)
+        {
+            var userManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+
+            var roles = await userManager.GetRolesAsync(user);
+
+            return roles;
         }
     }
 }
