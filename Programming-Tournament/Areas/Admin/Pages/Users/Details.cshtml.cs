@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -20,19 +21,26 @@ namespace Programming_Tournament.Areas.Admin.Pages.Users
         private readonly ApplicationDbContext context;
         private readonly IServiceProvider serviceProvider;
         private readonly IConfiguration configuration;
+        private readonly IHostingEnvironment hostingEnviroment;
 
         [BindProperty]
         public UserModel Model { get; set; }
 
         public string ReturnUrl { get; set; }
 
+        [BindProperty]
         public string UserId { get; private set; }
 
-        public DetailsModel(IServiceProvider serviceProvider, IConfiguration configuration, ApplicationDbContext context)
+        public bool IsDevelopment { get; private set; }
+
+        public DetailsModel(IServiceProvider serviceProvider, IConfiguration configuration, ApplicationDbContext context, IHostingEnvironment hostingEnv)
         {
             this.context = context;
             this.serviceProvider = serviceProvider;
             this.configuration = configuration;
+            this.hostingEnviroment = hostingEnv;
+
+            IsDevelopment = hostingEnviroment.IsDevelopment();
         }
 
         public async Task<IActionResult> OnGet(string id)
@@ -58,24 +66,72 @@ namespace Programming_Tournament.Areas.Admin.Pages.Users
             return Page();
         }
 
-        public void OnPostApprove(string returnUrl = null)
+        public async Task<IActionResult> OnPostApprove(string id, string returnUrl = null)
         {
+            if (string.IsNullOrEmpty(id))
+                return NotFound();
+
             returnUrl = returnUrl ?? Url.Content("~/");
+
+            UsersManager.ChangeUserStatus(context, id, UserStatus.Active);
+
+            await OnGet(id);
+            return Page();
         }
 
-        public void OnPostReject(string returnUrl = null)
+        public async Task<IActionResult> OnPostReject(string id, string returnUrl = null)
         {
+            if (string.IsNullOrEmpty(id))
+                return NotFound();
+
             returnUrl = returnUrl ?? Url.Content("~/");
+
+            UsersManager.ChangeUserStatus(context, id, UserStatus.Rejected);
+
+            await OnGet(id);
+            return Page();
         }
 
-        public void OnPostDeactivate(string returnUrl = null)
+        public async Task<IActionResult> OnPostDeactivate(string id, string returnUrl = null)
         {
+            if (string.IsNullOrEmpty(id))
+                return NotFound();
+
             returnUrl = returnUrl ?? Url.Content("~/");
+
+            UsersManager.ChangeUserStatus(context, id, UserStatus.Inactive);
+
+            await OnGet(id);
+            return Page();
         }
 
-        public void OnPostActivate(string returnUrl = null)
+        public async Task<IActionResult> OnPostActivate(string id, string returnUrl = null)
         {
+            if (string.IsNullOrEmpty(id))
+                return NotFound();
+
             returnUrl = returnUrl ?? Url.Content("~/");
+
+            UsersManager.ChangeUserStatus(context, id, UserStatus.Active);
+
+            await OnGet(id);
+            return Page();
+        }
+
+        public async Task<IActionResult> OnPostSubmit(string id, string returnUrl = null)
+        {
+            if (string.IsNullOrEmpty(id))
+                return NotFound();
+
+            returnUrl = returnUrl ?? Url.Content("~/");
+
+            if (!IsDevelopment)
+                return Page();
+
+            UsersManager.ChangeUserStatus(context, id, UserStatus.Submitted);
+
+            await OnGet(id);
+            return Page();
         }
 
         public class UserModel

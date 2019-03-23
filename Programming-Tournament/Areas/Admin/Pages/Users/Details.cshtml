@@ -90,6 +90,11 @@
             <button type="submit" asp-page-handler="Activate" class="btn btn-primary">Activate</button>
         }
         <a asp-page="./Edit" asp-route-id="@Model.UserId" class="btn btn-default">Edit</a>
+        @if (Model.IsDevelopment)
+        {
+            <button type="submit" asp-page-handler="Submit" class="btn btn-primary">Submit</button>
+        }
+
     </div>
 </form>
 

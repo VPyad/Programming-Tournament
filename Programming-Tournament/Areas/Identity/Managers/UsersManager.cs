@@ -100,5 +100,21 @@ namespace Programming_Tournament.Areas.Identity.Managers
 
             return roles;
         }
+
+        public static void ChangeUserStatus(ApplicationDbContext context, string userId, UserStatus userStatus)
+        {
+            if (string.IsNullOrEmpty(userId))
+                return;
+
+            var user = context.Users.FirstOrDefault(x => x.Id == userId);
+
+            if (user == null)
+                return;
+
+            user.Status = userStatus;
+
+            context.Users.Update(user);
+            context.SaveChanges();
+        }
     }
 }
