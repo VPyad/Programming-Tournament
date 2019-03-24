@@ -100,6 +100,7 @@ namespace Programming_Tournament.Areas.Identity.Pages.Application
         {
             returnUrl = returnUrl ?? Url.Content("~/");
 
+            // TODO: refactor: change to OnGet()
             Faculties = applicationsManager.GetFaculties();
             Lecterns = applicationsManager.GetLecterns();
             Curriculums = applicationsManager.GetCurriculums();

@@ -143,12 +143,9 @@ namespace Programming_Tournament.Areas.Admin.Pages.Users
                 FirstName = user.FirstName;
                 SecondName = user.SecondName;
                 DocNo = user.DocNo;
-                DegreeType = user.DegreeType;
                 FacultyName = user.Faculty.Name;
                 LecternName = user.Lectern.Name;
-                CurriculumName = user.Сurriculum.Name;
                 UserStatus = user.Status;
-                YearNo = user.YearNo;
                 Email = user.Email;
                 CreatedAt = user.CreatedAt;
 
@@ -156,6 +153,9 @@ namespace Programming_Tournament.Areas.Admin.Pages.Users
                 {
                     case "Student":
                         Type = UserType.Student;
+                        CurriculumName = user.Сurriculum.Name;
+                        DegreeType = user.DegreeType;
+                        YearNo = user.YearNo;
                         break;
                     default:
                         Type = UserType.Lecturer;
