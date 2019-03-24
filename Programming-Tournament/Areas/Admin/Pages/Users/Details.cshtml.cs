@@ -148,6 +148,9 @@ namespace Programming_Tournament.Areas.Admin.Pages.Users
                 LecternName = user.Lectern.Name;
                 CurriculumName = user.Сurriculum.Name;
                 UserStatus = user.Status;
+                YearNo = user.YearNo;
+                Email = user.Email;
+                CreatedAt = user.CreatedAt;
 
                 switch (role)
                 {
@@ -159,6 +162,9 @@ namespace Programming_Tournament.Areas.Admin.Pages.Users
                         break;
                 }
             }
+
+            [Display(Name = "Email")]
+            public string Email { get; set; }
 
             [Display(Name = "First name")]
             public string FirstName { get; set; }
@@ -186,6 +192,9 @@ namespace Programming_Tournament.Areas.Admin.Pages.Users
 
             [Display(Name = "Status")]
             public UserStatus UserStatus { get; set; }
+
+            [Display(Name = "First name")]
+            public DateTime CreatedAt { get; set; }
 
             public UserType Type { get; set; }
 

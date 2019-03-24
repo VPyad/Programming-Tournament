@@ -8,6 +8,13 @@
 
 <dl>
     <dt>
+        @Html.DisplayNameFor(x => x.Model.Email)
+    </dt>
+    <dd>
+        @Html.DisplayFor(x => x.Model.Email)
+    </dd>
+
+    <dt>
         @Html.DisplayNameFor(x => x.Model.FirstName)
     </dt>
     <dd>
@@ -48,7 +55,6 @@
         @Html.DisplayFor(x => x.Model.FacultyName)
     </dd>
 
-
     <dt>
         @Html.DisplayNameFor(x => x.Model.LecternName)
     </dt>
@@ -82,6 +88,13 @@
             @Html.DisplayFor(x => x.Model.DegreeType)
         </dd>
     }
+
+    <dt>
+        @Html.DisplayNameFor(x => x.Model.CreatedAt)
+    </dt>
+    <dd>
+        @Html.DisplayFor(x => x.Model.CreatedAt)
+    </dd>
 </dl>
 
 <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
