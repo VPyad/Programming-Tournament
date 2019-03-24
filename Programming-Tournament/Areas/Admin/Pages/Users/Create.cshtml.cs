@@ -52,5 +52,30 @@ namespace Programming_Tournament.Areas.Admin.Pages.Users
             Lecterns = applicationsManager.GetLecterns();
             Curriculums = applicationsManager.GetCurriculums();
         }
+
+        public async Task<IActionResult> OnPost(string returnUrl = null)
+        {
+            returnUrl = returnUrl ?? Url.Content("~/");
+            PopulateData();
+
+            if (ModelState.IsValid)
+            {
+                if (applicationsManager.ApplicationExist(Input.Email))
+                {
+                    ModelState.AddModelError(string.Empty, "User with this email has already existed");
+
+                    return Page();
+                }
+                else
+                {
+                    var user = ApplicationUserEditPageModel.ComposeApplicationUser(Input, Faculties, Lecterns, Curriculums);
+                    await UsersManager.CreateUser(serviceProvider, configuration, user, Input.Password, Input.Email, Input.UserType);
+
+                    return LocalRedirect("~/Admin/Users");
+                }
+            }
+
+            return Page();
+        }
     }
 }

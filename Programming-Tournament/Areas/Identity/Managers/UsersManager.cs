@@ -2,12 +2,14 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Programming_Tournament.Areas.Admin.Models;
 using Programming_Tournament.Areas.Identity.Models;
 using Programming_Tournament.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using static Programming_Tournament.Areas.Admin.Pages.Users.DetailsModel.UserModel;
 
 namespace Programming_Tournament.Areas.Identity.Managers
 {
@@ -60,6 +62,24 @@ namespace Programming_Tournament.Areas.Identity.Managers
             }
         }
 
+        public static async Task CreateUser(IServiceProvider serviceProvider, IConfiguration configuration, ApplicationUser appUser, string password, string email, ApplicationUserType userType)
+        {
+            var userManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+
+            appUser.Email = email;
+            appUser.UserName = email;
+            var user = await userManager.FindByEmailAsync(email);
+
+            if (user == null)
+            {
+                var createUser = await userManager.CreateAsync(appUser, password);
+                if (createUser.Succeeded)
+                {
+                    await userManager.AddToRoleAsync(appUser, GetRole(userType));
+                }
+            }
+        }
+
         private static string GetRole(ApplicationType applicationType)
         {
             switch (applicationType)
@@ -67,6 +87,19 @@ namespace Programming_Tournament.Areas.Identity.Managers
                 case ApplicationType.Lecturer:
                     return "Lecturer";
                 case ApplicationType.Student:
+                    return "Student";
+                default:
+                    return "";
+            }
+        }
+
+        private static string GetRole(ApplicationUserType type)
+        {
+            switch (type)
+            {
+                case ApplicationUserType.Lecturer:
+                    return "Lecturer";
+                case ApplicationUserType.Student:
                     return "Student";
                 default:
                     return "";

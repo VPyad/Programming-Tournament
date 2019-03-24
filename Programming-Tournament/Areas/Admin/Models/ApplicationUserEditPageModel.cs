@@ -44,12 +44,15 @@ namespace Programming_Tournament.Areas.Admin.Models
             UserType = ApplicationUserType.Lecturer;
         }
 
+        [Required]
         [Display(Name = "Email")]
         public string Email { get; set; }
 
+        [Required]
         [Display(Name = "First name")]
         public string FirstName { get; set; }
 
+        [Required]
         [Display(Name = "Second name")]
         public string SecondName { get; set; }
 
@@ -129,6 +132,43 @@ namespace Programming_Tournament.Areas.Admin.Models
 
             if (user.Status != editPageModel.UserStatus)
                 user.Status = editPageModel.UserStatus;
+        }
+
+        public static ApplicationUser ComposeApplicationUser(ApplicationUserEditPageModel editPageModel, IEnumerable<Faculty> faculties, IEnumerable<Lectern> lecterns, IEnumerable<Curriculum> curriculums)
+        {
+            ApplicationUser user = new ApplicationUser
+            {
+                FirstName = editPageModel.FirstName,
+                SecondName = editPageModel.SecondName,
+                DocNo = editPageModel.DocNo,
+                Status = editPageModel.UserStatus,
+                CreatedAt = DateTime.Now
+            };
+
+            var faculty = faculties.FirstOrDefault(x => x.FacultyId == editPageModel.FacultyId);
+            if (faculty != null)
+                user.Faculty = faculty;
+
+            var lectern = lecterns.FirstOrDefault(x => x.LecternId == editPageModel.LecternId);
+            if (lectern != null)
+                user.Lectern = lectern;
+
+            switch (editPageModel.UserType)
+            {
+                case ApplicationUserType.Student:
+                    user.DegreeType = editPageModel.DegreeType;
+                    user.YearNo = editPageModel.YearNo;
+
+                    var curriculum = curriculums.FirstOrDefault(x => x.CurriculumId == editPageModel.CurriculumId);
+                    if (curriculum != null)
+                        user.Сurriculum = curriculum;
+                    break;
+                case ApplicationUserType.Lecturer:
+                    user.DegreeType = DegreeType.Unknown;
+                    break;
+            }
+
+            return user;
         }
     }
 
