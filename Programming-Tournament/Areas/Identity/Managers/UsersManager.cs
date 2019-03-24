@@ -116,5 +116,19 @@ namespace Programming_Tournament.Areas.Identity.Managers
             context.Users.Update(user);
             context.SaveChanges();
         }
+
+        public static void UpdateUser(ApplicationDbContext context, ApplicationUser user)
+        {
+            if (user == null)
+                return;
+
+            var dbUser = context.Users.FirstOrDefault(x => x.Id == user.Id);
+
+            if (dbUser == null)
+                return;
+
+            context.Users.Update(user);
+            context.SaveChanges();
+        }
     }
 }

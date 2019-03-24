@@ -65,6 +65,27 @@ namespace Programming_Tournament.Areas.Admin.Pages.Users
             return Page();
         }
 
+        public async Task<IActionResult> OnPost(string id, string returnUrl = null)
+        {
+            if (string.IsNullOrEmpty(id))
+                return NotFound();
+
+            var user = UsersManager.GetUser(context, id);
+            UserId = id;
+
+            if (user == null)
+                return NotFound();
+
+            returnUrl = returnUrl ?? Url.Content("~/");
+
+            PopulateData();
+            ApplicationUserEditPageModel.ApplyChanges(user, Input, Faculties, Lecterns, Curriculums);
+            UsersManager.UpdateUser(context, user);
+
+            await OnGet(id);
+            return Page();
+        }
+
         private void PopulateData()
         {
             Faculties = applicationsManager.GetFaculties();

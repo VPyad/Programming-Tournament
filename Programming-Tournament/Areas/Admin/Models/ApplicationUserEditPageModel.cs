@@ -120,7 +120,7 @@ namespace Programming_Tournament.Areas.Admin.Models
                     user.Lectern = lectern;
             }
 
-            if (user.Сurriculum.CurriculumId == editPageModel.CurriculumId)
+            if (user.Сurriculum != null && user.Сurriculum.CurriculumId != editPageModel.CurriculumId)
             {
                 var cur = curriculums.FirstOrDefault(x => x.CurriculumId == editPageModel.CurriculumId);
                 if (cur != null)
