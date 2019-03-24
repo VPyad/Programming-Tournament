@@ -57,6 +57,10 @@ namespace Programming_Tournament.Areas.Identity.Pages.Application
             [Display(Name = "Document number (optional)")]
             public int? DocNo { get; set; }
 
+            [RegularExpression("([1-9][0-9]*)", ErrorMessage = "Only numbers allowed")]
+            [Display(Name = "Year of education (optional)")]
+            public int? YearNo { get; set; }
+
             [Required]
             [Display(Name = "Faculty")]
             public long FacultyId { get; set; }
@@ -133,13 +137,15 @@ namespace Programming_Tournament.Areas.Identity.Pages.Application
                 FirstName = inputModel.FirstName,
                 SecondName = inputModel.SecondName,
                 Faculty = Faculties.FirstOrDefault(x => x.FacultyId == inputModel.FacultyId),
-                Lectern = Lecterns.FirstOrDefault(x => x.LecternId == inputModel.LecternId)
+                Lectern = Lecterns.FirstOrDefault(x => x.LecternId == inputModel.LecternId),
+                CreatedAt = DateTime.Now
             };
 
             if (inputModel.ApplicationType == ApplicationType.Student)
             {
                 application.DegreeType = inputModel.DegreeType;
                 application.Curriculum = Curriculums.FirstOrDefault(x => x.CurriculumId == inputModel.CurriculumId);
+                application.YearNo = inputModel.YearNo;
             }
             else
             {

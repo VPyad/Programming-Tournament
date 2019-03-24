@@ -169,6 +169,9 @@ namespace Programming_Tournament.Areas.Admin.Pages.Users
             [Display(Name = "Document number")]
             public int? DocNo { get; set; }
 
+            [Display(Name = "Year of education")]
+            public int? YearNo { get; set; }
+
             [Display(Name = "Degree")]
             public DegreeType DegreeType { get; set; }
 

@@ -20,6 +20,8 @@ namespace Programming_Tournament.Areas.Identity.Models
             Lectern = application.Lectern;
             Сurriculum = application.Curriculum;
             Status = UserStatus.Submitted;
+            YearNo = application.YearNo;
+            CreatedAt = application.CreatedAt;
         }
 
         public string FirstName { get; set; }
@@ -39,6 +41,8 @@ namespace Programming_Tournament.Areas.Identity.Models
         public Curriculum Сurriculum { get; set; }
 
         public UserStatus Status { get; set; }
+
+        public DateTime CreatedAt { get; set; }
     }
 
     public enum UserStatus

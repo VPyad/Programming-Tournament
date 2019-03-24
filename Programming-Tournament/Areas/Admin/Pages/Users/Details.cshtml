@@ -31,6 +31,16 @@
         </dd>
     }
 
+    @if (Model.Model.YearNo.HasValue)
+    {
+        <dt>
+            @Html.DisplayNameFor(x => x.Model.YearNo)
+        </dt>
+        <dd>
+            @Html.DisplayFor(x => x.Model.YearNo)
+        </dd>
+    }
+
     <dt>
         @Html.DisplayNameFor(x => x.Model.FacultyName)
     </dt>

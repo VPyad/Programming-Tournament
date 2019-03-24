@@ -17,6 +17,8 @@ namespace Programming_Tournament.Areas.Identity.Models
 
         public int? DocNo { get; set; }
 
+        public int? YearNo { get; set; }
+
         public Faculty Faculty { get; set; }
 
         public Lectern Lectern { get; set; }
@@ -26,6 +28,8 @@ namespace Programming_Tournament.Areas.Identity.Models
         public Curriculum Curriculum { get; set; }
 
         public ApplicationType ApplicationType { get; set; }
+
+        public DateTime CreatedAt { get; set; }
     }
 
     public enum ApplicationType

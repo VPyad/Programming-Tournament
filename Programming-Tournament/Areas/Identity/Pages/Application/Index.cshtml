@@ -41,6 +41,11 @@
                 <label asp-for="Input.LecternId"></label>
                 <select asp-for="Input.LecternId" class="form-control" asp-items="@(new SelectList(Model.Lecterns, "LecternId", "Name"))"></select>
             </div>
+            <div class="form-group" id="yearNoSection">
+                <label asp-for="Input.YearNo"></label>
+                <input asp-for="Input.YearNo" class="form-control" />
+                <span asp-validation-for="Input.YearNo" class="text-danger"></span>
+            </div>
             <div class="form-group" id="curriculumSection">
                 <label asp-for="Input.CurriculumId"></label>
                 <select asp-for="Input.CurriculumId" class="form-control" asp-items="@(new SelectList(Model.Curriculums, "CurriculumId", "Name"))"></select>
@@ -73,9 +78,11 @@
                 if (value == '1') {
                     $('#curriculumSection').hide();
                     $('#degreeSection').hide();
+                    $('#yearNoSection').hide();
                 } else if (value == '0') {
                     $('#curriculumSection').show();
                     $('#degreeSection').show();
+                    $('#yearNoSection').show();
                 }
             });
         });
