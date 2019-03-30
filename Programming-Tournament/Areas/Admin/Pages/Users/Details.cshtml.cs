@@ -197,12 +197,6 @@ namespace Programming_Tournament.Areas.Admin.Pages.Users
             public DateTime CreatedAt { get; set; }
 
             public UserType Type { get; set; }
-
-            public enum UserType
-            {
-                Student,
-                Lecturer
-            }
         }
     }
 }

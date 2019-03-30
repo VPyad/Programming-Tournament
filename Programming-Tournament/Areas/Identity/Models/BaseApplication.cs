@@ -27,14 +27,8 @@ namespace Programming_Tournament.Areas.Identity.Models
 
         public Curriculum Curriculum { get; set; }
 
-        public ApplicationType ApplicationType { get; set; }
+        public UserType UserType { get; set; }
 
         public DateTime CreatedAt { get; set; }
-    }
-
-    public enum ApplicationType
-    {
-        Student,
-        Lecturer
     }
 }

@@ -60,7 +60,7 @@ namespace Programming_Tournament.Areas.Admin.Pages.Users
 
             PopulateData();
 
-            Input = new ApplicationUserEditPageModel(user, role);
+            Input = new ApplicationUserEditPageModel(user);
 
             return Page();
         }

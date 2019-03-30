@@ -14,7 +14,7 @@
             <div asp-validation-summary="All" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Input.UserType"></label>
-                <select id="applicationTypeDropDown" asp-for="Input.UserType" class="form-control" asp-items="@(Html.GetEnumSelectList<ApplicationUserType>())"></select>
+                <select id="applicationTypeDropDown" asp-for="Input.UserType" class="form-control" asp-items="@(Html.GetEnumSelectList<UserType>())"></select>
             </div>
             <div class="form-group">
                 <label asp-for="Input.FirstName"></label>

@@ -1,6 +1,7 @@
 ﻿@page "{id}"
 @model DetailsModel
 @using Programming_Tournament.Areas.Admin.Pages.Users
+@using Programming_Tournament.Areas.Identity.Models;
 @{
 }
 
@@ -69,7 +70,7 @@
         @Html.DisplayFor(x => x.Model.UserStatus)
     </dd>
 
-    @if (Model.Model.Type == DetailsModel.UserModel.UserType.Student)
+    @if (Model.Model.Type == UserType.Student)
     {
         <dt>
             @Html.DisplayNameFor(x => x.Model.CurriculumName)
@@ -79,7 +80,7 @@
         </dd>
     }
 
-    @if (Model.Model.Type == DetailsModel.UserModel.UserType.Student)
+    @if (Model.Model.Type == UserType.Student)
     {
         <dt>
             @Html.DisplayNameFor(x => x.Model.DegreeType)

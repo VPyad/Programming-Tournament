@@ -14,15 +14,10 @@ namespace Programming_Tournament.Areas.Admin.Models
         public ApplicationUserEditPageModel(ApplicationUser user)
         {
             InitFiels(user);
-        }
 
-        public ApplicationUserEditPageModel(ApplicationUser user, string role)
-        {
-            InitFiels(user);
-
-            if (role == "Student")
+            if (user.Type == UserType.Student)
             {
-                UserType = ApplicationUserType.Student;
+                UserType = UserType.Student;
                 Curriculum = user.Сurriculum;
                 CurriculumId = user.Сurriculum.CurriculumId;
                 YearNo = user.YearNo;
@@ -41,7 +36,7 @@ namespace Programming_Tournament.Areas.Admin.Models
             Lectern = user.Lectern;
             LecternId = user.Lectern.LecternId;
             UserStatus = user.Status;
-            UserType = ApplicationUserType.Lecturer;
+            UserType = UserType.Lecturer;
         }
 
         [Required]
@@ -83,7 +78,7 @@ namespace Programming_Tournament.Areas.Admin.Models
         [Display(Name = "Status")]
         public UserStatus UserStatus { get; set; }
 
-        public ApplicationUserType UserType { get; set; }
+        public UserType UserType { get; set; }
 
         [Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
@@ -155,26 +150,22 @@ namespace Programming_Tournament.Areas.Admin.Models
 
             switch (editPageModel.UserType)
             {
-                case ApplicationUserType.Student:
+                case UserType.Student:
                     user.DegreeType = editPageModel.DegreeType;
                     user.YearNo = editPageModel.YearNo;
+                    user.Type = UserType.Student;
 
                     var curriculum = curriculums.FirstOrDefault(x => x.CurriculumId == editPageModel.CurriculumId);
                     if (curriculum != null)
                         user.Сurriculum = curriculum;
                     break;
-                case ApplicationUserType.Lecturer:
+                case UserType.Lecturer:
                     user.DegreeType = DegreeType.Unknown;
+                    user.Type = UserType.Lecturer;
                     break;
             }
 
             return user;
         }
-    }
-
-    public enum ApplicationUserType
-    {
-        Student,
-        Lecturer
     }
 }

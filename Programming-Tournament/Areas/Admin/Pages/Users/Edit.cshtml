@@ -39,7 +39,7 @@
                 <label asp-for="Input.UserStatus"></label>
                 <select asp-for="Input.UserStatus" class="form-control" asp-items="@(Html.GetEnumSelectList<UserStatus>())"></select>
             </div>
-            @if (Model.Input.UserType == Admin.Models.ApplicationUserType.Student)
+            @if (Model.Input.UserType == UserType.Student)
             {
                 <div class="form-group">
                     <label asp-for="Input.YearNo"></label>

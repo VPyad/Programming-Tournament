@@ -57,12 +57,12 @@ namespace Programming_Tournament.Areas.Identity.Managers
                 var createUser = await userManager.CreateAsync(appUser, userPassword);
                 if (createUser.Succeeded)
                 {
-                    await userManager.AddToRoleAsync(appUser, GetRole(application.ApplicationType));
+                    await userManager.AddToRoleAsync(appUser, GetRole(application.UserType));
                 }
             }
         }
 
-        public static async Task CreateUser(IServiceProvider serviceProvider, IConfiguration configuration, ApplicationUser appUser, string password, string email, ApplicationUserType userType)
+        public static async Task CreateUser(IServiceProvider serviceProvider, IConfiguration configuration, ApplicationUser appUser, string password, string email, UserType userType)
         {
             var userManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
 
@@ -80,26 +80,13 @@ namespace Programming_Tournament.Areas.Identity.Managers
             }
         }
 
-        private static string GetRole(ApplicationType applicationType)
+        private static string GetRole(UserType userType)
         {
-            switch (applicationType)
+            switch (userType)
             {
-                case ApplicationType.Lecturer:
+                case UserType.Lecturer:
                     return "Lecturer";
-                case ApplicationType.Student:
-                    return "Student";
-                default:
-                    return "";
-            }
-        }
-
-        private static string GetRole(ApplicationUserType type)
-        {
-            switch (type)
-            {
-                case ApplicationUserType.Lecturer:
-                    return "Lecturer";
-                case ApplicationUserType.Student:
+                case UserType.Student:
                     return "Student";
                 default:
                     return "";

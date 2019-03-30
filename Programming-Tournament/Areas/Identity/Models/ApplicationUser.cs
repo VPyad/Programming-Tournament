@@ -22,6 +22,7 @@ namespace Programming_Tournament.Areas.Identity.Models
             Status = UserStatus.Submitted;
             YearNo = application.YearNo;
             CreatedAt = application.CreatedAt;
+            Type = application.UserType;
         }
 
         public string FirstName { get; set; }
@@ -43,6 +44,8 @@ namespace Programming_Tournament.Areas.Identity.Models
         public UserStatus Status { get; set; }
 
         public DateTime CreatedAt { get; set; }
+
+        public UserType Type { get; set; }
     }
 
     public enum UserStatus
@@ -51,5 +54,11 @@ namespace Programming_Tournament.Areas.Identity.Models
         Inactive,
         Rejected,
         Submitted
+    }
+
+    public enum UserType
+    {
+        Student,
+        Lecturer
     }
 }

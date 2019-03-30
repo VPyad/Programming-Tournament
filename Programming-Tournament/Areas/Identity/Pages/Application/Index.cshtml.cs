@@ -41,7 +41,7 @@ namespace Programming_Tournament.Areas.Identity.Pages.Application
         {
             [Required]
             [Display(Name = "I am")]
-            public ApplicationType ApplicationType { get; set; }
+            public UserType UserType { get; set; }
 
             [Required]
             [DataType(DataType.Text)]
@@ -133,7 +133,7 @@ namespace Programming_Tournament.Areas.Identity.Pages.Application
             {
                 Email = inputModel.Email,
                 Password = inputModel.Password,
-                ApplicationType = inputModel.ApplicationType,
+                UserType = inputModel.UserType,
                 DocNo = inputModel.DocNo,
                 FirstName = inputModel.FirstName,
                 SecondName = inputModel.SecondName,
@@ -142,14 +142,16 @@ namespace Programming_Tournament.Areas.Identity.Pages.Application
                 CreatedAt = DateTime.Now
             };
 
-            if (inputModel.ApplicationType == ApplicationType.Student)
+            if (inputModel.UserType == UserType.Student)
             {
+                application.UserType = UserType.Student;
                 application.DegreeType = inputModel.DegreeType;
                 application.Curriculum = Curriculums.FirstOrDefault(x => x.CurriculumId == inputModel.CurriculumId);
                 application.YearNo = inputModel.YearNo;
             }
             else
             {
+                application.UserType = UserType.Lecturer;
                 application.DegreeType = DegreeType.Unknown;
                 application.Curriculum = null;
             }
