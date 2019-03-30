@@ -6,6 +6,82 @@
 
 <h2>Users</h2>
 
+<div class="row">
+    <form method="get">
+        <div class="form-group">
+            <label asp-for="ViewModel.SearchTerm"></label>
+            <input asp-for="ViewModel.SearchTerm" class="form-control" />
+        </div>
+        <button type="submit" class="btn btn-default">Search</button>
+    </form>
+</div>
+
+<table class="table">
+    <tr>
+        <th>First name</th>
+        <th>Second name</th>
+        <th>Email</th>
+        <th>
+            <a asp-area="Admin" asp-action="Index"
+               asp-route-sortState="@(Model.ViewModel.SortViewModel.StatusSort)"
+               asp-route-q="@(Model.ViewModel.SearchTerm)">Status</a>
+        </th>
+        <th>
+            <a asp-area="Admin" asp-action="Index"
+               asp-route-sortState="@(Model.ViewModel.SortViewModel.TypeSort)"
+               asp-route-q="@(Model.ViewModel.SearchTerm)">Type</a>
+        </th>
+        <th>
+            <a asp-area="Admin" asp-action="Index"
+               asp-route-sortState="@(Model.ViewModel.SortViewModel.CreatedAtSort)"
+               asp-route-q="@(Model.ViewModel.SearchTerm)">CreatedAt</a>
+        </th>
+        <th>DocNo</th>
+        <th>Faculty</th>
+        <th>Lectern</th>
+        <th>Curriculum</th>
+        <th>Degree</th>
+    </tr>
+    @foreach (var item in Model.ViewModel.Users)
+    {
+        <tr>
+            <td>@item.FirstName</td>
+            <td>@item.SecondName</td>
+            <td>@item.Email</td>
+            <td>@item.Status</td>
+            <td>@item.Type</td>
+            <td>@item.CreatedAt</td>
+            <td>@(item.DocNo.HasValue ? item.DocNo.Value : 0)</td>
+            <td>@(item.Faculty != null ? item.Faculty.Name : "")</td>
+            <td>@(item.Lectern != null ? item.Lectern.Name : "")</td>
+            <td>@(item.Сurriculum != null ? item.Сurriculum.Name : "")</td>
+            <td>@item.DegreeType</td>
+        </tr>
+    }
+</table>
+
+@if (Model.ViewModel.PageViewModel.HasPreviousPage)
+{
+    <a asp-area="Admin" asp-action="Index"
+       asp-route-sortState="@(Model.ViewModel.SortViewModel.Current)"
+       asp-route-q="@(Model.ViewModel.SearchTerm)"
+       asp-route-page="@(Model.ViewModel.PageViewModel.PageNumber - 1)"
+       class="btn btn-default btn">
+        <i class="glyphicon glyphicon-chevron-left"></i>Previus
+    </a>
+}
+
+@if (Model.ViewModel.PageViewModel.HasNextPage)
+{
+    <a asp-page="./Index"
+       asp-route-sortState="@(Model.ViewModel.SortViewModel.Current)"
+       asp-route-q="@(Model.ViewModel.SearchTerm)"
+       asp-route-page="@(Model.ViewModel.PageViewModel.PageNumber + 1)"
+       class="btn btn-default btn">
+        Next <i class="glyphicon glyphicon-chevron-right"></i>
+    </a>
+}
+
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
 }

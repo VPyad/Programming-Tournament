@@ -196,6 +196,7 @@ namespace Programming_Tournament.Areas.Admin.Pages.Users
             [Display(Name = "First name")]
             public DateTime CreatedAt { get; set; }
 
+            [Display(Name = "User type")]
             public UserType Type { get; set; }
         }
     }
