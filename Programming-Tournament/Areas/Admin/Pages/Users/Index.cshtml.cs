@@ -29,7 +29,7 @@ namespace Programming_Tournament.Areas.Admin.Pages.Users
             this.configuration = configuration;
         }
 
-        public async Task<IActionResult> OnGet(int page = 1, SortState sortState = SortState.CreatedAtDesc, string q = null)
+        public async Task<IActionResult> OnGet(int p = 1, SortState sortState = SortState.CreatedAtDesc, string q = null)
         {
             int pageSize = 5;
 
@@ -71,12 +71,12 @@ namespace Programming_Tournament.Areas.Admin.Pages.Users
             }
 
             int count = users.Count();
-            var items = await users.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
+            var items = await users.Skip((p - 1) * pageSize).Take(pageSize).ToListAsync();
 
             ViewModel = new IndexViewModel
             {
                 SortViewModel = new SortViewModel(sortState),
-                PageViewModel = new PageViewModel(count, page, pageSize),
+                PageViewModel = new PageViewModel(count, p, pageSize),
                 Users = items,
                 SearchTerm = q
             };
