@@ -1,17 +1,16 @@
-﻿using Programming_Tournament.Areas.Identity.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Programming_Tournament.Areas.Admin.Models
+namespace Programming_Tournament.Areas.Identity.Models
 {
-    public class ApplicationUserEditPageModel
+    public class ApplicationUserDetailsPageModel
     {
-        public ApplicationUserEditPageModel() { }
+        public ApplicationUserDetailsPageModel() { }
 
-        public ApplicationUserEditPageModel(ApplicationUser user)
+        public ApplicationUserDetailsPageModel(ApplicationUser user)
         {
             InitFiels(user);
 
@@ -39,15 +38,12 @@ namespace Programming_Tournament.Areas.Admin.Models
             UserType = UserType.Lecturer;
         }
 
-        [Required]
         [Display(Name = "Email")]
         public virtual string Email { get; set; }
 
-        [Required]
         [Display(Name = "First name")]
         public virtual string FirstName { get; set; }
 
-        [Required]
         [Display(Name = "Second name")]
         public virtual string SecondName { get; set; }
 
@@ -62,11 +58,11 @@ namespace Programming_Tournament.Areas.Admin.Models
 
         [Display(Name = "Faculty")]
         public long FacultyId { get; set; }
-        
+
         public Faculty Faculty { get; set; }
 
         [Display(Name = "Lectern")]
-        public long LecternId{ get; set; }
+        public long LecternId { get; set; }
 
         public Lectern Lectern { get; set; }
 
@@ -80,56 +76,7 @@ namespace Programming_Tournament.Areas.Admin.Models
 
         public UserType UserType { get; set; }
 
-        [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
-        [DataType(DataType.Password)]
-        [Display(Name = "Password")]
-        public string Password { get; set; }
-
-
-        public static void ApplyChanges(ApplicationUser user, ApplicationUserEditPageModel editPageModel, IEnumerable<Faculty> faculties, IEnumerable<Lectern> lecterns, IEnumerable<Curriculum> curriculums)
-        {
-            if (user.FirstName != editPageModel.FirstName)
-                user.FirstName = editPageModel.FirstName;
-
-            if (user.SecondName != editPageModel.SecondName)
-                user.SecondName = editPageModel.SecondName;
-
-            if (user.DocNo != editPageModel.DocNo)
-                user.DocNo = editPageModel.DocNo;
-
-            if (user.YearNo != editPageModel.YearNo)
-                user.YearNo = editPageModel.YearNo;
-
-            if (user.DegreeType != editPageModel.DegreeType)
-                user.DegreeType = editPageModel.DegreeType;
-
-            if (user.Faculty.FacultyId != editPageModel.FacultyId)
-            {
-                var faculty = faculties.FirstOrDefault(x => x.FacultyId == editPageModel.FacultyId);
-                if (faculty != null)
-                    user.Faculty = faculty;
-            }
-
-            if (user.Lectern.LecternId != editPageModel.LecternId)
-            {
-                var lectern = lecterns.FirstOrDefault(x => x.LecternId == editPageModel.LecternId);
-                if (lectern != null)
-                    user.Lectern = lectern;
-            }
-
-            if (user.Сurriculum != null && user.Сurriculum.CurriculumId != editPageModel.CurriculumId)
-            {
-                var cur = curriculums.FirstOrDefault(x => x.CurriculumId == editPageModel.CurriculumId);
-                if (cur != null)
-                    user.Сurriculum = cur;
-            }
-
-            if (user.Status != editPageModel.UserStatus)
-                user.Status = editPageModel.UserStatus;
-        }
-
-        public static ApplicationUser ComposeApplicationUser(ApplicationUserEditPageModel editPageModel, IEnumerable<Faculty> faculties, IEnumerable<Lectern> lecterns, IEnumerable<Curriculum> curriculums)
+        public static ApplicationUser ComposeApplicationUser(ApplicationUserDetailsPageModel editPageModel, IEnumerable<Faculty> faculties, IEnumerable<Lectern> lecterns, IEnumerable<Curriculum> curriculums)
         {
             ApplicationUser user = new ApplicationUser
             {
