@@ -41,6 +41,7 @@
         <th>Lectern</th>
         <th>Curriculum</th>
         <th>Degree</th>
+        <th>Details</th>
     </tr>
     @foreach (var item in Model.ViewModel.Users)
     {
@@ -56,6 +57,7 @@
             <td>@(item.Lectern != null ? item.Lectern.Name : "")</td>
             <td>@(item.Сurriculum != null ? item.Сurriculum.Name : "")</td>
             <td>@item.DegreeType</td>
+            <td><a asp-page="./Details" asp-route-id="@(item.Id)">Details</a></td>
         </tr>
     }
 </table>
