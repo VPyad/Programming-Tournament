@@ -1,4 +1,10 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity
+@using Programming_Tournament.Areas.Identity.Models
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -32,7 +38,14 @@
                 <ul class="nav navbar-nav">
                     <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
+                    @if (!SignInManager.IsSignedIn(User))
+                    {
+                        <li> <a asp-area="Identity" asp-page="/Application/Index">Apply</a> </li>
+                    }
+                    @if (SignInManager.IsSignedIn(User) && User.IsInRole("Admin"))
+                    {
+                        <li> <a asp-area="Admin" asp-page="/Users/Index">Users</a> </li>
+                    }
                 </ul>
                 <partial name="_LoginPartial" />
             </div>

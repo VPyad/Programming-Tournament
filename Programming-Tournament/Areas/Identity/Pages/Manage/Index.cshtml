@@ -1,0 +1,93 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Profile";
+}
+
+<h4>@ViewData["Title"]</h4>
+@Html.Partial("_StatusMessage", Model.StatusMessage)
+
+<div class="row">
+    <div class="col-md-4">
+        <dl>
+            <dt>
+                @Html.DisplayNameFor(x => x.Input.Email)
+            </dt>
+            <dd>
+                @Html.DisplayFor(x => x.Input.Email)
+            </dd>
+            @if (!Model.Input.IsAdmin)
+            {
+                <dt>
+                    @Html.DisplayNameFor(x => x.Input.FirstName)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(x => x.Input.FirstName)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(x => x.Input.SecondName)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(x => x.Input.SecondName)
+                </dd>
+                @if (Model.Input.DocNo.HasValue)
+                {
+                    <dt>
+                        @Html.DisplayNameFor(x => x.Input.DocNo)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(x => x.Input.DocNo.Value)
+                    </dd>
+                }
+                <dt>
+                    @Html.DisplayNameFor(x => x.Input.Faculty)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(x => x.Input.Faculty.Name)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(x => x.Input.Lectern)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(x => x.Input.Lectern.Name)
+                </dd>
+                @if (Model.Input.UserType == Models.UserType.Student)
+                {
+                    @if (Model.Input.YearNo.HasValue)
+                    {
+                        <dt>
+                            @Html.DisplayNameFor(x => x.Input.YearNo)
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(x => x.Input.YearNo.Value)
+                        </dd>
+                    }
+                    <dt>
+                        @Html.DisplayNameFor(x => x.Input.Curriculum)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(x => x.Input.Curriculum.Name)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(x => x.Input.DegreeType)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(x => x.Input.DegreeType)
+                    </dd>
+                }
+            }
+        </dl>
+        <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Input.CurrentPassword"></label>
+                <input asp-for="Input.CurrentPassword" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Input.NewPassword"></label>
+                <input asp-for="Input.NewPassword" class="form-control" />
+            </div>
+            <button type="submit" class="btn btn-default">Save</button>
+        </form>
+    </div>
+</div>

@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Programming-Tournament", "P
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProcessManagment", "ProcessManagment\ProcessManagment.csproj", "{ADB1B1E0-849C-493E-8A1B-3F03F87E62AA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProcessManagmentUnitTests", "ProcessManagmentUnitTests\ProcessManagmentUnitTests.csproj", "{FC90D01F-EF00-4F1F-9C50-E9B0D6546BAD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProcessManagmentUnitTests", "ProcessManagmentUnitTests\ProcessManagmentUnitTests.csproj", "{FC90D01F-EF00-4F1F-9C50-E9B0D6546BAD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
