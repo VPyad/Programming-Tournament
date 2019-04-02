@@ -1,4 +1,5 @@
 ﻿using Programming_Tournament.Areas.Identity.Models;
+using Programming_Tournament.Models.Domain.User;
 using System;
 using System.Collections.Generic;
 using System.Linq;

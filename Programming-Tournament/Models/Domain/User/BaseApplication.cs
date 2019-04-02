@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Programming_Tournament.Areas.Identity.Models
+namespace Programming_Tournament.Models.Domain.User
 {
     public class BaseApplication
     {

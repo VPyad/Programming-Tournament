@@ -1,7 +1,7 @@
 ﻿@page "{id}"
 @model DetailsModel
 @using Programming_Tournament.Areas.Admin.Pages.Users
-@using Programming_Tournament.Areas.Identity.Models;
+@using Programming_Tournament.Models.Domain.User
 @{
 }
 
@@ -100,16 +100,16 @@
 
 <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
     <div class="btn-group" role="group">
-        @if (Model.Model.UserStatus == Models.UserStatus.Submitted)
+        @if (Model.Model.UserStatus == UserStatus.Submitted)
         {
             <button type="submit" asp-page-handler="Approve" class="btn btn-primary">Approve</button>
             <button type="submit" asp-page-handler="Reject" class="btn btn-warning">Reject</button>
         }
-        @if (Model.Model.UserStatus != Models.UserStatus.Inactive)
+        @if (Model.Model.UserStatus != UserStatus.Inactive)
         {
             <button type="submit" asp-page-handler="Deactivate" class="btn btn-danger">Deactivate</button>
         }
-        @if (Model.Model.UserStatus == Models.UserStatus.Inactive)
+        @if (Model.Model.UserStatus == UserStatus.Inactive)
         {
             <button type="submit" asp-page-handler="Activate" class="btn btn-primary">Activate</button>
         }

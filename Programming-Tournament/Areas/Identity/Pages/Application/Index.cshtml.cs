@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Configuration;
-using Programming_Tournament.Areas.Identity.Managers;
 using Programming_Tournament.Areas.Identity.Models;
 using Programming_Tournament.Data;
+using Programming_Tournament.Data.Managers;
+using Programming_Tournament.Models.Domain.User;
 
 namespace Programming_Tournament.Areas.Identity.Pages.Application
 {

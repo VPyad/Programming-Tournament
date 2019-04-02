@@ -1,11 +1,12 @@
 ﻿using Programming_Tournament.Areas.Identity.Models;
 using Programming_Tournament.Data;
+using Programming_Tournament.Models.Domain.User;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Programming_Tournament.Areas.Identity.Managers
+namespace Programming_Tournament.Data.Managers
 {
     public class ApplicationsManager
     {

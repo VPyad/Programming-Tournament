@@ -5,13 +5,14 @@ using Microsoft.Extensions.DependencyInjection;
 using Programming_Tournament.Areas.Admin.Models;
 using Programming_Tournament.Areas.Identity.Models;
 using Programming_Tournament.Data;
+using Programming_Tournament.Models.Domain.User;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using static Programming_Tournament.Areas.Admin.Pages.Users.DetailsModel.UserModel;
 
-namespace Programming_Tournament.Areas.Identity.Managers
+namespace Programming_Tournament.Data.Managers
 {
     public class UsersManager
     {
@@ -89,7 +90,7 @@ namespace Programming_Tournament.Areas.Identity.Managers
                 case UserType.Student:
                     return "Student";
                 default:
-                    return "";
+                    return "Student";
             }
         }
 

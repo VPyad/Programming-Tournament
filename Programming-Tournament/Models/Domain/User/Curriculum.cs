@@ -4,21 +4,13 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Programming_Tournament.Areas.Identity.Models
+namespace Programming_Tournament.Models.Domain.User
 {
-    public class Faculty
+    public class Curriculum
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public long FacultyId { get; set; }
+        public int CurriculumId { get; set; }
 
         public string Name { get; set; }
-    }
-
-    public enum DegreeType
-    {
-        Bachelor,
-        Master,
-        PhD,
-        Unknown
     }
 }

@@ -1,5 +1,6 @@
 ﻿@page
 @model IndexModel
+@using Programming_Tournament.Models.Domain.User
 @{
     ViewData["Title"] = "Profile";
 }
@@ -51,7 +52,7 @@
                 <dd>
                     @Html.DisplayFor(x => x.Input.Lectern.Name)
                 </dd>
-                @if (Model.Input.UserType == Models.UserType.Student)
+                @if (Model.Input.UserType == UserType.Student)
                 {
                     @if (Model.Input.YearNo.HasValue)
                     {
