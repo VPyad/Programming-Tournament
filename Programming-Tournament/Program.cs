@@ -8,8 +8,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Programming_Tournament.Areas.Identity.Managers;
 using Programming_Tournament.Data;
+using Programming_Tournament.Data.Managers;
 
 namespace Programming_Tournament
 {

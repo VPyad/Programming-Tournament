@@ -12,7 +12,6 @@ using Microsoft.EntityFrameworkCore;
 using Programming_Tournament.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Programming_Tournament.Areas.Identity.Managers;
 using Programming_Tournament.Areas.Identity.Models;
 using Programming_Tournament.Models.Domain.User;
 
