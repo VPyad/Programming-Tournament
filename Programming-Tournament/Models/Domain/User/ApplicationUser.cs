@@ -57,7 +57,8 @@ namespace Programming_Tournament.Models.Domain.User
         // only for student
         public IEnumerable<TournamentTaskAssignment> Assignments { get; set; }
 
-        public int MyProperty { get; set; }
+        // only for student
+        public IEnumerable<StudentTournament> Tournaments { get; set; }
     }
 
     public enum UserStatus

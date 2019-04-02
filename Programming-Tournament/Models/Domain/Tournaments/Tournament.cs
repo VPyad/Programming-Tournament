@@ -24,6 +24,6 @@ namespace Programming_Tournament.Models.Domain.Tournaments
 
         public ApplicationUser Owner { get; set; }
 
-        public IEnumerable<ApplicationUser> Assignees { get; set; }
+        public IEnumerable<StudentTournament> Assignees { get; set; }
     }
 }
