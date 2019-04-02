@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using Programming_Tournament.Areas.Identity.Models;
+using Programming_Tournament.Models.Domain.User;
 
 namespace Programming_Tournament.Areas.Identity.Pages.Account
 {

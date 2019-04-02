@@ -12,6 +12,7 @@ using Microsoft.Extensions.Configuration;
 using Programming_Tournament.Areas.Identity.Managers;
 using Programming_Tournament.Areas.Identity.Models;
 using Programming_Tournament.Data;
+using Programming_Tournament.Models.Domain.User;
 
 namespace Programming_Tournament.Areas.Admin.Pages.Users
 {

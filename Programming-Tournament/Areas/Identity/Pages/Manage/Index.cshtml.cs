@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using Programming_Tournament.Areas.Admin.Models;
 using Programming_Tournament.Areas.Identity.Models;
 using Programming_Tournament.Data;
+using Programming_Tournament.Models.Domain.User;
 
 namespace Programming_Tournament.Areas.Identity.Pages.Manage
 {

@@ -4,6 +4,7 @@ using System.Text;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Programming_Tournament.Areas.Identity.Models;
+using Programming_Tournament.Models.Domain.User;
 
 namespace Programming_Tournament.Data
 {
