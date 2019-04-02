@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
+using Programming_Tournament.Models.Domain.Tournaments;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -46,6 +47,17 @@ namespace Programming_Tournament.Models.Domain.User
         public DateTime CreatedAt { get; set; }
 
         public UserType Type { get; set; }
+
+        // only for Lecturer
+        public IEnumerable<Tournament> OwnedTournaments { get; set; }
+
+        // only for lecturer
+        public IEnumerable<TournamentTask> OwnedTasks { get; set; }
+
+        // only for student
+        public IEnumerable<TournamentTaskAssignment> Assignments { get; set; }
+
+        public int MyProperty { get; set; }
     }
 
     public enum UserStatus
