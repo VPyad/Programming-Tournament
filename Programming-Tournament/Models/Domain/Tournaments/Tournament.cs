@@ -25,5 +25,14 @@ namespace Programming_Tournament.Models.Domain.Tournaments
         public ApplicationUser Owner { get; set; }
 
         public IEnumerable<StudentTournament> Assignees { get; set; }
+
+        public TournamentStatus Status { get; set; }
+    }
+
+    public enum TournamentStatus
+    {
+        Draft,
+        Active,
+        Completed
     }
 }
