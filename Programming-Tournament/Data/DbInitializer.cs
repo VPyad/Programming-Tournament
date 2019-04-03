@@ -54,6 +54,17 @@ namespace Programming_Tournament.Data
 
                 context.SaveChanges();
             }
+
+            if (!context.SupportedProgrammingLanguages.Any())
+            {
+                context.SupportedProgrammingLanguages.Add(new Models.Domain.Tournaments.SupportedProgrammingLanguage { Name = "C", Code = "C" });
+                context.SupportedProgrammingLanguages.Add(new Models.Domain.Tournaments.SupportedProgrammingLanguage { Name = "C++", Code = "CPP" });
+                context.SupportedProgrammingLanguages.Add(new Models.Domain.Tournaments.SupportedProgrammingLanguage { Name = "Java", Code = "Java" });
+                context.SupportedProgrammingLanguages.Add(new Models.Domain.Tournaments.SupportedProgrammingLanguage { Name = "C#", Code = "CSharp" });
+                context.SupportedProgrammingLanguages.Add(new Models.Domain.Tournaments.SupportedProgrammingLanguage { Name = "FreePascal", Code = "FreePascal" });
+                context.SupportedProgrammingLanguages.Add(new Models.Domain.Tournaments.SupportedProgrammingLanguage { Name = "Delphi", Code = "Delphi" });
+                context.SupportedProgrammingLanguages.Add(new Models.Domain.Tournaments.SupportedProgrammingLanguage { Name = "ObjPascal", Code = "ObjPascal" });
+            }
         }
     }
 }
