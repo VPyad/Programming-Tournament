@@ -18,6 +18,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ProcessManagment\ProcessManagment.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Update="Areas\Admin\Pages\_ValidationScriptsPartial.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
