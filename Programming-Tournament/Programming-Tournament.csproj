@@ -14,8 +14,8 @@
 
   <ItemGroup>
     <Folder Include="Areas\Admin\Data\" />
-    <Folder Include="Areas\Lectern\Data\" />
-    <Folder Include="Areas\Lectern\Models\" />
+    <Folder Include="Areas\Lecturer\Data\" />
+    <Folder Include="Areas\Lecturer\Models\" />
     <Folder Include="Data\Migrations\" />
   </ItemGroup>
 
@@ -33,13 +33,13 @@
     <Content Update="Areas\Admin\Pages\_ViewStart.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
-    <Content Update="Areas\Lectern\Pages\_ValidationScriptsPartial.cshtml">
+    <Content Update="Areas\Lecturer\Pages\_ValidationScriptsPartial.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
-    <Content Update="Areas\Lectern\Pages\_ViewImports.cshtml">
+    <Content Update="Areas\Lecturer\Pages\_ViewImports.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
-    <Content Update="Areas\Lectern\Pages\_ViewStart.cshtml">
+    <Content Update="Areas\Lecturer\Pages\_ViewStart.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
   </ItemGroup>

@@ -117,8 +117,12 @@ namespace Programming_Tournament.Areas.Identity.Pages.Application
                 else
                 {
                     var application = MapToApplication(Input);
-                    await UsersManager.CreateUser(serviceProvider, configuration, application);
-                    return RedirectToPage("./ApplicationSent");
+                    bool success = await UsersManager.CreateUser(serviceProvider, configuration, application);
+
+                    if (success)
+                        return RedirectToPage("./ApplicationSent");
+                    else
+                        ModelState.AddModelError(string.Empty, "Smth went wrong");
                 }
             }
 

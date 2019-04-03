@@ -33,6 +33,7 @@ namespace Programming_Tournament.Models.Domain.Tournaments
     {
         Draft,
         Active,
-        Completed
+        Completed,
+        Inactive
     }
 }

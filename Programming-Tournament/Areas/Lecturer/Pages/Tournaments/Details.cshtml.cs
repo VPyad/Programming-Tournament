@@ -2,12 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace Programming_Tournament.Areas.Lectern.Pages.Tournaments
+namespace Programming_Tournament.Areas.Lecturer.Pages.Tournaments
 {
-    public class IndexModel : PageModel
+    [Authorize(Roles = "Admin,Lecturer")]
+    public class DetailsModel : PageModel
     {
         public void OnGet()
         {
