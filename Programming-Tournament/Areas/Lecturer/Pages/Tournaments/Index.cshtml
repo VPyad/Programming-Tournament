@@ -6,7 +6,11 @@
 
 <h2>Tournaments run by you</h2>
 <br />
-<a asp-page="./Create">Create new</a>
+@*<a asp-page="./Create">Create new</a>*@
+
+<form method="post">
+    <button type="submit" asp-page-handler="Create" class="btn btn-primary">Create new</button>
+</form>
 <br />
 <br />
 
@@ -42,7 +46,7 @@
             </td>
             @if (User.IsInRole("Admin"))
             {
-                <td>@(item.Owner.FirstName + item.Owner.SecondName)</td>
+                <td>@(item.Owner.FirstName + " " + item.Owner.SecondName)</td>
             }
             <td>@item.CreatedAt</td>
             <td>@item.DueDate</td>

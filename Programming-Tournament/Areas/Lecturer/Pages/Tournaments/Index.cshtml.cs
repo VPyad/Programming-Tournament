@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Programming_Tournament.CommonViewModels;
 using Programming_Tournament.Data;
+using Programming_Tournament.Data.Repositories.ApplicationUsers;
 using Programming_Tournament.Data.Repositories.Tournaments;
 using Programming_Tournament.Models.Domain.Tournaments;
 using Programming_Tournament.Models.Domain.User;
@@ -53,6 +54,28 @@ namespace Programming_Tournament.Areas.Lecturer.Pages.Tournaments
             };
 
             return Page();
+        }
+
+        public IActionResult OnPostCreate()
+        {
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            ApplicationUserRepository userRepository = new ApplicationUserRepository(context);
+
+            var user = userRepository.Get(userId);
+
+            var tournament = new Tournament
+            {
+                Status = TournamentStatus.Draft,
+                CreatedAt = DateTime.Now,
+                DueDate = DateTime.Now.AddMonths(1),
+                Owner = user,
+                Name = "Draft " + DateTime.Now.ToShortDateString()
+            };
+
+            repository.Add(tournament);
+            int tournamentId = tournament.TournamentId;
+
+            return RedirectToPage("Edit", new { id = tournamentId });
         }
     }
 
