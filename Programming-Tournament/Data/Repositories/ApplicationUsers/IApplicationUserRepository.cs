@@ -15,5 +15,23 @@ namespace Programming_Tournament.Data.Repositories.ApplicationUsers
         IEnumerable<ApplicationUser> GetStudents();
 
         IEnumerable<ApplicationUser> GetStudentsWhere(Expression<Func<ApplicationUser, bool>> exp);
+
+        IEnumerable<ApplicationUser> GetStudents(StudentSortState sortState);
+
+        IEnumerable<ApplicationUser> GetStudents(int p, int size, StudentSortState sortState);
+    }
+
+    public enum StudentSortState
+    {
+        YearNoAsc,
+        YearNoDesc,
+        FacultyNameAsc,
+        FacultyNameDesc,
+        LecternNameAsc,
+        LecternNameDesc,
+        CurriculumNameAsc,
+        CurriculumNameDesc,
+        DegreeAsc,
+        DegreeDesc
     }
 }
