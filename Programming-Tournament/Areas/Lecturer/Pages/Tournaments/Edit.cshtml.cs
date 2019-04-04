@@ -64,6 +64,93 @@ namespace Programming_Tournament.Areas.Lecturer.Pages.Tournaments
 
         public IActionResult OnPostSave(int? id)
         {
+            if (!id.HasValue)
+                return NotFound();
+
+            var tournament = tournamentRepository.Get(id.Value);
+
+            if (tournament == null)
+                return NotFound();
+
+            if (tournament.Name != ViewModel.Name)
+                tournament.Name = ViewModel.Name;
+
+            if (tournament.DueDate != ViewModel.DueDate)
+                tournament.DueDate = ViewModel.DueDate;
+
+            if (tournament.Desc != ViewModel.Desc)
+                tournament.Desc = ViewModel.Desc;
+
+            tournamentRepository.Update(tournament);
+
+            return OnGet(id);
+        }
+
+        public IActionResult OnPostStart(int? id)
+        {
+            if (!id.HasValue)
+                return NotFound();
+
+            var tournament = tournamentRepository.Get(id.Value);
+
+            if (tournament == null)
+                return NotFound();
+
+            tournament.Status = TournamentStatus.Active;
+
+            tournamentRepository.Update(tournament);
+
+            return OnGet(id);
+        }
+
+        public IActionResult OnPostFinish(int? id)
+        {
+            if (!id.HasValue)
+                return NotFound();
+
+            var tournament = tournamentRepository.Get(id.Value);
+
+            if (tournament == null)
+                return NotFound();
+
+            tournament.Status = TournamentStatus.Completed;
+
+            tournamentRepository.Update(tournament);
+
+            return OnGet(id);
+        }
+
+        public IActionResult OnPostDeactivate(int? id)
+        {
+            if (!id.HasValue)
+                return NotFound();
+
+            var tournament = tournamentRepository.Get(id.Value);
+
+            if (tournament == null)
+                return NotFound();
+
+            tournament.Status = TournamentStatus.Inactive;
+
+            tournamentRepository.Update(tournament);
+
+            return OnGet(id);
+        }
+
+        public IActionResult OnPostDraft(int? id)
+        {
+            if (!id.HasValue)
+                return NotFound();
+
+            var tournament = tournamentRepository.Get(id.Value);
+
+            if (tournament == null)
+                return NotFound();
+
+            tournament.Status = TournamentStatus.Draft;
+
+            tournamentRepository.Update(tournament);
+
             return OnGet(id);
         }
     }

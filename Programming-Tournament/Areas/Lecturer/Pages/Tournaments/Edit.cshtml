@@ -36,12 +36,12 @@
             <input asp-for="ViewModel.Name" class="form-control" />
             <span asp-validation-for="ViewModel.Name" class="text-danger"></span>
         </div>
-        <div class="col-md-3 form-group">
+        <div class="col-md-4 form-group">
             <label asp-for="ViewModel.DueDate"></label>
             <input asp-for="ViewModel.DueDate" class="form-control" />
             <span asp-validation-for="ViewModel.DueDate" class="text-danger"></span>
         </div>
-        <div class="col-md-6 form-group">
+        <div class="col-md-5 form-group">
         </div>
     </div>
     <div class="row">
@@ -64,6 +64,10 @@
         @if (Model.ViewModel.Status == TournamentStatus.Completed)
         {
             <button type="submit" asp-route-id="@Model.ViewModel.Id" asp-page-handler="Deactivate" class="btn btn-primary">Close</button>
+        }
+        @if (User.IsInRole("Admin"))
+        {
+            <button type="submit" asp-route-id="@Model.ViewModel.Id" asp-page-handler="Draft" class="btn btn-primary">Draft</button>
         }
     </div>
 </form>
