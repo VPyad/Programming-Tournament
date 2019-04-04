@@ -49,16 +49,16 @@ namespace Programming_Tournament.Models.Domain.User
         public UserType Type { get; set; }
 
         // only for Lecturer
-        public IEnumerable<Tournament> OwnedTournaments { get; set; }
+        public ICollection<Tournament> OwnedTournaments { get; set; }
 
         // only for lecturer
-        public IEnumerable<TournamentTask> OwnedTasks { get; set; }
+        public ICollection<TournamentTask> OwnedTasks { get; set; }
 
         // only for student
-        public IEnumerable<TournamentTaskAssignment> Assignments { get; set; }
+        public ICollection<TournamentTaskAssignment> Assignments { get; set; }
 
         // only for student
-        public IEnumerable<StudentTournament> Tournaments { get; set; }
+        public ICollection<StudentTournament> Tournaments { get; set; }
     }
 
     public enum UserStatus

@@ -53,7 +53,7 @@ namespace Programming_Tournament.Areas.Lecturer.Pages.Tournaments
             };
 
             // Stubs!!
-            var students = userRepository.GetStudents();
+            var students = userRepository.GetStudentsWithTournament(tournament.TournamentId);
             var tasks = new List<TournamentTask>();
 
             ViewModel.Students = students;

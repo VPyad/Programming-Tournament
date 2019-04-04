@@ -20,11 +20,30 @@ namespace Programming_Tournament.Data.Repositories.ApplicationUsers
             return user;
         }
 
+        public ApplicationUser GetStudent(string userId)
+        {
+            var student = GetStudentsQuery(x => x.Id == userId).FirstOrDefault();
+
+            return student;
+        }
+
         public IEnumerable<ApplicationUser> GetStudents()
         {
             var students = GetStudentsQuery();
 
             return students.ToList();
+        }
+
+        public IEnumerable<ApplicationUser> GetStudentsWithTournament(int tournamentId)
+        {
+            var students = GetStudentsQuery().ToList();
+            List<ApplicationUser> result = new List<ApplicationUser>();
+
+            foreach (var item in students)
+                if (item.Tournaments.Any(x => x.TournamentId == tournamentId))
+                    result.Add(item);
+
+            return result;
         }
 
         public IEnumerable<ApplicationUser> GetStudentsWhere(Expression<Func<ApplicationUser, bool>> exp)
@@ -64,7 +83,19 @@ namespace Programming_Tournament.Data.Repositories.ApplicationUsers
         {
             var students = context.Users
                 .Where(x => x.Type == UserType.Student && x.Status == UserStatus.Active)
-                .Include(x => x.Lectern).Include(x => x.Сurriculum).Include(x => x.Faculty);
+                .Include(x => x.Lectern).Include(x => x.Сurriculum)
+                .Include(x => x.Faculty).Include(x => x.Tournaments);
+
+            return students;
+        }
+
+        private IQueryable<ApplicationUser> GetStudentsQuery(Expression<Func<ApplicationUser, bool>> whereExp)
+        {
+            var students = context.Users
+                .Where(x => x.Type == UserType.Student && x.Status == UserStatus.Active)
+                .Where(whereExp)
+                .Include(x => x.Lectern).Include(x => x.Сurriculum)
+                .Include(x => x.Faculty).Include(x => x.Tournaments);
 
             return students;
         }

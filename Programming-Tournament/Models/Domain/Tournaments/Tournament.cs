@@ -20,11 +20,11 @@ namespace Programming_Tournament.Models.Domain.Tournaments
 
         public DateTime CreatedAt { get; set; }
 
-        public IEnumerable<TournamentTask> Tasks { get; set; }
+        public ICollection<TournamentTask> Tasks { get; set; }
 
         public ApplicationUser Owner { get; set; }
 
-        public IEnumerable<StudentTournament> Assignees { get; set; }
+        public ICollection<StudentTournament> Assignees { get; set; }
 
         public TournamentStatus Status { get; set; }
     }

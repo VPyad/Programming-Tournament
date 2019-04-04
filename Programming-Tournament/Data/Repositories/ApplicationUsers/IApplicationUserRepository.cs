@@ -12,7 +12,11 @@ namespace Programming_Tournament.Data.Repositories.ApplicationUsers
     {
         ApplicationUser Get(string userId);
 
+        ApplicationUser GetStudent(string userId);
+
         IEnumerable<ApplicationUser> GetStudents();
+
+        IEnumerable<ApplicationUser> GetStudentsWithTournament(int tournamentId);
 
         IEnumerable<ApplicationUser> GetStudentsWhere(Expression<Func<ApplicationUser, bool>> exp);
 

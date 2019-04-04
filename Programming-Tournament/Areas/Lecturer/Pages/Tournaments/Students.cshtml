@@ -6,71 +6,81 @@
 
 <h2>Add students to: @Model.ViewModel.TournamentName</h2>
 
-<div class="btn-group" role="group" style="margin-top: 12pt">
-    <form method="post">
+<form method="post">
+    <div class="btn-group" style="margin-top: 12pt">
         <button type="submit" asp-route-id="@Model.ViewModel.TournamentId"
                 asp-route-sortState="@Model.ViewModel.SortViewModel.Current"
                 asp-route-p="@Model.ViewModel.PageViewModel.PageNumber"
-                asp-page-handler="Add" class="btn btn-success">
-            Add selected
+                asp-page-handler="Apply" class="btn btn-success">
+            Apply
         </button>
-        <button type="submit" asp-route-id="@Model.ViewModel.TournamentId"
-                asp-route-sortState="@Model.ViewModel.SortViewModel.Current"
-                asp-route-p="@Model.ViewModel.PageViewModel.PageNumber"
-                asp-page-handler="Done" class="btn btn-primary">
+        <a asp-area="Lecturer" asp-page="/Tournaments/Edit" asp-route-id="@Model.ViewModel.TournamentId" class="btn btn-primary">
             Done
-        </button>
-    </form>
-</div>
+        </a>
+    </div>
 
-<table class="table" style="margin-top: 12pt">
-    <tr>
-        <th>Add</th>
-        <th>Name</th>
-        <th>Second name</th>
-        <th>
-            <a asp-page="./Students"
-            asp-route-id="@Model.ViewModel.TournamentId" asp-route-sortState="@Model.ViewModel.SortViewModel.YearNo">Year no</a>
-        </th>
-        <th>
-            <a asp-page="./Students"
-               asp-route-id="@Model.ViewModel.TournamentId" asp-route-sortState="@Model.ViewModel.SortViewModel.FacultyName">Faculty</a>
-        </th>
-        <th>
-            <a asp-page="./Students"
-               asp-route-id="@Model.ViewModel.TournamentId" asp-route-sortState="@Model.ViewModel.SortViewModel.LecternName">Lectern</a>
-        </th>
-        <th>
-            <a asp-page="./Students"
-               asp-route-id="@Model.ViewModel.TournamentId" asp-route-sortState="@Model.ViewModel.SortViewModel.CurriculumName">Curriculum</a>
-        </th>
-        <th>
-            <a asp-page="./Students"
-               asp-route-id="@Model.ViewModel.TournamentId" asp-route-sortState="@Model.ViewModel.SortViewModel.Degree">Degree</a>
-        </th>
-    </tr>
-    @foreach (var item in Model.ViewModel.Students)
+    <table class="table" style="margin-top: 12pt">
+        <tr>
+            <th>Add</th>
+            <th>Name</th>
+            <th>Second name</th>
+            <th>
+                <a asp-page="./Students"
+                   asp-route-id="@Model.ViewModel.TournamentId" asp-route-sortState="@Model.ViewModel.SortViewModel.YearNo">Year no</a>
+            </th>
+            <th>
+                <a asp-page="./Students"
+                   asp-route-id="@Model.ViewModel.TournamentId" asp-route-sortState="@Model.ViewModel.SortViewModel.FacultyName">Faculty</a>
+            </th>
+            <th>
+                <a asp-page="./Students"
+                   asp-route-id="@Model.ViewModel.TournamentId" asp-route-sortState="@Model.ViewModel.SortViewModel.LecternName">Lectern</a>
+            </th>
+            <th>
+                <a asp-page="./Students"
+                   asp-route-id="@Model.ViewModel.TournamentId" asp-route-sortState="@Model.ViewModel.SortViewModel.CurriculumName">Curriculum</a>
+            </th>
+            <th>
+                <a asp-page="./Students"
+                   asp-route-id="@Model.ViewModel.TournamentId" asp-route-sortState="@Model.ViewModel.SortViewModel.Degree">Degree</a>
+            </th>
+        </tr>
+        @for (int i = 0; i < Model.ViewModel.Students.Count(); i++)
+        {
+        <tr>
+            <td>
+                <input asp-for="@(Model.ViewModel.Students[i].Value)" />
+                <input hidden asp-for="@(Model.ViewModel.Students[i].Id)" />
+                <input hidden asp-for="@(Model.ViewModel.Students[i].SourceValue)" />
+            </td>
+            <td>@Model.ViewModel.Students[i].FirstName</td>
+            <td>@Model.ViewModel.Students[i].SecondName</td>
+            <td>@Model.ViewModel.Students[i].YearNo</td>
+            <td>@Model.ViewModel.Students[i].FacultyName</td>
+            <td>@Model.ViewModel.Students[i].LecternName</td>
+            <td>@Model.ViewModel.Students[i].СurriculumName</td>
+            <td>@Model.ViewModel.Students[i].DegreeType</td>
+        </tr>
+        }
+    </table>
+
+    @if (Model.ViewModel.PageViewModel.HasPreviousPage)
     {
-        <tr></tr>
+        <a asp-page="./Index"
+           asp-route-sortState="@(Model.ViewModel.SortViewModel.Current)"
+           asp-route-p="@(Model.ViewModel.PageViewModel.PageNumber - 1)"
+           class="btn btn-default btn">
+            <i class="glyphicon glyphicon-chevron-left"></i>Previus
+        </a>
     }
-</table>
 
-@if (Model.ViewModel.PageViewModel.HasPreviousPage)
-{
-    <a asp-page="./Index"
-       asp-route-sortState="@(Model.ViewModel.SortViewModel.Current)"
-       asp-route-p="@(Model.ViewModel.PageViewModel.PageNumber - 1)"
-       class="btn btn-default btn">
-        <i class="glyphicon glyphicon-chevron-left"></i>Previus
-    </a>
-}
-
-@if (Model.ViewModel.PageViewModel.HasNextPage)
-{
-    <a asp-page="./Index"
-       asp-route-sortState="@(Model.ViewModel.SortViewModel.Current)"
-       asp-route-p="@(Model.ViewModel.PageViewModel.PageNumber + 1)"
-       class="btn btn-default btn">
-        Next <i class="glyphicon glyphicon-chevron-right"></i>
-    </a>
-}
+    @if (Model.ViewModel.PageViewModel.HasNextPage)
+    {
+        <a asp-page="./Index"
+           asp-route-sortState="@(Model.ViewModel.SortViewModel.Current)"
+           asp-route-p="@(Model.ViewModel.PageViewModel.PageNumber + 1)"
+           class="btn btn-default btn">
+            Next <i class="glyphicon glyphicon-chevron-right"></i>
+        </a>
+    }
+</form>
