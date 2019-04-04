@@ -63,6 +63,17 @@ namespace Programming_Tournament.Data.Repositories.Tournaments
             return items;
         }
 
+        public Tournament GetTournament(int id)
+        {
+            var tournament = context.Tournaments.Where(x => x.TournamentId == id)
+                .Include(x => x.Owner)
+                .Include(x => x.Assignees).ThenInclude(x => x.ApplicationUser)
+                .Include(x => x.Tasks)
+                .FirstOrDefault();
+
+            return tournament;
+        }
+
         private IEnumerable<Tournament> Paginate(IQueryable<Tournament> query, int p, int size)
         {
             var items = query.Skip((p - 1) * size).Take(size).ToList();

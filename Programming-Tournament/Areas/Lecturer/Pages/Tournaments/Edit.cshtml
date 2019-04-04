@@ -1,10 +1,146 @@
 ﻿@page  "{id}"
 @model EditModel
 @using Programming_Tournament.Areas.Lecturer.Pages.Tournaments
+@using Programming_Tournament.Models.Domain.Tournaments
 @{
 }
 
 <h2>Edit</h2>
+
+<div class="row">
+    <div class="col-md-4">
+        <dl>
+            <dt>@Html.DisplayNameFor(x => x.ViewModel.CreatedAt)</dt>
+            <dd>@Html.DisplayFor(x => x.ViewModel.CreatedAt)</dd>
+        </dl>
+    </div>
+    <div class="col-md-4">
+        <dl>
+            <dt>@Html.DisplayNameFor(x => x.ViewModel.Status)</dt>
+            <dd>@Html.DisplayFor(x => x.ViewModel.Status)</dd>
+        </dl>
+    </div>
+    <div class="col-md-4">
+        <dl>
+            <dt>@Html.DisplayNameFor(x => x.ViewModel.LecturerName)</dt>
+            <dd>@Html.DisplayFor(x => x.ViewModel.LecturerName)</dd>
+        </dl>
+    </div>
+</div>
+
+<form method="post">
+    <div class="row">
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <div class="col-md-3 form-group">
+            <label asp-for="ViewModel.Name"></label>
+            <input asp-for="ViewModel.Name" class="form-control" />
+            <span asp-validation-for="ViewModel.Name" class="text-danger"></span>
+        </div>
+        <div class="col-md-3 form-group">
+            <label asp-for="ViewModel.DueDate"></label>
+            <input asp-for="ViewModel.DueDate" class="form-control" />
+            <span asp-validation-for="ViewModel.DueDate" class="text-danger"></span>
+        </div>
+        <div class="col-md-6 form-group">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            @Html.LabelFor(x=>x.ViewModel.Desc)
+            @Html.EditorFor(m => m.ViewModel.Desc, additionalViewData: new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+    </div>
+    <div class="btn-group" role="group" style="margin-top: 12pt">
+        <button type="submit" asp-route-id="@Model.ViewModel.Id" asp-page-handler="Save" class="btn btn-default">Save</button>
+
+        @if (Model.ViewModel.Status == TournamentStatus.Draft)
+        {
+            <button type="submit" asp-route-id="@Model.ViewModel.Id" asp-page-handler="Start" class="btn btn-primary">Start</button>
+        }
+        @if (Model.ViewModel.Status == TournamentStatus.Active)
+        {
+            <button type="submit" asp-route-id="@Model.ViewModel.Id" asp-page-handler="Finish" class="btn btn-primary">Finish</button>
+        }
+        @if (Model.ViewModel.Status == TournamentStatus.Completed)
+        {
+            <button type="submit" asp-route-id="@Model.ViewModel.Id" asp-page-handler="Deactivate" class="btn btn-primary">Close</button>
+        }
+    </div>
+</form>
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="row">
+            <div class="form-inline">
+                <div class="form-group">
+                    <h3>Tasks</h3>
+                </div>
+                <div class="form-group">
+                    <button type="submit" asp-page-handler="AddTask" class="btn btn-default" style="margin-left: 10pt; margin-top: 6pt">Add</button>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <table class="table">
+                <tr>
+                    <th>Name</th>
+                </tr>
+                @foreach (var item in Model.ViewModel.Tasks)
+                {
+                    <tr>
+                        @item.Name
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+    <div class="col-md-8">
+        <div class="row">
+            <div class="form-inline">
+                <div class="form-group">
+                    <h3>Students</h3>
+                </div>
+                <div class="form-group">
+                    <button type="submit" asp-page-handler="AddStudents" class="btn btn-default" style="margin-left: 10pt; margin-top: 6pt">Add</button>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <table class="table">
+                <tr>
+                    <th>Name</th>
+                    <th>Second name</th>
+                    <th>Lectern</th>
+                    <th>Curriculum</th>
+                    <th>Year no</th>
+                </tr>
+                @foreach (var item in Model.ViewModel.Students)
+                {
+                <tr>
+                    <td>
+                        @item.FirstName
+                    </td>
+                    <td>
+                        @item.SecondName
+                    </td>
+                    <td>
+                        @item.Lectern.Name
+                    </td>
+                    <td>
+                        @item.Сurriculum.Name
+                    </td>
+                    @if (item.YearNo.HasValue)
+                    {
+                        <td>
+                            @item.YearNo.Value
+                        </td>
+                    }
+                </tr>
+                }
+            </table>
+        </div>
+    </div>
+</div>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
