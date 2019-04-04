@@ -153,6 +153,14 @@ namespace Programming_Tournament.Areas.Lecturer.Pages.Tournaments
 
             return OnGet(id);
         }
+
+        public IActionResult OnPostAddTask(int? id)
+        {
+            if (!id.HasValue)
+                return NotFound();
+
+            return OnGet(id);
+        }
     }
 
     public class TournamentEditViewModel
