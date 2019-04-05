@@ -36,13 +36,12 @@
             <a asp-page="./Index"
                asp-route-sortState="@(Model.ViewModel.SortViewModel.Status)">Status</a>
         </th>
-        <th>Edit</th>
     </tr>
     @foreach (var item in Model.ViewModel.Tournaments)
     {
     <tr>
         <td>
-            <a asp-page="./Details"
+            <a asp-page="./Edit"
                asp-route-id="@(item.TournamentId)">@item.Name</a>
         </td>
         @if (User.IsInRole("Admin"))
@@ -52,10 +51,6 @@
         <td>@item.CreatedAt</td>
         <td>@item.DueDate</td>
         <td>@item.Status</td>
-        <td>
-            <a asp-page="./Edit"
-               asp-route-id="@(item.TournamentId)">Edit</a>
-        </td>
     </tr>
     }
 </table>

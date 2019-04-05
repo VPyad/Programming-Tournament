@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -10,6 +11,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Programming_Tournament.Data;
 using Programming_Tournament.Data.Repositories.ApplicationUsers;
 using Programming_Tournament.Data.Repositories.Tournaments;
+using Programming_Tournament.Data.Repositories.TournamentTasks;
 using Programming_Tournament.Models.Domain.Tournaments;
 using Programming_Tournament.Models.Domain.User;
 
@@ -21,6 +23,7 @@ namespace Programming_Tournament.Areas.Lecturer.Pages.Tournaments
         private readonly ApplicationDbContext context;
         private readonly TournamentRepository tournamentRepository;
         private readonly ApplicationUserRepository userRepository;
+        private readonly TournamentTaskRepository taskRepository;
 
         [BindProperty]
         public TournamentEditViewModel ViewModel { get; set; }
@@ -28,8 +31,9 @@ namespace Programming_Tournament.Areas.Lecturer.Pages.Tournaments
         public EditModel(ApplicationDbContext context)
         {
             this.context = context;
-            this.tournamentRepository = new TournamentRepository(this.context);
-            this.userRepository = new ApplicationUserRepository(this.context);
+            tournamentRepository = new TournamentRepository(this.context);
+            userRepository = new ApplicationUserRepository(this.context);
+            taskRepository = new TournamentTaskRepository(this.context);
         }
 
         public IActionResult OnGet(int? id)
@@ -52,9 +56,8 @@ namespace Programming_Tournament.Areas.Lecturer.Pages.Tournaments
                 Status = tournament.Status
             };
 
-            // Stubs!!
             var students = userRepository.GetStudentsWithTournament(tournament.TournamentId);
-            var tasks = new List<TournamentTask>();
+            var tasks = taskRepository.GetTasksWithToutnament(id.Value);
 
             ViewModel.Students = students;
             ViewModel.Tasks = tasks;
@@ -159,7 +162,27 @@ namespace Programming_Tournament.Areas.Lecturer.Pages.Tournaments
             if (!id.HasValue)
                 return NotFound();
 
-            return OnGet(id);
+            var tournament = tournamentRepository.GetTournament(id.Value);
+            if (tournament == null)
+                return NotFound();
+
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var user = userRepository.Get(userId);
+            if (user == null)
+                return NotFound();
+
+            TournamentTask task = new TournamentTask
+            {
+                Tournament = tournament,
+                DueDate = tournament.DueDate,
+                Owner = user,
+                Name = "Draft " + DateTime.Now.ToShortDateString(),
+                CreatedAt = DateTime.Now,
+            };
+
+            taskRepository.Add(task);
+
+            return LocalRedirect($"/Lecturer/Tasks/Edit/{task.TournamentTaskId}");
         }
     }
 

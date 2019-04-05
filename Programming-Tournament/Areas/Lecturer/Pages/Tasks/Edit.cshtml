@@ -1,0 +1,73 @@
+﻿@page "{id}"
+@model EditModel
+@using Programming_Tournament.Areas.Lecturer.Pages.Tasks
+@{
+}
+
+<h2>Edit</h2>
+
+<div class="row">
+    <div class="col-md-4">
+        <dl>
+            <dt>@Html.DisplayNameFor(x => x.ViewModel.CreatedAt)</dt>
+            <dd>@Html.DisplayFor(x => x.ViewModel.CreatedAt)</dd>
+        </dl>
+    </div>
+    <div class="col-md-4">
+        <dl>
+            <dt>@Html.DisplayNameFor(x => x.ViewModel.LecturerName)</dt>
+            <dd>@Html.DisplayFor(x => x.ViewModel.LecturerName)</dd>
+        </dl>
+    </div>
+    <div class="col-md-4"></div>
+</div>
+
+<form method="post" enctype="multipart/form-data">
+    <div class=" row">
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <div class="col-md-3 form-group">
+            <label asp-for="ViewModel.Name"></label>
+            <input asp-for="ViewModel.Name" class="form-control" />
+            <span asp-validation-for="ViewModel.Name" class="text-danger"></span>
+        </div>
+        <div class="col-md-4 form-group">
+            <label asp-for="ViewModel.DueDate"></label>
+            <input asp-for="ViewModel.DueDate" class="form-control" />
+            <span asp-validation-for="ViewModel.DueDate" class="text-danger"></span>
+        </div>
+        <div class="col-md-2 form-group">
+            <label asp-for="ViewModel.MaxAttempts"></label>
+            <input asp-for="ViewModel.MaxAttempts" class="form-control" />
+            <span asp-validation-for="ViewModel.MaxAttempts" class="text-danger"></span>
+        </div>
+        <div class="col-md-2 form-group">
+            <label asp-for="ViewModel.InputFileUpload"></label>
+            <input type="file" accept=".txt" asp-for="ViewModel.InputFileUpload" />
+            <span asp-validation-for="ViewModel.InputFileUpload" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            @Html.LabelFor(x => x.ViewModel.Desc)
+            @Html.EditorFor(m => m.ViewModel.Desc, additionalViewData: new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+    </div>
+    <div class="row" style="margin-top: 12pt">
+        <div class=" col-md-3 form-group">
+            <h4>Students</h4>
+            @Html.ListBoxFor(x => x.ViewModel.StudentsId, Model.ViewModel.StudentsSelectList, new { size = 8 })
+        </div>
+        <div class=" col-md-3 form-group">
+            <h4>Programming languages</h4>
+            @Html.ListBoxFor(x => x.ViewModel.LanguagesId, Model.ViewModel.LanguagesSelectList, new { size = 8 })
+        </div>
+        <div class=" col-md-6"></div>
+    </div>
+    <div class="btn-group" role="group" style="margin-top: 12pt">
+        <button type="submit" asp-route-id="@Model.ViewModel.Id" asp-page-handler="Save" class="btn btn-default">Save</button>
+    </div>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

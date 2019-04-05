@@ -79,21 +79,23 @@
                 <div class="form-group">
                     <h3>Tasks</h3>
                 </div>
-                <div class="form-group">
+                <form method="post" class="form-group">
                     <button type="submit" asp-route-id="@Model.ViewModel.Id" asp-page-handler="AddTask" class="btn btn-default" style="margin-left: 10pt; margin-top: 6pt">Add</button>
-                </div>
+                </form>
             </div>
         </div>
         <div class="row">
             <table class="table">
                 <tr>
                     <th>Name</th>
+                    <td>Edit</td>
                 </tr>
                 @foreach (var item in Model.ViewModel.Tasks)
                 {
-                    <tr>
-                        @item.Name
-                    </tr>
+                <tr>
+                    <td><a asp-area="Lecturer" asp-page="/Tasks/Details" asp-route-id="@item.TournamentTaskId"> @item.Name </a></td>
+                    <td><a asp-area="Lecturer" asp-page="/Tasks/Edit" asp-route-id="@item.TournamentTaskId"> Edit </a></td>
+                </tr>
                 }
             </table>
         </div>
