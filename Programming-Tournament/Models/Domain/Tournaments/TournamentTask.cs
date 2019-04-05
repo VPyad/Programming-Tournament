@@ -29,10 +29,10 @@ namespace Programming_Tournament.Models.Domain.Tournaments
 
         public ApplicationUser Owner { get; set; }
 
-        public IEnumerable<SupportedProgrammingLanguage> SupportedLanguages { get; set; }
+        public ICollection<SupportedProgrammingLanguage> SupportedLanguages { get; set; }
 
         public int? Timeout { get; set; }
 
-        public IEnumerable<TournamentTaskAssignment> Assignees { get; set; }
+        public ICollection<TournamentTaskAssignment> Assignees { get; set; }
     }
 }

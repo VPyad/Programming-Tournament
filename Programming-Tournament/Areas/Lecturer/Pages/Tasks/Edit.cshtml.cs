@@ -59,7 +59,7 @@ namespace Programming_Tournament.Areas.Lecturer.Pages.Tasks
 
             var tournamentStudents = userRepository.GetStudentsWithTournament(task.Tournament.TournamentId);
             var allLanguages = languageRepository.GetAll();
-            List<StudentViewModel> allStudents = new List<StudentViewModel>();
+            var allStudents = new List<StudentViewModel>();
 
             if (tournamentStudents != null)
                 foreach (var item in tournamentStudents)
@@ -80,6 +80,26 @@ namespace Programming_Tournament.Areas.Lecturer.Pages.Tasks
             ViewModel.StudentsSelectList = new MultiSelectList(allStudents, "Id", "FullName", studentsId);
 
             return Page();
+        }
+
+        public IActionResult OnPostSave(int? id)
+        {
+            if (!id.HasValue)
+                return NotFound();
+
+            var task = taskRepository.GetTask(id.Value);
+            if (task == null)
+                return NotFound();
+
+            var allLanguages = languageRepository.GetAll();
+
+            if (ViewModel.LanguagesId != null && allLanguages != null)
+                foreach (var item in ViewModel.LanguagesId)
+                    task.SupportedLanguages.Add(allLanguages.First(x=>x.SupportedProgrammingLanguageId == item));
+
+            taskRepository.Update(task);
+
+            return OnGet(id);
         }
     }
 
@@ -132,8 +152,14 @@ namespace Programming_Tournament.Areas.Lecturer.Pages.Tasks
         public IFormFile InputFileUpload { get; set; }
     }
 
-    public class StudentViewModel : ApplicationUser
+    public class StudentViewModel
     {
+        public string Id { get; set; }
+
+        public string FirstName { get; set; }
+
+        public string SecondName { get; set; }
+
         public string FullName => FirstName + " " + SecondName;
     }
 }
