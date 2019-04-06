@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Programming_Tournament.Data;
 using Programming_Tournament.Data.Repositories.ApplicationUsers;
 using Programming_Tournament.Data.Repositories.SupportedLanguages;
+using Programming_Tournament.Data.Repositories.TaskAssignments;
 using Programming_Tournament.Data.Repositories.TournamentTasks;
 using Programming_Tournament.Models.Domain.Tournaments;
 using Programming_Tournament.Models.Domain.User;
@@ -25,6 +26,7 @@ namespace Programming_Tournament.Areas.Lecturer.Pages.Tasks
         private readonly TournamentTaskRepository taskRepository;
         private readonly ApplicationUserRepository userRepository;
         private readonly SupportedLanguageRepository languageRepository;
+        private readonly TaskAssignmentRepository taskAssignmentRepository;
 
         [BindProperty]
         public TaskEditViewModel ViewModel { get; set; }
@@ -35,6 +37,7 @@ namespace Programming_Tournament.Areas.Lecturer.Pages.Tasks
             taskRepository = new TournamentTaskRepository(this.context);
             userRepository = new ApplicationUserRepository(this.context);
             languageRepository = new SupportedLanguageRepository(this.context);
+            taskAssignmentRepository = new TaskAssignmentRepository(this.context);
         }
 
         public IActionResult OnGet(int? id)
@@ -91,34 +94,82 @@ namespace Programming_Tournament.Areas.Lecturer.Pages.Tasks
             if (task == null)
                 return NotFound();
 
+            // Change langs
             var taskLanguages = task.SupportedLanguages;
             var allLanguages = languageRepository.GetAll();
-            var taskLanguagesId = new List<int>();
 
-            if (ViewModel.LanguagesId == null || taskLanguages == null || allLanguages == null)
-                return OnGet(id);
-
-            foreach (var item in taskLanguages)
-                taskLanguagesId.Add(item.SupportedProgrammingLanguageId);
-
-            var langsDifference = FindDifference(taskLanguagesId, ViewModel.LanguagesId);
-
-            foreach (var item in langsDifference)
+            if (ViewModel.LanguagesId != null && taskLanguages != null && allLanguages != null)
             {
-                var lang = allLanguages.FirstOrDefault(x => x.SupportedProgrammingLanguageId == item);
+                var taskLanguagesId = new List<int>();
 
-                if (task.SupportedLanguages.Contains(lang))
-                    task.SupportedLanguages.Remove(lang);
-                else
-                    task.SupportedLanguages.Add(lang);
+                foreach (var item in taskLanguages)
+                    taskLanguagesId.Add(item.SupportedProgrammingLanguageId);
+
+                var langsDifference = FindLangDifference(taskLanguagesId, ViewModel.LanguagesId);
+
+                foreach (var item in langsDifference)
+                {
+                    var lang = allLanguages.FirstOrDefault(x => x.SupportedProgrammingLanguageId == item);
+
+                    if (task.SupportedLanguages.Contains(lang))
+                        task.SupportedLanguages.Remove(lang);
+                    else
+                        task.SupportedLanguages.Add(lang);
+                }
+
+                taskRepository.Update(task);
             }
 
-            taskRepository.Update(task);
+            // change students
+            var taskStudents = task.Assignees;
+            var tournamentStudents = userRepository.GetStudentsWithTournament(task.Tournament.TournamentId);
+
+            if (ViewModel.StudentsId != null && taskStudents != null && tournamentStudents != null)
+            {
+                var taskStudentsId = new List<string>();
+
+                foreach (var item in taskStudents)
+                    taskStudentsId.Add(item.User.Id);
+
+                var studentsDifference = FindStudentsDifference(taskStudentsId, ViewModel.StudentsId);
+
+                foreach (var item in studentsDifference)
+                {
+                    var student = tournamentStudents.FirstOrDefault(x => x.Id == item);
+                    var assignee = task.Assignees.FirstOrDefault(x => x.User == student);
+
+                    if (assignee != null)
+                        task.Assignees.Remove(assignee);
+                    else
+                    {
+                        TournamentTaskAssignment assignment = new TournamentTaskAssignment
+                        {
+                            User = student,
+                            Attempts = 0,
+                            IsPassed = false,
+                            Task = task
+                        };
+
+                        task.Assignees.Add(assignment);
+
+                        taskRepository.Update(task);
+                    }
+                }
+            }
 
             return OnGet(id);
         }
 
-        private IEnumerable<int> FindDifference(IEnumerable<int> list1, IEnumerable<int> list2)
+        private IEnumerable<int> FindLangDifference(IEnumerable<int> list1, IEnumerable<int> list2)
+        {
+            var list1Set = list1.ToHashSet();
+            list1Set.SymmetricExceptWith(list2);
+            var resultList = list1Set.ToList();
+
+            return resultList;
+        }
+
+        private IEnumerable<string> FindStudentsDifference(IEnumerable<string> list1, IEnumerable<string> list2)
         {
             var list1Set = list1.ToHashSet();
             list1Set.SymmetricExceptWith(list2);
