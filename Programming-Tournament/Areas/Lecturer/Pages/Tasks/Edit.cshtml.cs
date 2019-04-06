@@ -91,15 +91,40 @@ namespace Programming_Tournament.Areas.Lecturer.Pages.Tasks
             if (task == null)
                 return NotFound();
 
+            var taskLanguages = task.SupportedLanguages;
             var allLanguages = languageRepository.GetAll();
+            var taskLanguagesId = new List<int>();
 
-            if (ViewModel.LanguagesId != null && allLanguages != null)
-                foreach (var item in ViewModel.LanguagesId)
-                    task.SupportedLanguages.Add(allLanguages.First(x=>x.SupportedProgrammingLanguageId == item));
+            if (ViewModel.LanguagesId == null || taskLanguages == null || allLanguages == null)
+                return OnGet(id);
+
+            foreach (var item in taskLanguages)
+                taskLanguagesId.Add(item.SupportedProgrammingLanguageId);
+
+            var langsDifference = FindDifference(taskLanguagesId, ViewModel.LanguagesId);
+
+            foreach (var item in langsDifference)
+            {
+                var lang = allLanguages.FirstOrDefault(x => x.SupportedProgrammingLanguageId == item);
+
+                if (task.SupportedLanguages.Contains(lang))
+                    task.SupportedLanguages.Remove(lang);
+                else
+                    task.SupportedLanguages.Add(lang);
+            }
 
             taskRepository.Update(task);
 
             return OnGet(id);
+        }
+
+        private IEnumerable<int> FindDifference(IEnumerable<int> list1, IEnumerable<int> list2)
+        {
+            var list1Set = list1.ToHashSet();
+            list1Set.SymmetricExceptWith(list2);
+            var resultList = list1Set.ToList();
+
+            return resultList;
         }
     }
 
