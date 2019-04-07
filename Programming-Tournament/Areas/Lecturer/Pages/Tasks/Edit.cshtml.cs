@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
@@ -10,12 +11,15 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Programming_Tournament.Data;
+using Programming_Tournament.Data.Managers;
 using Programming_Tournament.Data.Repositories.ApplicationUsers;
 using Programming_Tournament.Data.Repositories.SupportedLanguages;
 using Programming_Tournament.Data.Repositories.TaskAssignments;
+using Programming_Tournament.Data.Repositories.Tournaments;
 using Programming_Tournament.Data.Repositories.TournamentTasks;
 using Programming_Tournament.Models.Domain.Tournaments;
 using Programming_Tournament.Models.Domain.User;
+using Programming_Tournament.Utility.CustomValidators;
 
 namespace Programming_Tournament.Areas.Lecturer.Pages.Tasks
 {
@@ -57,7 +61,8 @@ namespace Programming_Tournament.Areas.Lecturer.Pages.Tasks
                 CreatedAt = task.CreatedAt,
                 LecturerName = task.Owner.FirstName + " " + task.Owner.SecondName,
                 MaxAttempts = task.MaxAttempt,
-                Name = task.Name
+                Name = task.Name,
+                InputFileSrc = task.InputFilePath
             };
 
             var tournamentStudents = userRepository.GetStudentsWithTournament(task.Tournament.TournamentId);
@@ -85,7 +90,7 @@ namespace Programming_Tournament.Areas.Lecturer.Pages.Tasks
             return Page();
         }
 
-        public IActionResult OnPostSave(int? id)
+        public async Task<IActionResult> OnPostSave(int? id)
         {
             if (!id.HasValue)
                 return NotFound();
@@ -93,6 +98,20 @@ namespace Programming_Tournament.Areas.Lecturer.Pages.Tasks
             var task = taskRepository.GetTask(id.Value);
             if (task == null)
                 return NotFound();
+
+            if (string.IsNullOrEmpty(ViewModel.InputFileSrc) && ViewModel.InputFileUpload != null)
+                ViewModel.InputFileSrc = ViewModel.InputFileUpload.ContentDisposition;
+
+            if (!ModelState.IsValid)
+                return OnGet(id);
+
+            task.Name = ViewModel.Name;
+            task.Desc = ViewModel.Desc;
+            task.DueDate = ViewModel.DueDate;
+            task.MaxAttempt = ViewModel.MaxAttempts;
+            task.Desc = ViewModel.Desc;
+
+            taskRepository.Update(task);
 
             // Change langs
             var taskLanguages = task.SupportedLanguages;
@@ -157,6 +176,30 @@ namespace Programming_Tournament.Areas.Lecturer.Pages.Tasks
                 }
             }
 
+            // upload file
+            if (ViewModel.InputFileUpload != null)
+            {
+                if (ViewModel.InputFileUpload.Length != 0)
+                {
+                    StorageManager storageManager = new StorageManager();
+                    TournamentRepository tournamentRepository = new TournamentRepository(context);
+
+                    var tournament = tournamentRepository.GetTournamentByTask(task.TournamentTaskId);
+
+                    if (tournament != null)
+                    {
+                        var inputFilePath = storageManager.CreateInputFile(tournament.TournamentId.ToString(), task.TournamentTaskId.ToString());
+                        using (var stream = new FileStream(inputFilePath, FileMode.Create))
+                        {
+                            await ViewModel.InputFileUpload.CopyToAsync(stream);
+                        }
+
+                        task.InputFilePath = inputFilePath;
+                        taskRepository.Update(task);
+                    }
+                }
+            }
+
             return OnGet(id);
         }
 
@@ -200,12 +243,6 @@ namespace Programming_Tournament.Areas.Lecturer.Pages.Tasks
         [DisplayName("Max attempts")]
         public int MaxAttempts { get; set; }
 
-        [DisplayName("Available programming langs.")]
-        public IEnumerable<SupportedProgrammingLanguage> SupportedLanguage { get; set; }
-
-        [DisplayName("Students")]
-        public IEnumerable<ApplicationUser> Students { get; set; }
-
         [DisplayName("Students")]
         public MultiSelectList StudentsSelectList { get; set; }
 
@@ -216,6 +253,8 @@ namespace Programming_Tournament.Areas.Lecturer.Pages.Tasks
 
         public IEnumerable<int> LanguagesId { get; set; }
 
+        [DisplayName("Select input file")]
+        [Required]
         public string InputFileSrc { get; set; }
 
         [DisplayName("Description")]
@@ -224,8 +263,10 @@ namespace Programming_Tournament.Areas.Lecturer.Pages.Tasks
         public string Desc { get; set; }
 
         [DisplayName("Select input file")]
-        [Required, FileExtensions(Extensions = ".txt", ErrorMessage = "Incorrect file format")]
+        [FileExtValidation("txt", "Incorrect file format", true)]
         public IFormFile InputFileUpload { get; set; }
+
+        public string WasFileUploaded => string.IsNullOrEmpty(InputFileSrc) ? "No" : "Yes";
     }
 
     public class StudentViewModel

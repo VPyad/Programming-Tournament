@@ -16,6 +16,7 @@ namespace Programming_Tournament.Data.Repositories.Tournaments
         IEnumerable<Tournament> GetTournaments(string userId, int p, int size, TournamentSortState sortState);
 
         Tournament GetTournament(int id);
+        Tournament GetTournamentByTask(int taskId);
     }
 
     public enum TournamentSortState

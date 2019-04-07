@@ -19,12 +19,18 @@
             <dd>@Html.DisplayFor(x => x.ViewModel.LecturerName)</dd>
         </dl>
     </div>
-    <div class="col-md-4"></div>
+    <div class="col-md-4">
+        <dl>
+            <dt><label>Was file uploaded</label></dt>
+            <dd>@Html.DisplayFor(x => x.ViewModel.WasFileUploaded)</dd>
+        </dl>
+    </div>
 </div>
 
 <form method="post" enctype="multipart/form-data">
     <div class=" row">
         <div asp-validation-summary="All" class="text-danger"></div>
+        <input asp-for="ViewModel.InputFileSrc" hidden id="inputFileSrc" />
         <div class="col-md-3 form-group">
             <label asp-for="ViewModel.Name"></label>
             <input asp-for="ViewModel.Name" class="form-control" />
@@ -42,7 +48,7 @@
         </div>
         <div class="col-md-2 form-group">
             <label asp-for="ViewModel.InputFileUpload"></label>
-            <input type="file" accept=".txt" asp-for="ViewModel.InputFileUpload" />
+            <input type="file" accept=".txt" id="fileInputControl" asp-for="ViewModel.InputFileUpload" />
             <span asp-validation-for="ViewModel.InputFileUpload" class="text-danger"></span>
         </div>
     </div>
@@ -70,4 +76,12 @@
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+    <script type="text/javascript">
+        function handleFileInput() {
+            var value = $("#fileInputControl").val();
+            $("#inputFileSrc")[0].value = value;
+        }
+
+        document.getElementById("fileInputControl").addEventListener("change", handleFileInput, true);
+    </script>
 }

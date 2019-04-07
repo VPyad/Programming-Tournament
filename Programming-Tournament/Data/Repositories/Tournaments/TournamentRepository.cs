@@ -74,6 +74,15 @@ namespace Programming_Tournament.Data.Repositories.Tournaments
             return tournament;
         }
 
+        public Tournament GetTournamentByTask(int taskId)
+        {
+            var tournament = context.Tournaments.Include(x => x.Tasks)
+                .Where(x => x.Tasks.FirstOrDefault(z => z.TournamentTaskId == taskId) != null)
+                .FirstOrDefault();
+
+            return tournament;
+        }
+
         private IEnumerable<Tournament> Paginate(IQueryable<Tournament> query, int p, int size)
         {
             var items = query.Skip((p - 1) * size).Take(size).ToList();
