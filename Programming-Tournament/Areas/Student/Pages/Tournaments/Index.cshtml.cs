@@ -38,6 +38,7 @@ namespace Programming_Tournament.Areas.Student.Pages.Tournaments
                 foreach (var item in tournaments)
                     studentTournaments.Add(new StudentTournamentModel
                     {
+                        Id = item.TournamentId,
                         Name = item.Name,
                         DueDate = item.DueDate,
                         LecturerFullName = item.Owner.FirstName + " " + item.Owner.SecondName,
@@ -63,6 +64,8 @@ namespace Programming_Tournament.Areas.Student.Pages.Tournaments
 
     public class StudentTournamentModel
     {
+        public int Id { get; set; }
+
         public string Name { get; set; }
 
         public DateTime DueDate { get; set; }

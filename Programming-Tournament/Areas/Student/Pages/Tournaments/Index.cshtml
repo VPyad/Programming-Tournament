@@ -17,7 +17,7 @@
         @foreach (var item in Model.ViewModel.Tournaments)
         {
         <tr>
-            <td>@item.Name</td>
+            <td><a asp-page="./Details" asp-route-id="@item.Id">@item.Name</a></td>
             <td>@item.LecturerFullName</td>
             <td>@item.DueDate</td>
             <td>@item.Status</td>
