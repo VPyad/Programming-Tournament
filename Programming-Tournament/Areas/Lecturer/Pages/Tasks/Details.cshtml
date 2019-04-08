@@ -4,7 +4,110 @@
 @{
 }
 
-<h2>Details task</h2>
+<h2>Details</h2>
+
+<div class="row">
+    <div class="col-md-2">
+        <dl>
+            <dt>@Html.DisplayNameFor(x => x.ViewModel.CreatedAt)</dt>
+            <dd>@Html.DisplayFor(x => x.ViewModel.CreatedAt)</dd>
+        </dl>
+    </div>
+    <div class="col-md-3">
+        <dl>
+            <dt>@Html.DisplayNameFor(x => x.ViewModel.LecturerFullName)</dt>
+            <dd>@Html.DisplayFor(x => x.ViewModel.LecturerFullName)</dd>
+        </dl>
+    </div>
+    <div class="col-md-2">
+        <dl>
+            <dt><label>Input file</label></dt>
+            @if (!Model.ViewModel.WasFileUploaded)
+            {
+                <dd></dd>
+            }
+            else
+            {
+                <dd>
+                    <form method="post">
+                        <button asp-page-handler="FileDownload" asp-route-filePath="@Model.ViewModel.InputFileSrc" asp-route-id="@Model.ViewModel.Id" type="submit" class="btn btn-default">Download</button>
+                    </form>
+                </dd>
+            }
+        </dl>
+    </div>
+    <div class="col-md-3">
+        <dl>
+            <dt>@Html.DisplayNameFor(x => x.ViewModel.DueDate)</dt>
+            <dd>@Html.DisplayFor(x => x.ViewModel.DueDate)</dd>
+        </dl>
+    </div>
+    <div class="col-md-2">
+        <dl>
+            <dt>@Html.DisplayNameFor(x => x.ViewModel.MaxAttempts)</dt>
+            @if (Model.ViewModel.MaxAttempts.HasValue && Model.ViewModel.MaxAttempts.Value != 0)
+            {
+                <dd>@Html.DisplayFor(x => x.ViewModel.MaxAttempts.Value)</dd>
+            }
+            else
+            {
+                <dd>Unlimited</dd>
+            }
+        </dl>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <dl>
+            <dt>@Html.DisplayNameFor(x => x.ViewModel.Name)</dt>
+            <dd>@Html.DisplayFor(x => x.ViewModel.Name)</dd>
+        </dl>
+    </div>
+    <div class="col-md-6"></div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <dl>
+            <dt>@Html.DisplayNameFor(x => x.ViewModel.Desc)</dt>
+            <dd>@Html.DisplayFor(x => x.ViewModel.Desc)</dd>
+        </dl>
+    </div>
+</div>
+
+<div class="row" style="margin-top: 12pt">
+    <div class="col-md-5">
+        <h3>Students</h3>
+        <table class="table">
+            <tr>
+                <th>Name</th>
+                <th>Passed</th>
+                <th>Last attempt</th>
+            </tr>
+            @foreach (var item in Model.ViewModel.Students)
+            {
+                <tr>
+                    <td>@item.FullName</td>
+                    <td>@item.PassedText</td>
+                    <td>@item.LastAttemptAtText</td>
+                </tr>
+            }
+        </table>
+    </div>
+    <div class="col-md-3">
+        <h3>Programming laguages</h3>
+        <table class="table">
+            <tr><th>Name</th></tr>
+            @foreach (var item in Model.ViewModel.Langs)
+            {
+                <tr>
+                    <td>@item.Name</td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />

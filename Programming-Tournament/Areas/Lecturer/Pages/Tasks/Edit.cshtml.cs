@@ -90,16 +90,12 @@ namespace Programming_Tournament.Areas.Lecturer.Pages.Tasks
             return Page();
         }
 
-        public IActionResult OnPostFileDownload(int? id)
+        public IActionResult OnPostFileDownload(int? id, string filePath)
         {
-            if (!id.HasValue)
+            if (!id.HasValue || string.IsNullOrEmpty(filePath))
                 return NotFound();
 
-            var task = taskRepository.GetTask(id.Value);
-            if (task == null || string.IsNullOrEmpty(task.InputFilePath))
-                return NotFound();
-
-            byte[] fileBytes = System.IO.File.ReadAllBytes(task.InputFilePath);
+            byte[] fileBytes = System.IO.File.ReadAllBytes(filePath);
             return File(fileBytes, "text/plain", "input.txt");
         }
 
