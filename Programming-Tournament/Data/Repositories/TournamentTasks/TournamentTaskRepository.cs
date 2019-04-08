@@ -42,6 +42,7 @@ namespace Programming_Tournament.Data.Repositories.TournamentTasks
                 .Include(x => x.SupportedLanguages)
                 .Include(x => x.Tournament)
                 .Include(x => x.Assignees).ThenInclude(x => x.User)
+                .Include(x => x.Assignees).ThenInclude(x => x.Result)
                 .Where(whereExp);
 
             return tasks;

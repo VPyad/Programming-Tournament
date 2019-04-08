@@ -73,6 +73,7 @@ namespace Programming_Tournament.Areas.Lecturer.Pages.Tasks
 
         public IActionResult OnPostFileDownload(int? id, string filePath)
         {
+            // TODO: remove id from request params
             if (!id.HasValue || string.IsNullOrEmpty(filePath))
                 return NotFound();
 
@@ -91,7 +92,7 @@ namespace Programming_Tournament.Areas.Lecturer.Pages.Tasks
         [DisplayName("Lecturer name")]
         public string LecturerFullName { get; set; }
 
-        [DisplayName("Isnput file")]
+        [DisplayName("Input file")]
         public string InputFileSrc { get; set; }
 
         [DisplayName("End date")]

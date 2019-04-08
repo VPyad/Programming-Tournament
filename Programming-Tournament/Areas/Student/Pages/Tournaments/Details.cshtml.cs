@@ -21,7 +21,7 @@ namespace Programming_Tournament.Areas.Student.Pages.Tournaments
         private readonly TournamentRepository tournamentRepository;
 
         [BindProperty]
-        public TournamentEditViewModel ViewModel { get; set; }
+        public StudentTournamentEditViewModel ViewModel { get; set; }
 
         public DetailsModel(ApplicationDbContext context)
         {
@@ -38,7 +38,7 @@ namespace Programming_Tournament.Areas.Student.Pages.Tournaments
             if (tournament == null)
                 return NotFound();
 
-            ViewModel = new TournamentEditViewModel
+            ViewModel = new StudentTournamentEditViewModel
             {
                 Name = tournament.Name,
                 Desc = tournament.Desc,
@@ -68,7 +68,7 @@ namespace Programming_Tournament.Areas.Student.Pages.Tournaments
         }
     }
 
-    public class TournamentEditViewModel
+    public class StudentTournamentEditViewModel
     {
         [Display(Name = "Name")]
         public string Name { get; set; }

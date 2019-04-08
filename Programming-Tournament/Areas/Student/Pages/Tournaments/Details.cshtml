@@ -60,7 +60,7 @@
             @foreach (var item in Model.ViewModel.Tasks)
             {
             <tr>
-                <td>@item.Name</td>
+                <td><a asp-area="Student" asp-page="/Tasks/Details" asp-route-id="@item.Id">@item.Name</a></td>
                 <td>@item.DueTo</td>
                 <td>@item.MaxAttemptsText</td>
             </tr>

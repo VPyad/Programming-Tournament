@@ -19,7 +19,7 @@ namespace Programming_Tournament.Areas.Student.Pages.Tournaments
         private readonly TournamentRepository tournamentRepository;
 
         [BindProperty]
-        public TournamentIndexViewModel ViewModel { get; set; }
+        public StudentTournamentIndexViewModel ViewModel { get; set; }
 
         public IndexModel(ApplicationDbContext context)
         {
@@ -45,7 +45,7 @@ namespace Programming_Tournament.Areas.Student.Pages.Tournaments
                         Status = item.Status
                     });
 
-            ViewModel = new TournamentIndexViewModel
+            ViewModel = new StudentTournamentIndexViewModel
             {
                 Tournaments = studentTournaments,
                 SortViewModel = new TournamentIndexSortViewModel(sortState)
@@ -55,7 +55,7 @@ namespace Programming_Tournament.Areas.Student.Pages.Tournaments
         }
     }
 
-    public class TournamentIndexViewModel
+    public class StudentTournamentIndexViewModel
     {
         public IEnumerable<StudentTournamentModel> Tournaments { get; set; }
 
