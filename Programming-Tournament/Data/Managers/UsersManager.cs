@@ -40,7 +40,7 @@ namespace Programming_Tournament.Data.Managers
             }
         }
 
-        public static async Task CreateUser(IServiceProvider serviceProvider, IConfiguration configuration, BaseApplication application)
+        public static async Task<bool> CreateUser(IServiceProvider serviceProvider, IConfiguration configuration, BaseApplication application)
         {
             var userManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
 
@@ -59,8 +59,13 @@ namespace Programming_Tournament.Data.Managers
                 if (createUser.Succeeded)
                 {
                     await userManager.AddToRoleAsync(appUser, GetRole(application.UserType));
+                    return true;
                 }
+                else
+                    return false;
             }
+            else
+                return false;
         }
 
         public static async Task CreateUser(IServiceProvider serviceProvider, IConfiguration configuration, ApplicationUser appUser, string password, string email, UserType userType)

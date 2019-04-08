@@ -34,12 +34,14 @@ namespace Programming_Tournament.Data
             builder.Entity<StudentTournament>()
                 .HasOne(st => st.ApplicationUser)
                 .WithMany(x => x.Tournaments)
-                .HasForeignKey(x => x.ApplicationUserId);
+                .HasForeignKey(x => x.ApplicationUserId)
+                .OnDelete(DeleteBehavior.Cascade);
 
             builder.Entity<StudentTournament>()
                 .HasOne(x => x.Tournament)
                 .WithMany(x => x.Assignees)
-                .HasForeignKey(x => x.TournamentId);
+                .HasForeignKey(x => x.TournamentId)
+                .OnDelete(DeleteBehavior.Cascade);
 
             // Tournament
             builder.Entity<Tournament>()

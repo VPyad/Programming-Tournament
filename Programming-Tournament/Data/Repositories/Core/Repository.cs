@@ -17,11 +17,13 @@ namespace Programming_Tournament.Data.Repositories.Core
         public void Add(TEntity entity)
         {
             context.Set<TEntity>().Add(entity);
+            context.SaveChanges();
         }
 
         public void AddRange(IEnumerable<TEntity> list)
         {
             context.Set<TEntity>().AddRange(list);
+            context.SaveChanges();
         }
 
         public TEntity FirstOfDefault(System.Linq.Expressions.Expression<Func<TEntity, bool>> exp)
@@ -47,16 +49,19 @@ namespace Programming_Tournament.Data.Repositories.Core
         public void Remove(TEntity entity)
         {
             context.Set<TEntity>().Remove(entity);
+            context.SaveChanges();
         }
 
         public void RemoveRange(IEnumerable<TEntity> list)
         {
             context.Set<TEntity>().RemoveRange(list);
+            context.SaveChanges();
         }
 
         public void Update(TEntity entity)
         {
             context.Set<TEntity>().Update(entity);
+            context.SaveChanges();
         }
 
         public IEnumerable<TEntity> Where(System.Linq.Expressions.Expression<Func<TEntity, bool>> exp)

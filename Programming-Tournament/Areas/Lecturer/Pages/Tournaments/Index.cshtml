@@ -1,0 +1,80 @@
+﻿@page
+@model IndexModel
+@using Programming_Tournament.Areas.Lecturer.Pages.Tournaments
+@{
+}
+
+<h2>Tournaments run by you</h2>
+<br />
+@*<a asp-page="./Create">Create new</a>*@
+
+<form method="post">
+    <button type="submit" asp-page-handler="Create" class="btn btn-primary">Create new</button>
+</form>
+<br />
+<br />
+
+<table class="table">
+    <tr>
+        <th>Name</th>
+        @if (User.IsInRole("Admin"))
+        {
+            <th>
+                <a asp-page="./Index"
+                   asp-route-sortState="@(Model.ViewModel.SortViewModel.Owner)">Owner</a>
+            </th>
+        }
+        <th>
+            <a asp-page="./Index"
+               asp-route-sortState="@(Model.ViewModel.SortViewModel.CreatedAt)">Created at</a>
+        </th>
+        <th>
+            <a asp-page="./Index"
+               asp-route-sortState="@(Model.ViewModel.SortViewModel.DueDate)">Due date</a>
+        </th>
+        <th>
+            <a asp-page="./Index"
+               asp-route-sortState="@(Model.ViewModel.SortViewModel.Status)">Status</a>
+        </th>
+    </tr>
+    @foreach (var item in Model.ViewModel.Tournaments)
+    {
+    <tr>
+        <td>
+            <a asp-page="./Edit"
+               asp-route-id="@(item.TournamentId)">@item.Name</a>
+        </td>
+        @if (User.IsInRole("Admin"))
+        {
+            <td>@(item.Owner.FirstName + " " + item.Owner.SecondName)</td>
+        }
+        <td>@item.CreatedAt</td>
+        <td>@item.DueDate</td>
+        <td>@item.Status</td>
+    </tr>
+    }
+</table>
+
+@if (Model.ViewModel.PageViewModel.HasPreviousPage)
+{
+    <a asp-page="./Index"
+       asp-route-sortState="@(Model.ViewModel.SortViewModel.Current)"
+       asp-route-p="@(Model.ViewModel.PageViewModel.PageNumber - 1)"
+       class="btn btn-default btn">
+        <i class="glyphicon glyphicon-chevron-left"></i>Previus
+    </a>
+}
+
+@if (Model.ViewModel.PageViewModel.HasNextPage)
+{
+    <a asp-page="./Index"
+       asp-route-sortState="@(Model.ViewModel.SortViewModel.Current)"
+       asp-route-p="@(Model.ViewModel.PageViewModel.PageNumber + 1)"
+       class="btn btn-default btn">
+        Next <i class="glyphicon glyphicon-chevron-right"></i>
+    </a>
+}
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

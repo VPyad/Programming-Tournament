@@ -64,6 +64,8 @@ namespace Programming_Tournament.Data
                 context.SupportedProgrammingLanguages.Add(new Models.Domain.Tournaments.SupportedProgrammingLanguage { Name = "FreePascal", Code = "FreePascal" });
                 context.SupportedProgrammingLanguages.Add(new Models.Domain.Tournaments.SupportedProgrammingLanguage { Name = "Delphi", Code = "Delphi" });
                 context.SupportedProgrammingLanguages.Add(new Models.Domain.Tournaments.SupportedProgrammingLanguage { Name = "ObjPascal", Code = "ObjPascal" });
+
+                context.SaveChanges();
             }
         }
     }
