@@ -6,6 +6,26 @@
 
 <h2>Tournaments</h2>
 
+<div class="row">
+    <table class="table">
+        <tr>
+            <th>Name</th>
+            <th>Lecturer</th>
+            <th><a asp-page="./Index" asp-route-sortState="@(Model.ViewModel.SortViewModel.DueDate)">Due date</a></th>
+            <th><a asp-page="./Index" asp-route-sortState="@(Model.ViewModel.SortViewModel.DueDate)">Status</a></th>
+        </tr>
+        @foreach (var item in Model.ViewModel.Tournaments)
+        {
+        <tr>
+            <td>@item.Name</td>
+            <td>@item.LecturerFullName</td>
+            <td>@item.DueDate</td>
+            <td>@item.Status</td>
+        </tr>
+        }
+    </table>
+</div>
+
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
 }

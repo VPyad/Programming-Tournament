@@ -12,6 +12,8 @@ namespace Programming_Tournament.Data.Repositories.Tournaments
         IEnumerable<Tournament> GetTournaments(int p, int size);
         IEnumerable<Tournament> GetTournaments(string userId, int p, int size);
 
+        IEnumerable<Tournament> GetActiveStudentTournament(string userId, TournamentSortState sortState);
+
         IEnumerable<Tournament> GetTournaments(int p, int size, TournamentSortState sortState);
         IEnumerable<Tournament> GetTournaments(string userId, int p, int size, TournamentSortState sortState);
 
