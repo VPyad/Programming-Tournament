@@ -78,7 +78,7 @@ namespace Programming_Tournament.Data.Repositories.Tournaments
             var tournament = context.Tournaments.Where(x => x.TournamentId == id)
                 .Include(x => x.Owner)
                 .Include(x => x.Assignees).ThenInclude(x => x.ApplicationUser)
-                .Include(x => x.Tasks)
+                .Include(x => x.Tasks).ThenInclude(x => x.Assignees).ThenInclude(x => x.User)
                 .FirstOrDefault();
 
             return tournament;
@@ -129,7 +129,8 @@ namespace Programming_Tournament.Data.Repositories.Tournaments
         {
             IQueryable<Tournament> query = context.Tournaments
                 .Include(x => x.Owner)
-                .Include(x => x.Assignees);
+                .Include(x => x.Assignees)
+                .Include(x => x.Tasks).ThenInclude(x => x.Assignees).ThenInclude(x => x.User);
 
             return query;
         }

@@ -6,6 +6,69 @@
 
 <h2>Details</h2>
 
+<div class="row">
+    <div class="col-md-4">
+        <dl>
+            <dt>@Html.DisplayNameFor(x => x.ViewModel.Name)</dt>
+            <dd>@Html.DisplayFor(x => x.ViewModel.Name)</dd>
+        </dl>
+    </div>
+    <div class="col-md-2">
+        <dl>
+            <dt>@Html.DisplayNameFor(x => x.ViewModel.LecturerFullName)</dt>
+            <dd>@Html.DisplayFor(x => x.ViewModel.LecturerFullName)</dd>
+        </dl>
+    </div>
+    <div class="col-md-2">
+        <dl>
+            <dt>@Html.DisplayNameFor(x => x.ViewModel.DueDate)</dt>
+            <dd>@Html.DisplayFor(x => x.ViewModel.DueDate)</dd>
+        </dl>
+    </div>
+    <div class="col-md-4">
+        <dl>
+            <dt>@Html.DisplayNameFor(x => x.ViewModel.CreatedAt)</dt>
+            <dd>@Html.DisplayFor(x => x.ViewModel.CreatedAt)</dd>
+        </dl>
+    </div>
+    <div class="col-md-1">
+        <dl>
+            <dt>@Html.DisplayNameFor(x => x.ViewModel.Status)</dt>
+            <dd>@Html.DisplayFor(x => x.ViewModel.Status)</dd>
+        </dl>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <dl>
+            <dt>@Html.DisplayNameFor(x => x.ViewModel.Desc)</dt>
+            <dd>@Html.DisplayFor(x => x.ViewModel.Desc)</dd>
+        </dl>
+    </div>
+</div>
+
+<div class="row" style="margin-top: 12pt">
+    <div class="col-md-6">
+        <h3>Tasks</h3>
+        <table class="table">
+            <tr>
+                <th>Name</th>
+                <th>End date</th>
+                <th>Max attempts</th>
+            </tr>
+            @foreach (var item in Model.ViewModel.Tasks)
+            {
+            <tr>
+                <td>@item.Name</td>
+                <td>@item.DueTo</td>
+                <td>@item.MaxAttemptsText</td>
+            </tr>
+            }
+        </table>
+    </div>
+</div>
+
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
 }
