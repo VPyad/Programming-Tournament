@@ -90,6 +90,19 @@ namespace Programming_Tournament.Areas.Lecturer.Pages.Tasks
             return Page();
         }
 
+        public IActionResult OnPostFileDownload(int? id)
+        {
+            if (!id.HasValue)
+                return NotFound();
+
+            var task = taskRepository.GetTask(id.Value);
+            if (task == null || string.IsNullOrEmpty(task.InputFilePath))
+                return NotFound();
+
+            byte[] fileBytes = System.IO.File.ReadAllBytes(task.InputFilePath);
+            return File(fileBytes, "text/plain", "input.txt");
+        }
+
         public async Task<IActionResult> OnPostSave(int? id)
         {
             if (!id.HasValue)
@@ -266,7 +279,9 @@ namespace Programming_Tournament.Areas.Lecturer.Pages.Tasks
         [FileExtValidation("txt", "Incorrect file format", true)]
         public IFormFile InputFileUpload { get; set; }
 
-        public string WasFileUploaded => string.IsNullOrEmpty(InputFileSrc) ? "No" : "Yes";
+        public string WasFileUploadedText => string.IsNullOrEmpty(InputFileSrc) ? "No" : "Yes";
+
+        public bool WasFileUploaded => !string.IsNullOrEmpty(InputFileSrc);
     }
 
     public class StudentViewModel
