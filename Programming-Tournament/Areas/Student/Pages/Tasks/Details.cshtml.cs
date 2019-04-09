@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.IO;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -12,6 +13,8 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using ProcessManagment.BuildSystem;
 using Programming_Tournament.Data;
+using Programming_Tournament.Data.Managers;
+using Programming_Tournament.Data.Repositories.Tournaments;
 using Programming_Tournament.Data.Repositories.TournamentTasks;
 using Programming_Tournament.Models.Domain.Tournaments;
 using Programming_Tournament.Utility.CustomValidators;
@@ -23,7 +26,9 @@ namespace Programming_Tournament.Areas.Student.Pages.Tasks
     {
         private readonly ApplicationDbContext context;
         private readonly TournamentTaskRepository taskRepository;
+        private readonly TournamentRepository tournamentRepository;
         private readonly ProcessManager processManager;
+        private readonly StorageManager storageManager;
 
         public StudentTaskDetailsViewModel DetailsViewModel { get; set; }
 
@@ -34,7 +39,9 @@ namespace Programming_Tournament.Areas.Student.Pages.Tasks
         {
             this.context = context;
             taskRepository = new TournamentTaskRepository(this.context);
+            tournamentRepository = new TournamentRepository(this.context);
             processManager = new ProcessManager(this);
+            storageManager = new StorageManager();
         }
 
         public IActionResult OnGet(int? id)
@@ -53,9 +60,13 @@ namespace Programming_Tournament.Areas.Student.Pages.Tasks
             return Page();
         }
 
-        public IActionResult OnPostSubmit(int? id)
+        public async Task<IActionResult> OnPostSubmit(int? id)
         {
             if (!id.HasValue)
+                return NotFound();
+
+            var task = taskRepository.GetTask(id.Value);
+            if (task == null)
                 return NotFound();
 
             if (ModelState.IsValid)
@@ -68,6 +79,42 @@ namespace Programming_Tournament.Areas.Student.Pages.Tasks
                     ModelState.AddModelError("", "Select file with correct extension!");
                     return OnGet(id);
                 }
+
+                var userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+                var assignee = task.Assignees.FirstOrDefault(x => x.User.Id == userId);
+                string workDir = "";
+
+                // upload src to user work dir
+                if (!string.IsNullOrEmpty(assignee.WorkDir))
+                    workDir = assignee.WorkDir;
+                else
+                {
+                    var tournament = tournamentRepository.GetTournamentByTask(task.TournamentTaskId);
+                    workDir = storageManager.GetWorkDir(userId, tournament.TournamentId.ToString(), task.TournamentTaskId.ToString());
+
+                    assignee.WorkDir = workDir;
+                    taskRepository.Update(task);
+                }
+
+                var srcFilePath = storageManager.CreateSrcFile(workDir, validSrcExt);
+                using (var stream = new FileStream(srcFilePath, FileMode.Create))
+                {
+                    await InputViewModel.SrcFile.CopyToAsync(stream);
+                }
+
+                var inputFilePath = storageManager.CreateInputFileInWorkDir(workDir);
+                storageManager.CopyInputFileToWorkDir(task.InputFilePath, inputFilePath);
+
+                string processConditionId = Guid.NewGuid().ToString();
+                assignee.ProcessResultId = processConditionId;
+                taskRepository.Update(task);
+
+                ProcessCondition processCondition = new ProcessCondition
+                {
+                    Id = processConditionId,
+                    WorkingDirPath = workDir,
+
+                };
             }
 
             return OnGet(id);
@@ -105,9 +152,9 @@ namespace Programming_Tournament.Areas.Student.Pages.Tasks
                     Attempts = assignee.Attempts;
                     LastAttempt = assignee.LastAttemptedAt;
 
-                    if (assignee.Result != null && assignee.IsPassed)
+                    if (assignee.IsPassed)
                     {
-
+                        // TODO: retrieve task data from processManager
                     }
                 }
             }

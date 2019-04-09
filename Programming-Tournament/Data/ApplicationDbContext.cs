@@ -22,7 +22,6 @@ namespace Programming_Tournament.Data
         public DbSet<Tournament> Tournaments { get; set; }
         public DbSet<TournamentTask> TournamentTasks { get; set; }
         public DbSet<TournamentTaskAssignment> TournamentTaskAssignments { get; set; }
-        public DbSet<TournamentTaskAssignmentResult> TournamentTaskAssignmentResults { get; set; }
         public DbSet<StudentTournament> StudentTournaments { get; set; }
         public DbSet<SupportedProgrammingLanguage> SupportedProgrammingLanguages { get; set; }
 

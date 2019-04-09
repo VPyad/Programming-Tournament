@@ -31,10 +31,7 @@ namespace Programming_Tournament.Data.Managers
 
         private string GetStudentsDir() => CreateDir(GetFilesDir(), STUDENTS_DIR);
 
-        public string CopyInputFileToWorkDir(string pathToInput, string pathToWorkDir)
-        {
-            throw new NotImplementedException();
-        }
+        public void CopyInputFileToWorkDir(string pathToInput, string pathToWorkDir) => File.Copy(pathToInput, pathToWorkDir, true);
 
         public string CreateInputFile(string tournamentId, string taskId)
         {
@@ -46,9 +43,14 @@ namespace Programming_Tournament.Data.Managers
             return filePath;
         }
 
-        public string CreateSrcFile(string userId, string tournamentId, string taskId, string fileName)
+        public string CreateSrcFile(string workDir, string fileExt)
         {
-            throw new NotImplementedException();
+            if (fileExt.StartsWith('.'))
+                fileExt = fileExt.Remove(0, 1);
+
+            string path = CreateFile(workDir, "program." + fileExt);
+
+            return path;
         }
 
         public string GetWorkDir(string userId, string tournamentId, string taskId)
@@ -59,5 +61,7 @@ namespace Programming_Tournament.Data.Managers
 
             return taskDir;
         }
+
+        public string CreateInputFileInWorkDir(string workDir) => CreateFile(workDir, INPUT_FILE_NAME);
     }
 }

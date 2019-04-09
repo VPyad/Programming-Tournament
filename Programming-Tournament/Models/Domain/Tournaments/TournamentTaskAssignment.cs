@@ -20,12 +20,12 @@ namespace Programming_Tournament.Models.Domain.Tournaments
 
         public int Attempts { get; set; }
 
-        public TournamentTask Task { get; set; }
-
         public DateTime LastAttemptedAt { get; set; }
 
         public string WorkDir { get; set; }
 
-        public TournamentTaskAssignmentResult Result { get; set; }
+        public TournamentTask Task { get; set; }
+
+        public string ProcessResultId { get; set; }
     }
 }
