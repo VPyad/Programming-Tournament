@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Security.Claims;
@@ -72,7 +73,7 @@ namespace Programming_Tournament.Areas.Student.Pages.Tasks
             if (ModelState.IsValid)
             {
                 var selectedFileExt = InputViewModel.SrcFilePath.Split('.').Last();
-                var validSrcExt = InputViewModel.FileExt.Remove(0, 1);
+                var validSrcExt = GetFileExt(InputViewModel.LangCode);
 
                 if (validSrcExt != selectedFileExt)
                 {
@@ -105,6 +106,14 @@ namespace Programming_Tournament.Areas.Student.Pages.Tasks
                 var inputFilePath = storageManager.CreateInputFileInWorkDir(workDir);
                 storageManager.CopyInputFileToWorkDir(task.InputFilePath, inputFilePath);
 
+                var lang = SupportedProgrammingLanguage.Map(InputViewModel.LangCode, out bool langParseSuccess);
+
+                if (!langParseSuccess)
+                {
+                    ModelState.AddModelError("", "Smth went wrong");
+                    return OnGet(id);
+                }
+
                 string processConditionId = Guid.NewGuid().ToString();
                 assignee.ProcessResultId = processConditionId;
                 taskRepository.Update(task);
@@ -113,10 +122,13 @@ namespace Programming_Tournament.Areas.Student.Pages.Tasks
                 {
                     Id = processConditionId,
                     WorkingDirPath = workDir,
-
+                    Language = lang
                 };
+
+                processManager.ProcessTask(processCondition);
             }
 
+            Debug.WriteLine("!!!EXITED ON_POST!!!");
             return OnGet(id);
         }
 
@@ -130,7 +142,45 @@ namespace Programming_Tournament.Areas.Student.Pages.Tasks
         }
 
         public void StatusChanged(ProcessResult processResult)
-        { }
+        {
+            Debug.WriteLine("!!!STATUS CHANGED!!!");
+            Debug.WriteLine("State:");
+            Debug.WriteLine(processResult.State);
+            Debug.WriteLine("Status");
+            Debug.WriteLine(processResult.Status);
+        }
+
+        private string GetFileExt(string code)
+        {
+            string ext = "";
+
+            switch (code)
+            {
+                case "C":
+                    ext = "c";
+                    break;
+                case "CPP":
+                    ext = "cpp";
+                    break;
+                case "Java":
+                    ext = "java";
+                    break;
+                case "CSharp":
+                    ext = "cs";
+                    break;
+                case "FreePascal":
+                    ext = "pas";
+                    break;
+                case "Delphi":
+                    ext = "pas";
+                    break;
+                case "ObjPascal":
+                    ext = "pas";
+                    break;
+            }
+
+            return ext;
+        }
     }
 
     public class StudentTaskDetailsViewModel
@@ -242,7 +292,7 @@ namespace Programming_Tournament.Areas.Student.Pages.Tasks
             {
                 List<SelectListItem> list = new List<SelectListItem>();
                 foreach (var item in langs)
-                    list.Add(new SelectListItem(item.Name, GetFileExt(item.Code)));
+                    list.Add(new SelectListItem(item.Name, item.Code));
 
                 if (list.Any())
                     list[0].Selected = true;
@@ -251,47 +301,17 @@ namespace Programming_Tournament.Areas.Student.Pages.Tasks
             }
         }
 
-        private string GetFileExt(string code)
-        {
-            string ext = "";
-
-            switch (code)
-            {
-                case "C":
-                    ext = "c";
-                    break;
-                case "CPP":
-                    ext = "cpp";
-                    break;
-                case "Java":
-                    ext = "java";
-                    break;
-                case "CSharp":
-                    ext = "cs";
-                    break;
-                case "FreePascal":
-                    ext = "pas";
-                    break;
-                case "Delphi":
-                    ext = "pas";
-                    break;
-                case "ObjPascal":
-                    ext = "pas";
-                    break;
-            }
-
-            return ext;
-        }
-
         [DisplayName("Select programming langs.")]
         public ICollection<SelectListItem> LanguageSelectList { get; set; }
 
         [Required]
         public string SrcFilePath { get; set; }
 
-        public string FileExt { get; set; }
+        public string LangCode { get; set; }
 
         [DisplayName("Select src file")]
         public IFormFile SrcFile { get; set; }
+
+        public string Test { get; set; }
     }
 }

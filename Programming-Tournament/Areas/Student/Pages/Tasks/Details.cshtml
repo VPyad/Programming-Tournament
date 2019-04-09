@@ -152,7 +152,7 @@
     <form method="post" enctype="multipart/form-data">
         <div asp-validation-summary="All" class="text-danger"></div>
         <input asp-for="InputViewModel.SrcFilePath" hidden id="inputFilePath" />
-        <input asp-for="InputViewModel.FileExt" hidden id="fileExt" />
+        <input asp-for="InputViewModel.LangCode" hidden id="langCode" />
         <div class="col-md-3">
             <label asp-for="InputViewModel.LanguageSelectList"></label>
             <select asp-items="@Model.InputViewModel.LanguageSelectList" id="langSelect"></select>
@@ -161,9 +161,9 @@
             <label asp-for="InputViewModel.SrcFile"></label>
             <input type="file" id="fileInputControl" asp-for="InputViewModel.SrcFile" />
         </div>
-        <dic class="col-md-2">
+        <div class="col-md-2">
             <button type="submit" asp-route-id="@Model.DetailsViewModel.Id" asp-page-handler="Submit" class="btn btn-primary" style="margin-top:10pt;">Submit</button>
-        </dic>
+        </div>
     </form>
 </div>
 
@@ -176,9 +176,35 @@
         }
 
         function handleLangSelect() {
-            var value = $("#langSelect").val();
-            $("#fileExt")[0].value = "." + value;
-            document.getElementById("fileInputControl").accept = "." + value;
+            var code = $("#langSelect").val();
+            var ext = "";
+
+            switch (code) {
+                case "C":
+                    ext = "c";
+                    break;
+                case "CPP":
+                    ext = "cpp";
+                    break;
+                case "Java":
+                    ext = "java";
+                    break;
+                case "CSharp":
+                    ext = "cs";
+                    break;
+                case "FreePascal":
+                    ext = "pas";
+                    break;
+                case "Delphi":
+                    ext = "pas";
+                    break;
+                case "ObjPascal":
+                    ext = "pas";
+                    break;
+            }
+
+            $("#langCode")[0].value = code;
+            document.getElementById("fileInputControl").accept = "." + ext;
         }
 
         document.getElementById("fileInputControl").addEventListener("change", handleFileInput, true);
