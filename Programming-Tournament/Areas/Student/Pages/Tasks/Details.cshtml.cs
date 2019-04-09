@@ -63,6 +63,11 @@ namespace Programming_Tournament.Areas.Student.Pages.Tasks
                         Passed = assignee.IsPassed;
                         Attempts = assignee.Attempts;
                         LastAttempt = assignee.LastAttemptedAt;
+
+                        if (assignee.Result != null && assignee.IsPassed)
+                        {
+
+                        }
                     }
                 }
                 
@@ -88,7 +93,7 @@ namespace Programming_Tournament.Areas.Student.Pages.Tasks
             public string MaxAttemptsText => MaxAttempts.HasValue && MaxAttempts.Value != 0 ? MaxAttempts.Value.ToString() : "Unlimited";
 
             [Display(Name = "Input file")]
-            public string InputFileSrc { get; set; }
+            public string InputFilePath { get; set; }
 
             [Display(Name = "Description")]
             [DataType(DataType.MultilineText)]
@@ -110,6 +115,21 @@ namespace Programming_Tournament.Areas.Student.Pages.Tasks
             [Display(Name = "Last attempt")]
             public string LastAttemptText => LastAttempt == DateTime.MinValue ? "Never" : LastAttempt.ToLongDateString();
 
+            public bool OutputFileAvailable { get; set; } = false;
+
+            [Display(Name = "Output file")]
+            public string OutputFilePath { get; set; }
+
+            public bool SrcFileAvailable { get; set; } = false;
+
+            [Display(Name = "Src file")]
+            public string SrcFilePath { get; set; }
+
+            public bool LogFileAvailable { get; set; } = false;
+
+            [Display(Name = "Log file")]
+            public string LogFilePath { get; set; }
+
             private void InitBaseFields(TournamentTask task)
             {
                 Id = task.TournamentTaskId;
@@ -119,7 +139,7 @@ namespace Programming_Tournament.Areas.Student.Pages.Tasks
                 DueDate = task.DueDate;
                 CreatedAt = task.CreatedAt;
                 MaxAttempts = task.MaxAttempt;
-                InputFileSrc = task.InputFilePath;
+                InputFilePath = task.InputFilePath;
                 Langs = task.SupportedLanguages;
             }
         }
