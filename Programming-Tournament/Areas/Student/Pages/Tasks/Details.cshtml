@@ -148,6 +148,42 @@
     </div>
 </div>
 
+<div class="row">
+    <form method="post" enctype="multipart/form-data">
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <input asp-for="InputViewModel.SrcFilePath" hidden id="inputFilePath" />
+        <input asp-for="InputViewModel.FileExt" hidden id="fileExt" />
+        <div class="col-md-3">
+            <label asp-for="InputViewModel.LanguageSelectList"></label>
+            <select asp-items="@Model.InputViewModel.LanguageSelectList" id="langSelect"></select>
+        </div>
+        <div class="col-md-3">
+            <label asp-for="InputViewModel.SrcFile"></label>
+            <input type="file" id="fileInputControl" asp-for="InputViewModel.SrcFile" />
+        </div>
+        <dic class="col-md-2">
+            <button type="submit" asp-route-id="@Model.DetailsViewModel.Id" asp-page-handler="Submit" class="btn btn-primary" style="margin-top:10pt;">Submit</button>
+        </dic>
+    </form>
+</div>
+
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+    <script type="text/javascript">
+        function handleFileInput() {
+            var value = $("#fileInputControl").val();
+            $("#inputFilePath")[0].value = value;
+        }
+
+        function handleLangSelect() {
+            var value = $("#langSelect").val();
+            $("#fileExt")[0].value = "." + value;
+            document.getElementById("fileInputControl").accept = "." + value;
+        }
+
+        document.getElementById("fileInputControl").addEventListener("change", handleFileInput, true);
+        document.getElementById("langSelect").addEventListener("change", handleLangSelect, true);
+
+        $(document).ready(function () { handleLangSelect() })
+    </script>
 }
