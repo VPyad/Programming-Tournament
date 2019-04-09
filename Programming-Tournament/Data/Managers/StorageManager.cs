@@ -13,6 +13,7 @@ namespace Programming_Tournament.Data.Managers
         private const string STUDENTS_DIR = "Students";
 
         private const string INPUT_FILE_NAME = "input.txt";
+        private const string EXPECTED_FILE_NAME = "expected.txt";
 
         private string CreateDir(string path, string folderName) => Directory.CreateDirectory(Path.Combine(path, folderName)).FullName;
 
@@ -43,6 +44,16 @@ namespace Programming_Tournament.Data.Managers
             return filePath;
         }
 
+        public string CreateExpectedFile(string tournamentId, string taskId)
+        {
+            string tournamentDirPath = CreateDir(GetTournamentsDir(), tournamentId);
+            string taskDirPath = CreateDir(tournamentDirPath, taskId);
+
+            string filePath = CreateFile(taskDirPath, EXPECTED_FILE_NAME);
+
+            return filePath;
+        }
+
         public string CreateSrcFile(string workDir, string fileExt)
         {
             if (fileExt.StartsWith('.'))
@@ -63,5 +74,12 @@ namespace Programming_Tournament.Data.Managers
         }
 
         public string CreateInputFileInWorkDir(string workDir) => CreateFile(workDir, INPUT_FILE_NAME);
+
+        public bool CompareFiles(string exptectedFilePath, string outputFilePath)
+        {
+            bool isEqual = File.ReadAllLines(exptectedFilePath).SequenceEqual(File.ReadAllLines(outputFilePath));
+
+            return isEqual;
+        }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace ProcessManagment.BuildSystem
 {
@@ -13,6 +14,8 @@ namespace ProcessManagment.BuildSystem
         /// Called then process changes lifecycle stage
         /// </summary>
         /// <param name="processResult"></param>
-        void StatusChanged(ProcessResult processResult);
+        Task StatusChanged(ProcessResult processResult);
+
+        //Task StatusChangedAsync(ProcessResult processResult);
     }
 }

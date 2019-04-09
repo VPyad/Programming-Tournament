@@ -21,7 +21,7 @@ namespace ProcessManagmentUnitTests
             processManager = new ProcessManager(this);
         }
 
-        public void StatusChanged(ProcessResult processResult)
+        public async Task StatusChanged(ProcessResult processResult)
         {
             actualProcessResult = processResult;
         }

@@ -27,6 +27,8 @@ namespace Programming_Tournament.Models.Domain.Tournaments
 
         public string InputFilePath { get; set; }
 
+        public string ExpectedFilePath { get; set; }
+
         public ApplicationUser Owner { get; set; }
 
         public ICollection<SupportedProgrammingLanguage> SupportedLanguages { get; set; }

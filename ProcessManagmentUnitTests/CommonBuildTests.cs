@@ -25,7 +25,7 @@ namespace ProcessManagmentUnitTests
             buildStatuses = new List<BuildStatus>();
         }
 
-        public void StatusChanged(ProcessResult processResult)
+        public async Task StatusChanged(ProcessResult processResult)
         {
             actualProcessResult = processResult;
             buildStatuses.Add(actualProcessResult.Status);
