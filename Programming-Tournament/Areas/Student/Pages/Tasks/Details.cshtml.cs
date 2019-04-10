@@ -19,6 +19,7 @@ using Programming_Tournament.Data;
 using Programming_Tournament.Data.Managers;
 using Programming_Tournament.Data.Repositories.Tournaments;
 using Programming_Tournament.Data.Repositories.TournamentTasks;
+using Programming_Tournament.Helpers;
 using Programming_Tournament.Models.Domain.Tournaments;
 using Programming_Tournament.Utility.CustomValidators;
 
@@ -27,14 +28,12 @@ namespace Programming_Tournament.Areas.Student.Pages.Tasks
     [Authorize(Roles = "Admin,Lecturer,Student")]
     public class DetailsModel : PageModel, IProcessStatusChanged
     {
-        private ApplicationDbContext context;
-        private TournamentTaskRepository taskRepository;
-        private TournamentRepository tournamentRepository;
+        private readonly ApplicationDbContext context;
+        private readonly TournamentTaskRepository taskRepository;
+        private readonly TournamentRepository tournamentRepository;
         private readonly ProcessManager processManager;
         private readonly StorageManager storageManager;
-
-        private bool waitProcessTask = false;
-        private int taskId = -1;
+        private readonly ProcessResultHelper processResultHelper;
 
         public StudentTaskDetailsViewModel DetailsViewModel { get; set; }
 
@@ -46,8 +45,10 @@ namespace Programming_Tournament.Areas.Student.Pages.Tasks
             this.context = context;
             taskRepository = new TournamentTaskRepository(this.context);
             tournamentRepository = new TournamentRepository(this.context);
+
             processManager = new ProcessManager(this);
             storageManager = new StorageManager();
+            processResultHelper = new ProcessResultHelper();
         }
 
         public IActionResult OnGet(int? id)
@@ -130,17 +131,11 @@ namespace Programming_Tournament.Areas.Student.Pages.Tasks
                     Language = lang
                 };
 
-                waitProcessTask = true;
-
-                int timeout = 3500;
-                var processTask = processManager.ProcessTask(processCondition);
-
-                await Task.WhenAny(processTask, Task.Delay(timeout));
-                waitProcessTask = false;
+                await processManager.ProcessTask(processCondition);
+                var result = processManager.RetrieveProcessResult(processConditionId);
+                ProcessResult(result, task, assignee);
             }
 
-            Debug.WriteLine("!!!EXITED ON_POST!!!");
-            taskId = id.Value;
             return OnGet(id);
         }
 
@@ -149,43 +144,34 @@ namespace Programming_Tournament.Areas.Student.Pages.Tasks
             if (string.IsNullOrEmpty(filePath))
                 return NotFound();
 
+            var fileName = Path.GetFileName(filePath);
+
             byte[] fileBytes = System.IO.File.ReadAllBytes(filePath);
-            return File(fileBytes, "text/plain", "input.txt");
+            return File(fileBytes, "text/plain", filePath);
         }
 
-        public async Task StatusChanged(ProcessResult processResult)
+        public async Task StatusChanged(ProcessResult processResult) { }
+
+        private void ProcessResult(ProcessResult processResult, TournamentTask task, TournamentTaskAssignment assignee)
         {
-            Debug.WriteLine("!!!ENTERED STATUS_CHANGED!!!");
-            Debug.WriteLine($"!!!WAIT PROCESS TASK: {waitProcessTask}!!!");
-            if (waitProcessTask)
-                return;
-
-            Debug.WriteLine("!!!WAITING STATUS_CHANGED!!!");
-            int delay = 2000;
-            await Task.Delay(delay);
-
-            Debug.WriteLine("!!!CALLING ON_GET!!!");
-            Debug.WriteLine($"!!!TASK ID: {taskId}!!!");
-
             if (processResult.State == ProcessState.Completed && processResult.Status == BuildStatus.Complete)
             {
-                // success
-                // TODO:
-                // 1. attempts++
-                // 2. compare output.txt and expected.txt
-                // 3. set isPassed based on output.txt == expected.txt
-                // get and update task
+                assignee.Attempts += 1;
+                bool isEqual = storageManager.CompareFiles(task.InputFilePath, processResult.OutputFilePath);
+                assignee.IsPassed = isEqual;
+                taskRepository.Update(task);
             }
             else if (processResult.State == ProcessState.Error)
             {
-                // error
-                // TODO:
-                // 1. check Error, if it is user error -> attempts++
-                // 2. set isPassed = false
-                // get and update task
-            }
+                var errorType = processResultHelper.GetErrorType(processResult.Error);
 
-            OnGet(taskId);
+                if (errorType == ProceesResultErrorType.Unknown || errorType == ProceesResultErrorType.Internal)
+                    return;
+
+                assignee.Attempts += 1;
+                assignee.IsPassed = false;
+                taskRepository.Update(task);
+            }
         }
 
         private string GetFileExt(string code)
