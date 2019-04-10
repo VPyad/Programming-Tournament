@@ -81,5 +81,19 @@ namespace Programming_Tournament.Data.Managers
 
             return isEqual;
         }
+
+        public string GetSrcFilePath(string workDir)
+        {
+            string path = "";
+
+            if (string.IsNullOrEmpty(workDir))
+                return path;
+
+            var dir = Directory.GetFiles(workDir);
+            if (dir.Any(x => x.Contains("program")))
+                path = dir.FirstOrDefault(x => x.Contains("program"));
+
+            return path;
+        }
     }
 }

@@ -64,6 +64,26 @@ namespace Programming_Tournament.Areas.Student.Pages.Tasks
             DetailsViewModel = new StudentTaskDetailsViewModel(task, userId);
             InputViewModel = new StudentTaskInputViewModel(task.SupportedLanguages);
 
+
+            var assignee = task.Assignees.FirstOrDefault(x => x.User.Id == userId);
+            
+            DetailsViewModel.SrcFilePath = storageManager.GetSrcFilePath(assignee.WorkDir);
+
+            if (!string.IsNullOrEmpty(assignee.ProcessResultId))
+            {
+                var result = processManager.RetrieveProcessResult(assignee.ProcessResultId);
+                if (result != null)
+                {
+                    DetailsViewModel.OutputFilePath = result.OutputFilePath;
+                    DetailsViewModel.LogFilePath = result.LogFilePath;
+
+                    var resultsText = processResultHelper.GetResultsTexts(result);
+                    DetailsViewModel.ResultText = resultsText.Item1;
+                    DetailsViewModel.ErrorText = resultsText.Item2;
+                    DetailsViewModel.ErrorDesc = resultsText.Item3;
+                }
+            }
+
             return Page();
         }
 
@@ -147,7 +167,7 @@ namespace Programming_Tournament.Areas.Student.Pages.Tasks
             var fileName = Path.GetFileName(filePath);
 
             byte[] fileBytes = System.IO.File.ReadAllBytes(filePath);
-            return File(fileBytes, "text/plain", filePath);
+            return File(fileBytes, "text/plain", fileName);
         }
 
         public async Task StatusChanged(ProcessResult processResult) { }
@@ -157,6 +177,7 @@ namespace Programming_Tournament.Areas.Student.Pages.Tasks
             if (processResult.State == ProcessState.Completed && processResult.Status == BuildStatus.Complete)
             {
                 assignee.Attempts += 1;
+                assignee.LastAttemptedAt = DateTime.Now;
                 bool isEqual = storageManager.CompareFiles(task.InputFilePath, processResult.OutputFilePath);
                 assignee.IsPassed = isEqual;
                 taskRepository.Update(task);
@@ -169,6 +190,7 @@ namespace Programming_Tournament.Areas.Student.Pages.Tasks
                     return;
 
                 assignee.Attempts += 1;
+                assignee.LastAttemptedAt = DateTime.Now;
                 assignee.IsPassed = false;
                 taskRepository.Update(task);
             }
@@ -225,11 +247,6 @@ namespace Programming_Tournament.Areas.Student.Pages.Tasks
                     Passed = assignee.IsPassed;
                     Attempts = assignee.Attempts;
                     LastAttempt = assignee.LastAttemptedAt;
-
-                    if (assignee.IsPassed)
-                    {
-                        // TODO: retrieve task data from processManager
-                    }
                 }
             }
 
@@ -277,20 +294,31 @@ namespace Programming_Tournament.Areas.Student.Pages.Tasks
         [Display(Name = "Last attempt")]
         public string LastAttemptText => LastAttempt == DateTime.MinValue ? "Never" : LastAttempt.ToLongDateString();
 
-        public bool OutputFileAvailable { get; set; } = false;
+        public bool OutputFileAvailable => !string.IsNullOrEmpty(OutputFilePath);
 
         [Display(Name = "Output file")]
         public string OutputFilePath { get; set; }
 
-        public bool SrcFileAvailable { get; set; } = false;
+        public bool SrcFileAvailable => !string.IsNullOrEmpty(SrcFilePath);
 
         [Display(Name = "Src file")]
         public string SrcFilePath { get; set; }
 
-        public bool LogFileAvailable { get; set; } = false;
+        public bool LogFileAvailable => !string.IsNullOrEmpty(LogFilePath);
 
         [Display(Name = "Log file")]
         public string LogFilePath { get; set; }
+
+        [Display(Name = "Result")]
+        [DataType(DataType.MultilineText)]
+        public string ResultText { get; set; }
+
+        [Display(Name = "Error")]
+        public string ErrorText { get; set; }
+
+        [Display(Name = "Error description")]
+        [DataType(DataType.MultilineText)]
+        public string ErrorDesc { get; set; }
 
         private void InitBaseFields(TournamentTask task)
         {
@@ -335,7 +363,5 @@ namespace Programming_Tournament.Areas.Student.Pages.Tasks
 
         [DisplayName("Select src file")]
         public IFormFile SrcFile { get; set; }
-
-        public string Test { get; set; }
     }
 }

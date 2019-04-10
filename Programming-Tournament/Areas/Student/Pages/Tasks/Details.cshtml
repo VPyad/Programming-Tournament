@@ -119,7 +119,7 @@
             {
                 <dd>
                     <form method="post">
-                        <button asp-page-handler="FileDownload" asp-route-filePath="@Model.DetailsViewModel.LogFileAvailable" type="submit" class="btn btn-default">Download</button>
+                        <button asp-page-handler="FileDownload" asp-route-filePath="@Model.DetailsViewModel.LogFilePath" type="submit" class="btn btn-default">Download</button>
                     </form>
                 </dd>
             }
@@ -149,6 +149,27 @@
 </div>
 
 <div class="row">
+    <div class="col-md-5">
+        <dl>
+            <dt>@Html.DisplayNameFor(x=>x.DetailsViewModel.ResultText)</dt>
+            <dd>@Html.DisplayFor(x=>x.DetailsViewModel.ResultText)</dd>
+        </dl>
+    </div>
+    <div class="col-md-2">
+        <dl>
+            <dt>@Html.DisplayNameFor(x => x.DetailsViewModel.ErrorText)</dt>
+            <dd>@Html.DisplayFor(x => x.DetailsViewModel.ErrorText)</dd>
+        </dl>
+    </div>
+    <div class="col-md-5">
+        <dl>
+            <dt>@Html.DisplayNameFor(x => x.DetailsViewModel.ErrorDesc)</dt>
+            <dd>@Html.DisplayFor(x => x.DetailsViewModel.ErrorDesc)</dd>
+        </dl>
+    </div>
+</div>
+
+<div class="row">
     <form method="post" enctype="multipart/form-data">
         <div asp-validation-summary="All" class="text-danger"></div>
         <input asp-for="InputViewModel.SrcFilePath" hidden id="inputFilePath" />
@@ -161,11 +182,17 @@
             <label asp-for="InputViewModel.SrcFile"></label>
             <input type="file" id="fileInputControl" asp-for="InputViewModel.SrcFile" />
         </div>
-        <div class="col-md-2">
+        <div class="col-md-1">
             <button type="submit" asp-route-id="@Model.DetailsViewModel.Id" asp-page-handler="Submit" class="btn btn-primary" style="margin-top:10pt;">Submit</button>
+        </div>
+        <div class="col-md-5">
+            <div class="alert alert-info" role="alert">
+                After submitting programm file, please do not reload page or submit new file. Wait till result.
+            </div>
         </div>
     </form>
 </div>
+
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />

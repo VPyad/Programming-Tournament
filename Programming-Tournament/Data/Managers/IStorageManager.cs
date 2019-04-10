@@ -20,5 +20,7 @@ namespace Programming_Tournament.Data.Managers
         string CreateInputFileInWorkDir(string workDir);
 
         bool CompareFiles(string exptectedFilePath, string outputFilePath);
+
+        string GetSrcFilePath(string workDir);
     }
 }
