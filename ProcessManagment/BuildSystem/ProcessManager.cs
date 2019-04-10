@@ -24,6 +24,8 @@ namespace ProcessManagment.BuildSystem
 
         public ProcessResult RetrieveProcessResult(string conditionId) => FilesHelper.FindProcessResult(conditionId);
 
+        public static ProcessResult GetProcessResult(string conditionId) => FilesHelper.FindProcessResult(conditionId);
+
         public void RemoveProcessResult(string conditionId) => FilesHelper.RemoveProcessResult(conditionId);
 
         public async Task ProcessTask(ProcessCondition processCondition)

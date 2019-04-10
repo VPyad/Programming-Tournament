@@ -104,7 +104,7 @@
             @foreach (var item in Model.ViewModel.Students)
             {
                 <tr>
-                    <td>@item.FullName</td>
+                    <td><a asp-page="./Result" asp-route-id="@item.Id">@item.FullName</a></td>
                     <td>@item.PassedText</td>
                     <td>@item.LastAttemptAtText</td>
                 </tr>
