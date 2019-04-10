@@ -1,0 +1,110 @@
+﻿@page "{id}"
+@model ResultModel
+@using Programming_Tournament.Areas.Lecturer.Pages.Tasks
+@{
+}
+
+<h2>Results</h2>
+
+<div class="row">
+    <div class="col-md-1">
+        <dl>
+            <dt>@Html.DisplayNameFor(x => x.ViewModel.PassedText)</dt>
+            <dd>@Html.DisplayFor(x => x.ViewModel.PassedText)</dd>
+        </dl>
+    </div>
+    <div class="col-md-1">
+        <dl>
+            <dt>@Html.DisplayNameFor(x => x.ViewModel.Attempts)</dt>
+            <dd>@Html.DisplayFor(x => x.ViewModel.Attempts)</dd>
+        </dl>
+    </div>
+    <div class="col-md-2">
+        <dl>
+            <dt>@Html.DisplayNameFor(x => x.ViewModel.LangName)</dt>
+            <dd>@Html.DisplayFor(x => x.ViewModel.LangName)</dd>
+        </dl>
+    </div>
+    <div class="col-md-2">
+        <dl>
+            <dt>@Html.DisplayNameFor(x => x.ViewModel.LastAttemptText)</dt>
+            <dd>@Html.DisplayFor(x => x.ViewModel.LastAttemptText)</dd>
+        </dl>
+    </div>
+    <div class="col-md-2">
+        <dl>
+            <dt>@Html.DisplayNameFor(x => x.ViewModel.OutputFilePath)</dt>
+            @if (Model.ViewModel.OutputFileAvailable)
+            {
+                <dd>
+                    <form method="post">
+                        <button asp-page-handler="FileDownload" asp-route-filePath="@Model.ViewModel.OutputFilePath" type="submit" class="btn btn-default">Download</button>
+                    </form>
+                </dd>
+            }
+            else
+            {
+                <dd>N/A</dd>
+            }
+        </dl>
+    </div>
+    <div class="col-md-2">
+        <dl>
+            <dt>@Html.DisplayNameFor(x => x.ViewModel.LogFilePath)</dt>
+            @if (Model.ViewModel.LogFileAvailable)
+            {
+                <dd>
+                    <form method="post">
+                        <button asp-page-handler="FileDownload" asp-route-filePath="@Model.ViewModel.LogFilePath" type="submit" class="btn btn-default">Download</button>
+                    </form>
+                </dd>
+            }
+            else
+            {
+                <dd>N/A</dd>
+            }
+        </dl>
+    </div>
+    <div class="col-md-2">
+        <dl>
+            <dt>@Html.DisplayNameFor(x => x.ViewModel.SrcFilePath)</dt>
+            @if (Model.ViewModel.SrcFileAvailable)
+            {
+                <dd>
+                    <form method="post">
+                        <button asp-page-handler="FileDownload" asp-route-filePath="@Model.ViewModel.SrcFilePath" type="submit" class="btn btn-default">Download</button>
+                    </form>
+                </dd>
+            }
+            else
+            {
+                <dd>N/A</dd>
+            }
+        </dl>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-5">
+        <dl>
+            <dt>@Html.DisplayNameFor(x => x.ViewModel.ResultText)</dt>
+            <dd>@Html.DisplayFor(x => x.ViewModel.ResultText)</dd>
+        </dl>
+    </div>
+    <div class="col-md-2">
+        <dl>
+            <dt>@Html.DisplayNameFor(x => x.ViewModel.ErrorText)</dt>
+            <dd>@Html.DisplayFor(x => x.ViewModel.ErrorText)</dd>
+        </dl>
+    </div>
+    <div class="col-md-5">
+        <dl>
+            <dt>@Html.DisplayNameFor(x => x.ViewModel.ErrorDesc)</dt>
+            <dd>@Html.DisplayFor(x => x.ViewModel.ErrorDesc)</dd>
+        </dl>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
