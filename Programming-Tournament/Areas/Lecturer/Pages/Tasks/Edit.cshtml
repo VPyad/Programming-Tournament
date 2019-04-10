@@ -19,48 +19,37 @@
             <dd>@Html.DisplayFor(x => x.ViewModel.LecturerName)</dd>
         </dl>
     </div>
-    <div class="col-md-4">
-        <dl>
-            <dt><label>Was file uploaded</label></dt>
-            @if (!Model.ViewModel.WasFileUploaded)
-            {
-                <dd>@Html.DisplayFor(x => x.ViewModel.WasFileUploadedText)</dd>
-            }
-            else
-            {
-                <dd>
-                    <form method="post">
-                        <button asp-page-handler="FileDownload" asp-route-filePath="@Model.ViewModel.InputFileSrc" asp-route-id="@Model.ViewModel.Id" type="submit" class="btn btn-default">Download</button>
-                    </form>
-                </dd>
-            }
-        </dl>
-    </div>
 </div>
 
 <form method="post" enctype="multipart/form-data">
     <div class=" row">
         <div asp-validation-summary="All" class="text-danger"></div>
-        <input asp-for="ViewModel.InputFileSrc" hidden id="inputFileSrc" />
+        <input asp-for="ViewModel.InputFilePath" hidden id="inputFilePath" />
+        <input asp-for="ViewModel.ExpectedFilePath" hidden id="expectedFilePath" />
         <div class="col-md-3 form-group">
             <label asp-for="ViewModel.Name"></label>
             <input asp-for="ViewModel.Name" class="form-control" />
             <span asp-validation-for="ViewModel.Name" class="text-danger"></span>
         </div>
-        <div class="col-md-4 form-group">
+        <div class="col-md-3 form-group">
             <label asp-for="ViewModel.DueDate"></label>
             <input asp-for="ViewModel.DueDate" class="form-control" />
             <span asp-validation-for="ViewModel.DueDate" class="text-danger"></span>
         </div>
-        <div class="col-md-2 form-group">
+        <div class="col-md-1 form-group">
             <label asp-for="ViewModel.MaxAttempts"></label>
             <input asp-for="ViewModel.MaxAttempts" class="form-control" />
             <span asp-validation-for="ViewModel.MaxAttempts" class="text-danger"></span>
         </div>
         <div class="col-md-2 form-group">
             <label asp-for="ViewModel.InputFileUpload"></label>
-            <input type="file" accept=".txt" id="fileInputControl" asp-for="ViewModel.InputFileUpload" />
+            <input type="file" accept=".txt" id="inputFileInputControl" asp-for="ViewModel.InputFileUpload" />
             <span asp-validation-for="ViewModel.InputFileUpload" class="text-danger"></span>
+        </div>
+        <div class="col-md-2 form-group">
+            <label asp-for="ViewModel.ExpectedFileUpload"></label>
+            <input type="file" accept=".txt" id="expectedFileInputControl" asp-for="ViewModel.ExpectedFileUpload" />
+            <span asp-validation-for="ViewModel.ExpectedFileUpload" class="text-danger"></span>
         </div>
     </div>
     <div class="row">
@@ -88,11 +77,16 @@
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
     <script type="text/javascript">
-        function handleFileInput() {
-            var value = $("#fileInputControl").val();
-            $("#inputFileSrc")[0].value = value;
+        function handleInputFileInput() {
+            var value = $("#inputFileInputControl").val();
+            $("#inputFilePath")[0].value = value;
+        }
+        function handleExpectedFileInput() {
+            var value = $("#expectedFileInputControl").val();
+            $("#expectedFilePath")[0].value = value;
         }
 
-        document.getElementById("fileInputControl").addEventListener("change", handleFileInput, true);
+        document.getElementById("inputFileInputControl").addEventListener("change", handleInputFileInput, true);
+        document.getElementById("expectedFileInputControl").addEventListener("change", handleExpectedFileInput, true);
     </script>
 }

@@ -1,0 +1,31 @@
+﻿@page
+@model IndexModel
+@using Programming_Tournament.Areas.Student.Pages.Tournaments
+@{
+}
+
+<h2>Tournaments</h2>
+
+<div class="row">
+    <table class="table">
+        <tr>
+            <th>Name</th>
+            <th>Lecturer</th>
+            <th><a asp-page="./Index" asp-route-sortState="@(Model.ViewModel.SortViewModel.DueDate)">Due date</a></th>
+            <th><a asp-page="./Index" asp-route-sortState="@(Model.ViewModel.SortViewModel.DueDate)">Status</a></th>
+        </tr>
+        @foreach (var item in Model.ViewModel.Tournaments)
+        {
+        <tr>
+            <td><a asp-page="./Details" asp-route-id="@item.Id">@item.Name</a></td>
+            <td>@item.LecturerFullName</td>
+            <td>@item.DueDate</td>
+            <td>@item.Status</td>
+        </tr>
+        }
+    </table>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

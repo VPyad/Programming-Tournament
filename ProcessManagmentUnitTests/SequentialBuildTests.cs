@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace ProcessManagmentUnitTests
 {
@@ -34,7 +35,7 @@ namespace ProcessManagmentUnitTests
             processManager = new ProcessManager(this);
         }
 
-        public void StatusChanged(ProcessResult processResult)
+        public async Task StatusChanged(ProcessResult processResult)
         {
             if (processResult.Condition.Id == idCSharp && processResult.State == ProcessState.Error && processResult.Status == BuildStatus.Execution)
             {

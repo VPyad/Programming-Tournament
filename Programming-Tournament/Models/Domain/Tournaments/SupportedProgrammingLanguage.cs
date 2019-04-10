@@ -16,17 +16,29 @@ namespace Programming_Tournament.Models.Domain.Tournaments
 
         public string Code { get; set; }
 
-        public static SupportedLanguage Map(string code)
+        public static SupportedLanguage Map(string code, out bool success)
         {
-            throw new NotImplementedException();
-        }
-
-        public static SupportedLanguage Map(SupportedProgrammingLanguage language)
-        {
-            if (language == null)
-                throw new NullReferenceException();
-
-            return Map(language.Code);
+            success = true;
+            switch (code)
+            {
+                case "C":
+                    return SupportedLanguage.C;
+                case "CPP":
+                    return SupportedLanguage.CPP;
+                case "Java":
+                    return SupportedLanguage.Java;
+                case "CSharp":
+                    return SupportedLanguage.CSharp;
+                case "FreePascal":
+                    return SupportedLanguage.FreePascal;
+                case "Delphi":
+                    return SupportedLanguage.Delphi;
+                case "ObjPascal":
+                    return SupportedLanguage.ObjPascal;
+                default:
+                    success = false;
+                    return SupportedLanguage.C;
+            }
         }
     }
 }

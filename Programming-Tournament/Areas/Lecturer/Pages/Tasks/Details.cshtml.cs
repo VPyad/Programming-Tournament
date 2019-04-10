@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
@@ -45,9 +46,10 @@ namespace Programming_Tournament.Areas.Lecturer.Pages.Tasks
                 CreatedAt = task.CreatedAt,
                 LecturerFullName = task.Owner.FirstName + " " + task.Owner.SecondName,
                 Name = task.Name,
-                InputFileSrc = task.InputFilePath,
+                InputFilePath = task.InputFilePath,
                 MaxAttempts = task.MaxAttempt,
-                Langs = task.SupportedLanguages
+                Langs = task.SupportedLanguages,
+                ExpectedFilePath = task.ExpectedFilePath
             };
 
             List<AssigneesViewModel> assignees = new List<AssigneesViewModel>();
@@ -71,13 +73,15 @@ namespace Programming_Tournament.Areas.Lecturer.Pages.Tasks
             return Page();
         }
 
-        public IActionResult OnPostFileDownload(int? id, string filePath)
+        public IActionResult OnPostFileDownload(string filePath)
         {
-            if (!id.HasValue || string.IsNullOrEmpty(filePath))
+            if (string.IsNullOrEmpty(filePath))
                 return NotFound();
 
+            var fileName = Path.GetFileName(filePath);
+
             byte[] fileBytes = System.IO.File.ReadAllBytes(filePath);
-            return File(fileBytes, "text/plain", "input.txt");
+            return File(fileBytes, "text/plain", fileName);
         }
     }
 
@@ -91,8 +95,11 @@ namespace Programming_Tournament.Areas.Lecturer.Pages.Tasks
         [DisplayName("Lecturer name")]
         public string LecturerFullName { get; set; }
 
-        [DisplayName("Isnput file")]
-        public string InputFileSrc { get; set; }
+        [DisplayName("Input file")]
+        public string InputFilePath { get; set; }
+
+        [DisplayName("Expected file")]
+        public string ExpectedFilePath { get; set; }
 
         [DisplayName("End date")]
         public DateTime DueDate { get; set; }
@@ -113,7 +120,9 @@ namespace Programming_Tournament.Areas.Lecturer.Pages.Tasks
         [DisplayName("Students")]
         public IEnumerable<AssigneesViewModel> Students { get; set; }
 
-        public bool WasFileUploaded => !string.IsNullOrEmpty(InputFileSrc);
+        public bool WasInputFileUploaded => !string.IsNullOrEmpty(InputFilePath);
+
+        public bool WasExpectedFileUploaded => !string.IsNullOrEmpty(ExpectedFilePath);
     }
 
     public class AssigneesViewModel

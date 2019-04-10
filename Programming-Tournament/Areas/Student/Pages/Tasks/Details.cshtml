@@ -1,0 +1,242 @@
+﻿@page "{id}"
+@model DetailsModel
+@using Programming_Tournament.Areas.Student.Pages.Tasks
+@{
+}
+
+<h2>Details</h2>
+
+<div class="row">
+    <div class="col-md-4">
+        <dl>
+            <dt>@Html.DisplayNameFor(x => x.DetailsViewModel.Name)</dt>
+            <dd>@Html.DisplayFor(x => x.DetailsViewModel.Name)</dd>
+        </dl>
+    </div>
+    <div class="col-md-2">
+        <dl>
+            <dt>@Html.DisplayNameFor(x => x.DetailsViewModel.LecturerFullName)</dt>
+            <dd>@Html.DisplayFor(x => x.DetailsViewModel.LecturerFullName)</dd>
+        </dl>
+    </div>
+    <div class="col-md-3">
+        <dl>
+            <dt>@Html.DisplayNameFor(x => x.DetailsViewModel.DueDate)</dt>
+            <dd>@Html.DisplayFor(x => x.DetailsViewModel.DueDate)</dd>
+        </dl>
+    </div>
+    <div class="col-md-3">
+        <dl>
+            <dt>@Html.DisplayNameFor(x => x.DetailsViewModel.CreatedAt)</dt>
+            <dd>@Html.DisplayFor(x => x.DetailsViewModel.CreatedAt)</dd>
+        </dl>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-2">
+        <dl>
+            <dt>@Html.DisplayNameFor(x => x.DetailsViewModel.MaxAttemptsText)</dt>
+            <dd>@Html.DisplayFor(x => x.DetailsViewModel.MaxAttemptsText)</dd>
+        </dl>
+    </div>
+    <div class="col-md-2">
+        <dl>
+            <dt>@Html.DisplayNameFor(x => x.DetailsViewModel.InputFilePath)</dt>
+            <dd>
+                <form method="post">
+                    <button asp-page-handler="FileDownload" asp-route-filePath="@Model.DetailsViewModel.InputFilePath" type="submit" class="btn btn-default">Download</button>
+                </form>
+            </dd>
+        </dl>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <dl>
+            <dt>@Html.DisplayNameFor(x => x.DetailsViewModel.Desc)</dt>
+            <dd>@Html.DisplayFor(x => x.DetailsViewModel.Desc)</dd>
+        </dl>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-3">
+        <h4>Available programming langs.</h4>
+        <table class="table">
+            <tr><th>Name</th></tr>
+            @foreach (var item in Model.DetailsViewModel.Langs)
+            {
+                <tr>
+                    <td>@item.Name</td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-2">
+        <dl>
+            <dt>@Html.DisplayNameFor(x => x.DetailsViewModel.PassedText)</dt>
+            <dd>@Html.DisplayFor(x => x.DetailsViewModel.PassedText)</dd>
+        </dl>
+    </div>
+    <div class="col-md-2">
+        <dl>
+            <dt>@Html.DisplayNameFor(x => x.DetailsViewModel.Attempts)</dt>
+            <dd>@Html.DisplayFor(x => x.DetailsViewModel.Attempts)</dd>
+        </dl>
+    </div>
+    <div class="col-md-2">
+        <dl>
+            <dt>@Html.DisplayNameFor(x => x.DetailsViewModel.LastAttemptText)</dt>
+            <dd>@Html.DisplayFor(x => x.DetailsViewModel.LastAttemptText)</dd>
+        </dl>
+    </div>
+    <div class="col-md-2">
+        <dl>
+            <dt>@Html.DisplayNameFor(x => x.DetailsViewModel.OutputFilePath)</dt>
+            @if (Model.DetailsViewModel.OutputFileAvailable)
+            {
+                <dd>
+                    <form method="post">
+                        <button asp-page-handler="FileDownload" asp-route-filePath="@Model.DetailsViewModel.OutputFilePath" type="submit" class="btn btn-default">Download</button>
+                    </form>
+                </dd>
+            }
+            else
+            {
+                <dd>N/A</dd>
+            }
+        </dl>
+    </div>
+    <div class="col-md-2">
+        <dl>
+            <dt>@Html.DisplayNameFor(x => x.DetailsViewModel.LogFilePath)</dt>
+            @if (Model.DetailsViewModel.LogFileAvailable)
+            {
+                <dd>
+                    <form method="post">
+                        <button asp-page-handler="FileDownload" asp-route-filePath="@Model.DetailsViewModel.LogFilePath" type="submit" class="btn btn-default">Download</button>
+                    </form>
+                </dd>
+            }
+            else
+            {
+                <dd>N/A</dd>
+            }
+        </dl>
+    </div>
+    <div class="col-md-2">
+        <dl>
+            <dt>@Html.DisplayNameFor(x => x.DetailsViewModel.SrcFilePath)</dt>
+            @if (Model.DetailsViewModel.SrcFileAvailable)
+            {
+                <dd>
+                    <form method="post">
+                        <button asp-page-handler="FileDownload" asp-route-filePath="@Model.DetailsViewModel.SrcFilePath" type="submit" class="btn btn-default">Download</button>
+                    </form>
+                </dd>
+            }
+            else
+            {
+                <dd>N/A</dd>
+            }
+        </dl>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-5">
+        <dl>
+            <dt>@Html.DisplayNameFor(x=>x.DetailsViewModel.ResultText)</dt>
+            <dd>@Html.DisplayFor(x=>x.DetailsViewModel.ResultText)</dd>
+        </dl>
+    </div>
+    <div class="col-md-2">
+        <dl>
+            <dt>@Html.DisplayNameFor(x => x.DetailsViewModel.ErrorText)</dt>
+            <dd>@Html.DisplayFor(x => x.DetailsViewModel.ErrorText)</dd>
+        </dl>
+    </div>
+    <div class="col-md-5">
+        <dl>
+            <dt>@Html.DisplayNameFor(x => x.DetailsViewModel.ErrorDesc)</dt>
+            <dd>@Html.DisplayFor(x => x.DetailsViewModel.ErrorDesc)</dd>
+        </dl>
+    </div>
+</div>
+
+<div class="row">
+    <form method="post" enctype="multipart/form-data">
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <input asp-for="InputViewModel.SrcFilePath" hidden id="inputFilePath" />
+        <input asp-for="InputViewModel.LangCode" hidden id="langCode" />
+        <div class="col-md-3">
+            <label asp-for="InputViewModel.LanguageSelectList"></label>
+            <select asp-items="@Model.InputViewModel.LanguageSelectList" id="langSelect"></select>
+        </div>
+        <div class="col-md-3">
+            <label asp-for="InputViewModel.SrcFile"></label>
+            <input type="file" id="fileInputControl" asp-for="InputViewModel.SrcFile" />
+        </div>
+        <div class="col-md-1">
+            <button type="submit" asp-route-id="@Model.DetailsViewModel.Id" asp-page-handler="Submit" class="btn btn-primary" style="margin-top:10pt;">Submit</button>
+        </div>
+        <div class="col-md-5">
+            <div class="alert alert-info" role="alert">
+                After submitting programm file, please do not reload page or submit new file. Wait till result.
+            </div>
+        </div>
+    </form>
+</div>
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script type="text/javascript">
+        function handleFileInput() {
+            var value = $("#fileInputControl").val();
+            $("#inputFilePath")[0].value = value;
+        }
+
+        function handleLangSelect() {
+            var code = $("#langSelect").val();
+            var ext = "";
+
+            switch (code) {
+                case "C":
+                    ext = "c";
+                    break;
+                case "CPP":
+                    ext = "cpp";
+                    break;
+                case "Java":
+                    ext = "java";
+                    break;
+                case "CSharp":
+                    ext = "cs";
+                    break;
+                case "FreePascal":
+                    ext = "pas";
+                    break;
+                case "Delphi":
+                    ext = "pas";
+                    break;
+                case "ObjPascal":
+                    ext = "pas";
+                    break;
+            }
+
+            $("#langCode")[0].value = code;
+            document.getElementById("fileInputControl").accept = "." + ext;
+        }
+
+        document.getElementById("fileInputControl").addEventListener("change", handleFileInput, true);
+        document.getElementById("langSelect").addEventListener("change", handleLangSelect, true);
+
+        $(document).ready(function () { handleLangSelect() })
+    </script>
+}

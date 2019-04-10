@@ -20,7 +20,7 @@ namespace Programming_Tournament.Data.Repositories.Tournaments
         /// <returns></returns>
         public IEnumerable<Tournament> GetTournaments(int p, int size)
         {
-            IQueryable<Tournament> tournaments = GetQuery();
+            IQueryable<Tournament> tournaments = GetLecturerQuery();
 
             var items = Paginate(tournaments, p, size);
 
@@ -36,7 +36,7 @@ namespace Programming_Tournament.Data.Repositories.Tournaments
         /// <returns></returns>
         public IEnumerable<Tournament> GetTournaments(int p, int size, TournamentSortState sortState)
         {
-            IQueryable<Tournament> tournaments = GetQuery();
+            IQueryable<Tournament> tournaments = GetLecturerQuery();
             tournaments = ApplySort(tournaments, sortState);
 
             var items = Paginate(tournaments, p, size);
@@ -44,9 +44,19 @@ namespace Programming_Tournament.Data.Repositories.Tournaments
             return items;
         }
 
+        public IEnumerable<Tournament> GetActiveStudentTournament(string userId, TournamentSortState sortState)
+        {
+            IQueryable<Tournament> tournaments = GetStudentQuery(userId);
+
+            tournaments = tournaments.Where(x => x.Status == TournamentStatus.Active || x.Status == TournamentStatus.Completed);
+            tournaments = ApplySort(tournaments, sortState);
+
+            return tournaments.ToList();
+        }
+
         public IEnumerable<Tournament> GetTournaments(string userId, int p, int size)
         {
-            IQueryable<Tournament> tournaments = GetQuery(userId);
+            IQueryable<Tournament> tournaments = GetLecturerQuery(userId);
 
             var items = Paginate(tournaments, p, size);
 
@@ -55,7 +65,7 @@ namespace Programming_Tournament.Data.Repositories.Tournaments
 
         public IEnumerable<Tournament> GetTournaments(string userId, int p, int size, TournamentSortState sortState)
         {
-            IQueryable<Tournament> tournaments = GetQuery(userId);
+            IQueryable<Tournament> tournaments = GetLecturerQuery(userId);
             tournaments = ApplySort(tournaments, sortState);
 
             var items = Paginate(tournaments, p, size);
@@ -68,7 +78,7 @@ namespace Programming_Tournament.Data.Repositories.Tournaments
             var tournament = context.Tournaments.Where(x => x.TournamentId == id)
                 .Include(x => x.Owner)
                 .Include(x => x.Assignees).ThenInclude(x => x.ApplicationUser)
-                .Include(x => x.Tasks)
+                .Include(x => x.Tasks).ThenInclude(x => x.Assignees).ThenInclude(x => x.User)
                 .FirstOrDefault();
 
             return tournament;
@@ -90,7 +100,7 @@ namespace Programming_Tournament.Data.Repositories.Tournaments
             return items;
         }
 
-        private IQueryable<Tournament> GetQuery(string userId)
+        private IQueryable<Tournament> GetLecturerQuery(string userId)
         {
             IQueryable<Tournament> query = context.Tournaments.Include(x => x.Owner)
                 .Where(x => x.Owner.Id == userId);
@@ -98,9 +108,29 @@ namespace Programming_Tournament.Data.Repositories.Tournaments
             return query;
         }
 
-        private IQueryable<Tournament> GetQuery()
+        private IQueryable<Tournament> GetLecturerQuery()
         {
             IQueryable<Tournament> query = context.Tournaments.Include(x => x.Owner);
+
+            return query;
+        }
+
+        private IQueryable<Tournament> GetStudentQuery(string userId)
+        {;
+
+            IQueryable<Tournament> query = GetStudentQuery();
+
+            query = query.Where(x => x.Assignees.Any(z => z.ApplicationUserId == userId));
+
+            return query;
+        }
+
+        private IQueryable<Tournament> GetStudentQuery()
+        {
+            IQueryable<Tournament> query = context.Tournaments
+                .Include(x => x.Owner)
+                .Include(x => x.Assignees)
+                .Include(x => x.Tasks).ThenInclude(x => x.Assignees).ThenInclude(x => x.User);
 
             return query;
         }

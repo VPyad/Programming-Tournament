@@ -62,7 +62,8 @@ namespace Programming_Tournament.Areas.Lecturer.Pages.Tasks
                 LecturerName = task.Owner.FirstName + " " + task.Owner.SecondName,
                 MaxAttempts = task.MaxAttempt,
                 Name = task.Name,
-                InputFileSrc = task.InputFilePath
+                InputFilePath = task.InputFilePath,
+                ExpectedFilePath = task.ExpectedFilePath
             };
 
             var tournamentStudents = userRepository.GetStudentsWithTournament(task.Tournament.TournamentId);
@@ -108,8 +109,8 @@ namespace Programming_Tournament.Areas.Lecturer.Pages.Tasks
             if (task == null)
                 return NotFound();
 
-            if (string.IsNullOrEmpty(ViewModel.InputFileSrc) && ViewModel.InputFileUpload != null)
-                ViewModel.InputFileSrc = ViewModel.InputFileUpload.ContentDisposition;
+            if (string.IsNullOrEmpty(ViewModel.InputFilePath) && ViewModel.InputFileUpload != null)
+                ViewModel.InputFilePath = ViewModel.InputFileUpload.ContentDisposition;
 
             if (!ModelState.IsValid)
                 return OnGet(id);
@@ -186,26 +187,38 @@ namespace Programming_Tournament.Areas.Lecturer.Pages.Tasks
             }
 
             // upload file
-            if (ViewModel.InputFileUpload != null)
+            StorageManager storageManager = new StorageManager();
+            TournamentRepository tournamentRepository = new TournamentRepository(context);
+
+            var tournament = tournamentRepository.GetTournamentByTask(task.TournamentTaskId);
+
+            if (ViewModel.InputFileUpload != null && ViewModel.InputFileUpload.Length != 0)
             {
-                if (ViewModel.InputFileUpload.Length != 0)
+                if (tournament != null)
                 {
-                    StorageManager storageManager = new StorageManager();
-                    TournamentRepository tournamentRepository = new TournamentRepository(context);
-
-                    var tournament = tournamentRepository.GetTournamentByTask(task.TournamentTaskId);
-
-                    if (tournament != null)
+                    var inputFilePath = storageManager.CreateInputFile(tournament.TournamentId.ToString(), task.TournamentTaskId.ToString());
+                    using (var stream = new FileStream(inputFilePath, FileMode.Create))
                     {
-                        var inputFilePath = storageManager.CreateInputFile(tournament.TournamentId.ToString(), task.TournamentTaskId.ToString());
-                        using (var stream = new FileStream(inputFilePath, FileMode.Create))
-                        {
-                            await ViewModel.InputFileUpload.CopyToAsync(stream);
-                        }
-
-                        task.InputFilePath = inputFilePath;
-                        taskRepository.Update(task);
+                        await ViewModel.InputFileUpload.CopyToAsync(stream);
                     }
+
+                    task.InputFilePath = inputFilePath;
+                    taskRepository.Update(task);
+                }
+            }
+
+            if (ViewModel.ExpectedFileUpload!= null && ViewModel.ExpectedFileUpload.Length != 0)
+            {
+                if (tournament != null)
+                {
+                    var expectedFilePath = storageManager.CreateExpectedFile(tournament.TournamentId.ToString(), task.TournamentTaskId.ToString());
+                    using (var stream = new FileStream(expectedFilePath, FileMode.Create))
+                    {
+                        await ViewModel.ExpectedFileUpload.CopyToAsync(stream);
+                    }
+
+                    task.ExpectedFilePath = expectedFilePath;
+                    taskRepository.Update(task);
                 }
             }
 
@@ -249,7 +262,7 @@ namespace Programming_Tournament.Areas.Lecturer.Pages.Tasks
         [Required]
         public DateTime DueDate { get; set; }
 
-        [DisplayName("Max attempts")]
+        [DisplayName("Attempts")]
         public int MaxAttempts { get; set; }
 
         [DisplayName("Students")]
@@ -264,7 +277,11 @@ namespace Programming_Tournament.Areas.Lecturer.Pages.Tasks
 
         [DisplayName("Select input file")]
         [Required]
-        public string InputFileSrc { get; set; }
+        public string InputFilePath { get; set; }
+
+        [DisplayName("Select expected file")]
+        [Required]
+        public string ExpectedFilePath { get; set; }
 
         [DisplayName("Description")]
         [DataType(DataType.MultilineText)]
@@ -275,9 +292,9 @@ namespace Programming_Tournament.Areas.Lecturer.Pages.Tasks
         [FileExtValidation("txt", "Incorrect file format", true)]
         public IFormFile InputFileUpload { get; set; }
 
-        public string WasFileUploadedText => string.IsNullOrEmpty(InputFileSrc) ? "No" : "Yes";
-
-        public bool WasFileUploaded => !string.IsNullOrEmpty(InputFileSrc);
+        [DisplayName("Select expected file")]
+        [FileExtValidation("txt", "Incorrect file format", true)]
+        public IFormFile ExpectedFileUpload { get; set; }
     }
 
     public class StudentViewModel
