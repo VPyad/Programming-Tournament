@@ -22,7 +22,7 @@
     <div class="col-md-2">
         <dl>
             <dt><label>Input file</label></dt>
-            @if (!Model.ViewModel.WasFileUploaded)
+            @if (!Model.ViewModel.WasInputFileUploaded)
             {
                 <dd></dd>
             }
@@ -30,7 +30,7 @@
             {
                 <dd>
                     <form method="post">
-                        <button asp-page-handler="FileDownload" asp-route-filePath="@Model.ViewModel.InputFileSrc" asp-route-id="@Model.ViewModel.Id" type="submit" class="btn btn-default">Download</button>
+                        <button asp-page-handler="FileDownload" asp-route-filePath="@Model.ViewModel.InputFilePath" type="submit" class="btn btn-default">Download</button>
                     </form>
                 </dd>
             }
@@ -58,13 +58,29 @@
 </div>
 
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-5">
         <dl>
             <dt>@Html.DisplayNameFor(x => x.ViewModel.Name)</dt>
             <dd>@Html.DisplayFor(x => x.ViewModel.Name)</dd>
         </dl>
     </div>
-    <div class="col-md-6"></div>
+    <div class="col-md-2">
+        <dl>
+            <dt><label>Expected file</label></dt>
+            @if (!Model.ViewModel.WasExpectedFileUploaded)
+            {
+                <dd></dd>
+            }
+            else
+            {
+                <dd>
+                    <form method="post">
+                        <button asp-page-handler="FileDownload" asp-route-filePath="@Model.ViewModel.ExpectedFilePath" type="submit" class="btn btn-default">Download</button>
+                    </form>
+                </dd>
+            }
+        </dl>
+    </div>
 </div>
 
 <div class="row">
