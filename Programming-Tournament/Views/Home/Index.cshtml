@@ -2,8 +2,9 @@
     ViewData["Title"] = "Home Page";
 }
 
-<h2>@ViewData["Title"]</h2>
+<h2>@SR["Home Page"]</h2>
 
-<h4>Login to use service.</h4>
-<h4>If you do not have an account — <a asp-area="Identity" asp-page="/Application/Index">submit</a> an application</h4>
-<h4>If you cannot login — <a href="mailto:admin@admin.com">contact</a> administrator.</h4>
+<h4>@SR["Login to use service."]</h4>
+<h4>
+    @SR["If you do not have an account —"] <a asp-area="Identity" asp-page="/Application/Index">@SR["submit"]</a> @SR["an application"]</h4>
+<h4>@SR["If you cannot login —"] <a href="mailto:admin@admin.com">@SR["contact"]</a> @SR["administrator."]</h4>
