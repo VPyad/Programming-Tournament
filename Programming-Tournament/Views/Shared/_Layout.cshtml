@@ -3,6 +3,7 @@
 
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
+@inject LocService SharedLocalizer
 
 <!DOCTYPE html>
 <html>
@@ -36,23 +37,23 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a asp-area="" asp-controller="Home" asp-action="Index">@SR["Home Page"]</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="About">@SR["About"]</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="Index">@SharedLocalizer.GetLocalizedHtmlString("Home Page")</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="About">@SharedLocalizer.GetLocalizedHtmlString("About")</a></li>
                     @if (!SignInManager.IsSignedIn(User))
                     {
-                        <li> <a asp-area="Identity" asp-page="/Application/Index">@SR["Apply"]</a> </li>
+                        <li> <a asp-area="Identity" asp-page="/Application/Index">@SharedLocalizer.GetLocalizedHtmlString("Apply")</a> </li>
                     }
                     @if (SignInManager.IsSignedIn(User) && User.IsInRole("Admin"))
                     {
-                        <li> <a asp-area="Admin" asp-page="/Users/Index">@SR["Users"]</a> </li>
+                        <li> <a asp-area="Admin" asp-page="/Users/Index">@SharedLocalizer.GetLocalizedHtmlString("Users")</a> </li>
                     }
                     @if (SignInManager.IsSignedIn(User) && (User.IsInRole("Admin") || User.IsInRole("Lecturer")))
                     {
-                        <li> <a asp-area="Lecturer" asp-page="/Tournaments/Index">@SR["Tournaments"]</a> </li>
+                        <li> <a asp-area="Lecturer" asp-page="/Tournaments/Index">@SharedLocalizer.GetLocalizedHtmlString("Tournaments")</a> </li>
                     }
-                    @if (SignInManager.IsSignedIn(User) &&User.IsInRole("Student"))
+                    @if (SignInManager.IsSignedIn(User) && User.IsInRole("Student"))
                     {
-                        <li> <a asp-area="Student" asp-page="/Tournaments/Index">@SR["Tournaments"]</a> </li>
+                        <li> <a asp-area="Student" asp-page="/Tournaments/Index">@SharedLocalizer.GetLocalizedHtmlString("Tournaments")</a> </li>
                     }
                 </ul>
                 <partial name="_LoginPartial" />

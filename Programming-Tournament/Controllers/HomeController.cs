@@ -3,13 +3,22 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using Programming_Tournament.Models;
+using Programming_Tournament.Resources;
 
 namespace Programming_Tournament.Controllers
 {
     public class HomeController : Controller
     {
+        private LocService locService;
+
+        public HomeController(LocService locService)
+        {
+            this.locService = locService;
+        }
+
         public IActionResult Index()
         {
             return View();

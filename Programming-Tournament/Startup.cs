@@ -17,6 +17,9 @@ using Programming_Tournament.Models.Domain.User;
 using Microsoft.Extensions.Localization;
 using System.Globalization;
 using Microsoft.AspNetCore.Localization;
+using Microsoft.Extensions.Options;
+using System.Reflection;
+using Programming_Tournament.Resources;
 
 namespace Programming_Tournament
 {
@@ -65,17 +68,30 @@ namespace Programming_Tournament
                     (x) => L["Null value is invalid.", x]);
             })
             .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
-            .AddDataAnnotationsLocalization()
+            .AddDataAnnotationsLocalization(options =>
+            {
+                options.DataAnnotationLocalizerProvider = (type, factory) =>
+                {
+                    var assemblyName = new AssemblyName(typeof(SharedResource).GetTypeInfo().Assembly.FullName);
+                    return factory.Create("SharedResource", assemblyName.Name);
+                };
+            })
             .AddViewLocalization();
 
             services.Configure<RequestLocalizationOptions>(options =>
             {
-                var supportedCultures = new[] { new CultureInfo("en"), new CultureInfo("ru") };
-                options.DefaultRequestCulture = new RequestCulture("en", "en");
+                var supportedCultures = new[] { new CultureInfo("en-US"), new CultureInfo("ru-RU") };
+                options.DefaultRequestCulture = new RequestCulture("en-US", "en-US");
                 options.SupportedCultures = supportedCultures;
                 options.SupportedUICultures = supportedCultures;
+                options.RequestCultureProviders = new List<IRequestCultureProvider>
+                {
+                    new QueryStringRequestCultureProvider(),
+                    new CookieRequestCultureProvider()
+                };
             });
 
+            services.AddSingleton<LocService>();
             services.AddLocalization(options => { options.ResourcesPath = "Resources"; });
 
         }
@@ -83,13 +99,8 @@ namespace Programming_Tournament
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, IServiceProvider serviceProvider)
         {
-            var supportedCultures = new[] { new CultureInfo("en"), new CultureInfo("ru") };
-            app.UseRequestLocalization(new RequestLocalizationOptions()
-            {
-                DefaultRequestCulture = new RequestCulture(new CultureInfo("en")),
-                SupportedCultures = supportedCultures,
-                SupportedUICultures = supportedCultures
-            });
+            var locOptions = app.ApplicationServices.GetService<IOptions<RequestLocalizationOptions>>();
+            app.UseRequestLocalization(locOptions.Value);
 
             if (env.IsDevelopment())
             {
