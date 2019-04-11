@@ -92,3 +92,15 @@
         </form>
     </div>
 </div>
+
+<div class="row" style="margin-top: 10pt">
+    <form method="post">
+        <div class="col-md-2">
+            @Html.DisplayNameFor(x => x.Input.LangsSelectList)
+            @Html.DropDownListFor(x => x.Input.LangCode, Model.Input.LangsSelectList)
+        </div>
+        <div class="col-md-1">
+            <button type="submit" class="btn btn-primary" asp-page-handler="ChangeLang">Change</button>
+        </div>
+    </form>
+</div>
