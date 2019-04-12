@@ -195,6 +195,9 @@
   <data name="Attempts" xml:space="preserve">
     <value>Попыток</value>
   </data>
+  <data name="Automated assignments verification" xml:space="preserve">
+    <value>Автоматизированная проверка заданий</value>
+  </data>
   <data name="Available programming langs." xml:space="preserve">
     <value>Доступные языки программирования</value>
   </data>
@@ -429,6 +432,9 @@
   <data name="Status" xml:space="preserve">
     <value>Статус</value>
   </data>
+  <data name="Student" xml:space="preserve">
+    <value>Студент</value>
+  </data>
   <data name="Students" xml:space="preserve">
     <value>Студенты</value>
   </data>
@@ -479,5 +485,8 @@
   </data>
   <data name="You have successfully logged out of the application." xml:space="preserve">
     <value>Вы успешшно вышли из приложения</value>
+  </data>
+  <data name="© 2019 - Automated assignments verification" xml:space="preserve">
+    <value>© 2019 - Сервис автоматизированного проверки заданий</value>
   </data>
 </root>

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Programming_Tournament.Models.Domain.Tournaments;
 using System.Linq;
 using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 
 namespace Programming_Tournament.Models.Domain.User
 {
