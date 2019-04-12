@@ -180,6 +180,9 @@
   <data name="After submitting programm file, please do not reload page or submit new file. Wait till result." xml:space="preserve">
     <value>После того, как отправите файл с исходным кодом дождитесь результатов выполнения, и не уходите или не перехагружайте страницу.</value>
   </data>
+  <data name="An error occuried. See description, or download log file" xml:space="preserve">
+    <value>Произошла ошибка. Чтобы увидеть подробности скачайте лог-файл.</value>
+  </data>
   <data name="Application sent" xml:space="preserve">
     <value>Заявка отправлена</value>
   </data>
@@ -189,8 +192,17 @@
   <data name="Approve" xml:space="preserve">
     <value>Подтвердить</value>
   </data>
+  <data name="Attempts" xml:space="preserve">
+    <value>Попыток</value>
+  </data>
   <data name="Available programming langs." xml:space="preserve">
     <value>Доступные языки программирования</value>
+  </data>
+  <data name="Build failed" xml:space="preserve">
+    <value>Ошибка компиляции</value>
+  </data>
+  <data name="Build failed. Message: {0}. Desc: {1}" xml:space="preserve">
+    <value>Сообщение: {0}. Описание: {1}</value>
   </data>
   <data name="Change" xml:space="preserve">
     <value>Изменить</value>
@@ -204,11 +216,17 @@
   <data name="Create new user" xml:space="preserve">
     <value>Создание нового пользователя</value>
   </data>
+  <data name="Created" xml:space="preserve">
+    <value>Создано</value>
+  </data>
   <data name="Created at" xml:space="preserve">
     <value>Создан</value>
   </data>
   <data name="CreatedAt" xml:space="preserve">
     <value>Создан</value>
+  </data>
+  <data name="Current status" xml:space="preserve">
+    <value>Текущий статус</value>
   </data>
   <data name="Curriculum" xml:space="preserve">
     <value>Направление</value>
@@ -219,11 +237,23 @@
   <data name="Degree" xml:space="preserve">
     <value>Образование</value>
   </data>
+  <data name="Description" xml:space="preserve">
+    <value>Описание</value>
+  </data>
   <data name="Details" xml:space="preserve">
     <value>Подробности</value>
   </data>
+  <data name="Did you passed" xml:space="preserve">
+    <value>Сдано</value>
+  </data>
   <data name="DocNo" xml:space="preserve">
     <value>№ документа</value>
+  </data>
+  <data name="Document number" xml:space="preserve">
+    <value>Номер документа</value>
+  </data>
+  <data name="Document number (optional)" xml:space="preserve">
+    <value>Номер документа</value>
   </data>
   <data name="Done" xml:space="preserve">
     <value>Готово</value>
@@ -240,6 +270,24 @@
   <data name="Edit" xml:space="preserve">
     <value>Редактировать</value>
   </data>
+  <data name="End date" xml:space="preserve">
+    <value>Дата завершения</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Ошибка</value>
+  </data>
+  <data name="Error description" xml:space="preserve">
+    <value>Описание ошибка</value>
+  </data>
+  <data name="Error does not coused by provided program. Please try later again" xml:space="preserve">
+    <value>Ошибка не вызвана загруженной программой. Попробуйте позднее.</value>
+  </data>
+  <data name="Error occuried during programm execution. Message: {0}. Desc: {1}" xml:space="preserve">
+    <value>Произошла ошибка во время выполнения программы. Сообщение: {0}. Описание: {1}</value>
+  </data>
+  <data name="Execution failed" xml:space="preserve">
+    <value>Ошибка во время исполнения</value>
+  </data>
   <data name="Expected file" xml:space="preserve">
     <value>Ожидаемый файл</value>
   </data>
@@ -252,8 +300,14 @@
   <data name="First name" xml:space="preserve">
     <value>Имя</value>
   </data>
+  <data name="I am" xml:space="preserve">
+    <value>Я</value>
+  </data>
   <data name="Input file" xml:space="preserve">
     <value>Файл с данными</value>
+  </data>
+  <data name="Internal service error" xml:space="preserve">
+    <value>Внутренняя ошибка</value>
   </data>
   <data name="Last attempt" xml:space="preserve">
     <value>Последняя попытка</value>
@@ -264,8 +318,14 @@
   <data name="Lecturer" xml:space="preserve">
     <value>Преподаватель</value>
   </data>
+  <data name="Lecturer name" xml:space="preserve">
+    <value>Преподаватель</value>
+  </data>
   <data name="Locked out" xml:space="preserve">
     <value>Блокировка</value>
+  </data>
+  <data name="Log file" xml:space="preserve">
+    <value>Логи</value>
   </data>
   <data name="Log in" xml:space="preserve">
     <value>Вход</value>
@@ -291,11 +351,20 @@
   <data name="Next" xml:space="preserve">
     <value>Следующая</value>
   </data>
+  <data name="Output file" xml:space="preserve">
+    <value>Файл с выводом</value>
+  </data>
+  <data name="Output file not found" xml:space="preserve">
+    <value>Файл с выводом не найден</value>
+  </data>
   <data name="Owner" xml:space="preserve">
     <value>Владелец</value>
   </data>
   <data name="Passed" xml:space="preserve">
     <value>Сдано</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Пароль</value>
   </data>
   <data name="Previus" xml:space="preserve">
     <value>Предыдущая</value>
@@ -303,11 +372,23 @@
   <data name="Profile" xml:space="preserve">
     <value>Профиль</value>
   </data>
+  <data name="Program does not produced output.txt file." xml:space="preserve">
+    <value>Программа не создала output.txt файл</value>
+  </data>
+  <data name="Program exceeded timeout. Programm has been terminated." xml:space="preserve">
+    <value>Превышен таймаут. Выполнение программы было остановленно</value>
+  </data>
   <data name="Programming languages" xml:space="preserve">
     <value>Языки программирования</value>
   </data>
   <data name="Reject" xml:space="preserve">
     <value>Отклонить</value>
+  </data>
+  <data name="Remember me?" xml:space="preserve">
+    <value>Запомнить меня</value>
+  </data>
+  <data name="Result" xml:space="preserve">
+    <value>Результат</value>
   </data>
   <data name="Results" xml:space="preserve">
     <value>Результаты</value>
@@ -318,8 +399,29 @@
   <data name="Search" xml:space="preserve">
     <value>Поиск</value>
   </data>
+  <data name="Search term" xml:space="preserve">
+    <value>Поисковый запрос</value>
+  </data>
   <data name="Second name" xml:space="preserve">
     <value>Фамилия</value>
+  </data>
+  <data name="Select expected file" xml:space="preserve">
+    <value>Выберите файл с ожидаемыми данными</value>
+  </data>
+  <data name="Select input file" xml:space="preserve">
+    <value>Выберите файл с данными</value>
+  </data>
+  <data name="Select programming langs." xml:space="preserve">
+    <value>Выберите язык программирования</value>
+  </data>
+  <data name="Select src file" xml:space="preserve">
+    <value>Выберите файл с исх. кодом</value>
+  </data>
+  <data name="Src file" xml:space="preserve">
+    <value>Файл с исх. кодом</value>
+  </data>
+  <data name="Src has been successfully compiled and executed. To see details download log file. If you overall result incorrect - contact your lecturer." xml:space="preserve">
+    <value>Исходный файл был успешно скомпилирован, полученная программа выполнена. Чтобы увидеть подробности — скачайте лог-файл. Если вам кажется, что результаты некорректны — свяжитесь с преподователем.</value>
   </data>
   <data name="Start" xml:space="preserve">
     <value>Начать</value>
@@ -336,14 +438,23 @@
   <data name="Submit application" xml:space="preserve">
     <value>Подать заявку</value>
   </data>
+  <data name="Task name" xml:space="preserve">
+    <value>Название задачи</value>
+  </data>
   <data name="Tasks" xml:space="preserve">
     <value>Задачи</value>
   </data>
   <data name="This account has been locked out, please try again later." xml:space="preserve">
     <value>Ваш аккаунт был заблокирован, попробуйте позднее</value>
   </data>
+  <data name="Timeout exceeded" xml:space="preserve">
+    <value>Превышен таймаут</value>
+  </data>
   <data name="To application" xml:space="preserve">
     <value>В заявку</value>
+  </data>
+  <data name="Tournament name" xml:space="preserve">
+    <value>Название курса</value>
   </data>
   <data name="Tournaments run by you" xml:space="preserve">
     <value>Ваши курсы</value>
@@ -354,7 +465,16 @@
   <data name="Unlimited" xml:space="preserve">
     <value>Неограниченно</value>
   </data>
+  <data name="UserType" xml:space="preserve">
+    <value>Тип пользователя</value>
+  </data>
   <data name="Year no" xml:space="preserve">
+    <value>Год обучения</value>
+  </data>
+  <data name="Year of education" xml:space="preserve">
+    <value>Год обучения</value>
+  </data>
+  <data name="Year of education (optional)" xml:space="preserve">
     <value>Год обучения</value>
   </data>
   <data name="You have successfully logged out of the application." xml:space="preserve">

@@ -75,7 +75,7 @@ namespace Programming_Tournament.Areas.Identity.Pages.Application
             public int CurriculumId { get; set; }
 
             [Required]
-            [Display(Name = "DegreeType")]
+            [Display(Name = "Degree")]
             public DegreeType DegreeType { get; set; }
 
             [Required]

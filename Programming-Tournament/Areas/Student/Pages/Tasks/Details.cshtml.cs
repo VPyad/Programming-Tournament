@@ -21,6 +21,7 @@ using Programming_Tournament.Data.Repositories.Tournaments;
 using Programming_Tournament.Data.Repositories.TournamentTasks;
 using Programming_Tournament.Helpers;
 using Programming_Tournament.Models.Domain.Tournaments;
+using Programming_Tournament.Resources;
 using Programming_Tournament.Utility.CustomValidators;
 
 namespace Programming_Tournament.Areas.Student.Pages.Tasks
@@ -40,7 +41,7 @@ namespace Programming_Tournament.Areas.Student.Pages.Tasks
         [BindProperty]
         public StudentTaskInputViewModel InputViewModel { get; set; }
 
-        public DetailsModel(ApplicationDbContext context)
+        public DetailsModel(ApplicationDbContext context, LocService locService)
         {
             this.context = context;
             taskRepository = new TournamentTaskRepository(this.context);
@@ -48,7 +49,7 @@ namespace Programming_Tournament.Areas.Student.Pages.Tasks
 
             processManager = new ProcessManager(this);
             storageManager = new StorageManager();
-            processResultHelper = new ProcessResultHelper();
+            processResultHelper = new ProcessResultHelper(locService);
         }
 
         public IActionResult OnGet(int? id)

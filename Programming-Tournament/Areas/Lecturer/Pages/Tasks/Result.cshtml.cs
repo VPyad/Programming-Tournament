@@ -14,6 +14,7 @@ using Programming_Tournament.Data.Repositories.SupportedLanguages;
 using Programming_Tournament.Data.Repositories.TaskAssignments;
 using Programming_Tournament.Helpers;
 using Programming_Tournament.Models.Domain.Tournaments;
+using Programming_Tournament.Resources;
 
 namespace Programming_Tournament.Areas.Lecturer.Pages.Tasks
 {
@@ -29,14 +30,14 @@ namespace Programming_Tournament.Areas.Lecturer.Pages.Tasks
 
         public LecturerTaskResultViewModel ViewModel { get; set; }
 
-        public ResultModel(ApplicationDbContext context)
+        public ResultModel(ApplicationDbContext context, LocService locService)
         {
             this.context = context;
             assignmentRepository = new TaskAssignmentRepository(this.context);
             languageRepository = new SupportedLanguageRepository(this.context);
 
             storageManager = new StorageManager();
-            processResultHelper = new ProcessResultHelper();
+            processResultHelper = new ProcessResultHelper(locService);
         }
 
         public IActionResult OnGet(int? id)
