@@ -1,10 +1,11 @@
 ﻿@page "{id}"
+@inject LocService SL
 @model ResultModel
 @using Programming_Tournament.Areas.Lecturer.Pages.Tasks
 @{
 }
 
-<h2>Results</h2>
+<h2>@SL.GetLocalizedHtmlString("Results")</h2>
 
 <div class="row">
     <div class="col-md-1">
@@ -38,13 +39,13 @@
             {
                 <dd>
                     <form method="post">
-                        <button asp-page-handler="FileDownload" asp-route-filePath="@Model.ViewModel.OutputFilePath" type="submit" class="btn btn-default">Download</button>
+                        <button asp-page-handler="FileDownload" asp-route-filePath="@Model.ViewModel.OutputFilePath" type="submit" class="btn btn-default">@SL.GetLocalizedHtmlString("Download")</button>
                     </form>
                 </dd>
             }
             else
             {
-                <dd>N/A</dd>
+                <dd>@SL.GetLocalizedHtmlString("N/A")</dd>
             }
         </dl>
     </div>
@@ -55,13 +56,13 @@
             {
                 <dd>
                     <form method="post">
-                        <button asp-page-handler="FileDownload" asp-route-filePath="@Model.ViewModel.LogFilePath" type="submit" class="btn btn-default">Download</button>
+                        <button asp-page-handler="FileDownload" asp-route-filePath="@Model.ViewModel.LogFilePath" type="submit" class="btn btn-default">@SL.GetLocalizedHtmlString("Download")</button>
                     </form>
                 </dd>
             }
             else
             {
-                <dd>N/A</dd>
+                <dd>@SL.GetLocalizedHtmlString("N/A")</dd>
             }
         </dl>
     </div>
@@ -72,13 +73,13 @@
             {
                 <dd>
                     <form method="post">
-                        <button asp-page-handler="FileDownload" asp-route-filePath="@Model.ViewModel.SrcFilePath" type="submit" class="btn btn-default">Download</button>
+                        <button asp-page-handler="FileDownload" asp-route-filePath="@Model.ViewModel.SrcFilePath" type="submit" class="btn btn-default">@SL.GetLocalizedHtmlString("Download")</button>
                     </form>
                 </dd>
             }
             else
             {
-                <dd>N/A</dd>
+                <dd>@SL.GetLocalizedHtmlString("N/A")</dd>
             }
         </dl>
     </div>

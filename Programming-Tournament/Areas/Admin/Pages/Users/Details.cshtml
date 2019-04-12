@@ -1,11 +1,12 @@
 ﻿@page "{id}"
+@inject LocService  SL
 @model DetailsModel
 @using Programming_Tournament.Areas.Admin.Pages.Users
 @using Programming_Tournament.Models.Domain.User
 @{
 }
 
-<h2>Details</h2>
+<h2>@SL.GetLocalizedHtmlString("Details")</h2>
 
 <dl>
     <dt>
@@ -102,23 +103,22 @@
     <div class="btn-group" role="group">
         @if (Model.Model.UserStatus == UserStatus.Submitted)
         {
-            <button type="submit" asp-page-handler="Approve" class="btn btn-primary">Approve</button>
-            <button type="submit" asp-page-handler="Reject" class="btn btn-warning">Reject</button>
+            <button type="submit" asp-page-handler="Approve" class="btn btn-primary">@SL.GetLocalizedHtmlString("Approve")</button>
+            <button type="submit" asp-page-handler="Reject" class="btn btn-warning">@SL.GetLocalizedHtmlString("Reject")</button>
         }
         @if (Model.Model.UserStatus != UserStatus.Inactive)
         {
-            <button type="submit" asp-page-handler="Deactivate" class="btn btn-danger">Deactivate</button>
+            <button type="submit" asp-page-handler="Deactivate" class="btn btn-danger">@SL.GetLocalizedHtmlString("Deactivate")</button>
         }
         @if (Model.Model.UserStatus == UserStatus.Inactive)
         {
-            <button type="submit" asp-page-handler="Activate" class="btn btn-primary">Activate</button>
+            <button type="submit" asp-page-handler="Activate" class="btn btn-primary">@SL.GetLocalizedHtmlString("Activate")</button>
         }
-        <a asp-page="./Edit" asp-route-id="@Model.UserId" class="btn btn-default">Edit</a>
+        <a asp-page="./Edit" asp-route-id="@Model.UserId" class="btn btn-default">@SL.GetLocalizedHtmlString("Edit")</a>
         @if (Model.IsDevelopment)
         {
-            <button type="submit" asp-page-handler="Submit" class="btn btn-primary">Submit</button>
+            <button type="submit" asp-page-handler="Submit" class="btn btn-primary">@SL.GetLocalizedHtmlString("To application")</button>
         }
-
     </div>
 </form>
 

@@ -41,7 +41,7 @@
                     <li><a asp-area="" asp-controller="Home" asp-action="About">@SharedLocalizer.GetLocalizedHtmlString("About")</a></li>
                     @if (!SignInManager.IsSignedIn(User))
                     {
-                        <li> <a asp-area="Identity" asp-page="/Application/Index">@SharedLocalizer.GetLocalizedHtmlString("Apply")</a> </li>
+                        <li> <a asp-area="Identity" asp-page="/Application/Index">@SharedLocalizer.GetLocalizedHtmlString("Application")</a> </li>
                     }
                     @if (SignInManager.IsSignedIn(User) && User.IsInRole("Admin"))
                     {

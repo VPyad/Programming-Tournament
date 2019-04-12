@@ -1,10 +1,11 @@
 ﻿@page "{id}"
+@inject LocService SL
 @model DetailsModel
 @using Programming_Tournament.Areas.Student.Pages.Tournaments
 @{
 }
 
-<h2>Details</h2>
+<h2>@SL.GetLocalizedHtmlString("Details")</h2>
 
 <div class="row">
     <div class="col-md-4">
@@ -50,12 +51,12 @@
 
 <div class="row" style="margin-top: 12pt">
     <div class="col-md-6">
-        <h3>Tasks</h3>
+        <h3>@SL.GetLocalizedHtmlString("Tasks")</h3>
         <table class="table">
             <tr>
-                <th>Name</th>
-                <th>End date</th>
-                <th>Max attempts</th>
+                <th>@SL.GetLocalizedHtmlString("Name")</th>
+                <th>@SL.GetLocalizedHtmlString("Due date")</th>
+                <th>@SL.GetLocalizedHtmlString("Max attempts")</th>
             </tr>
             @foreach (var item in Model.ViewModel.Tasks)
             {
