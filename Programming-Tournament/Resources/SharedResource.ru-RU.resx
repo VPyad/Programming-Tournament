@@ -1,0 +1,492 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="About" xml:space="preserve">
+    <value>О приложении</value>
+  </data>
+  <data name="administrator" xml:space="preserve">
+    <value>администратором</value>
+  </data>
+  <data name="an application" xml:space="preserve">
+    <value>заявку</value>
+  </data>
+  <data name="Application" xml:space="preserve">
+    <value>Заявка</value>
+  </data>
+  <data name="contact" xml:space="preserve">
+    <value>свяжитесь с</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="Home Page" xml:space="preserve">
+    <value>Главная страница</value>
+  </data>
+  <data name="If you cannot login —" xml:space="preserve">
+    <value>В случае проблем при авторизации —</value>
+  </data>
+  <data name="If you do not have an account —" xml:space="preserve">
+    <value>Если у вас нет аккаунта —</value>
+  </data>
+  <data name="Login to use service." xml:space="preserve">
+    <value>Авторизуйтесь чтобы пользоваться сервисом</value>
+  </data>
+  <data name="Master: Vadim Pyadukhov," xml:space="preserve">
+    <value>Студент: Вадим Пядухов,</value>
+  </data>
+  <data name="Source code" xml:space="preserve">
+    <value>Исходный код</value>
+  </data>
+  <data name="sent" xml:space="preserve">
+    <value>подайте</value>
+  </data>
+  <data name="Supervisor: Oleg Gorbenko Danilovich," xml:space="preserve">
+    <value>Руководитель: Горбенко Олег Данилович</value>
+  </data>
+  <data name="The service was developed as part of a master's thesis." xml:space="preserve">
+    <value>Сервис был разработан в рамках магистерской диссертации</value>
+  </data>
+  <data name="Tournaments" xml:space="preserve">
+    <value>Курсы</value>
+  </data>
+  <data name="Users" xml:space="preserve">
+    <value>Пользователи</value>
+  </data>
+  <data name="Activate" xml:space="preserve">
+    <value>Активировать</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>Добавить</value>
+  </data>
+  <data name="Add students to" xml:space="preserve">
+    <value>Добавить студентов к</value>
+  </data>
+  <data name="After submitting programm file, please do not reload page or submit new file. Wait till result." xml:space="preserve">
+    <value>После того, как отправите файл с исходным кодом дождитесь результатов выполнения, и не уходите или не перехагружайте страницу.</value>
+  </data>
+  <data name="An error occuried. See description, or download log file" xml:space="preserve">
+    <value>Произошла ошибка. Чтобы увидеть подробности скачайте лог-файл.</value>
+  </data>
+  <data name="Application sent" xml:space="preserve">
+    <value>Заявка отправлена</value>
+  </data>
+  <data name="Apply" xml:space="preserve">
+    <value>Применить</value>
+  </data>
+  <data name="Approve" xml:space="preserve">
+    <value>Подтвердить</value>
+  </data>
+  <data name="Attempts" xml:space="preserve">
+    <value>Попыток</value>
+  </data>
+  <data name="Automated assignments verification" xml:space="preserve">
+    <value>Автоматизированная проверка заданий</value>
+  </data>
+  <data name="Available programming langs." xml:space="preserve">
+    <value>Доступные языки программирования</value>
+  </data>
+  <data name="Build failed" xml:space="preserve">
+    <value>Ошибка компиляции</value>
+  </data>
+  <data name="Build failed. Message: {0}. Desc: {1}" xml:space="preserve">
+    <value>Сообщение: {0}. Описание: {1}</value>
+  </data>
+  <data name="Change" xml:space="preserve">
+    <value>Изменить</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Закрыть</value>
+  </data>
+  <data name="Create" xml:space="preserve">
+    <value>Создать</value>
+  </data>
+  <data name="Create new user" xml:space="preserve">
+    <value>Создание нового пользователя</value>
+  </data>
+  <data name="Created" xml:space="preserve">
+    <value>Создано</value>
+  </data>
+  <data name="Created at" xml:space="preserve">
+    <value>Создан</value>
+  </data>
+  <data name="CreatedAt" xml:space="preserve">
+    <value>Создан</value>
+  </data>
+  <data name="Current status" xml:space="preserve">
+    <value>Текущий статус</value>
+  </data>
+  <data name="Curriculum" xml:space="preserve">
+    <value>Направление</value>
+  </data>
+  <data name="Deactivate" xml:space="preserve">
+    <value>Деактивировать</value>
+  </data>
+  <data name="Degree" xml:space="preserve">
+    <value>Образование</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Описание</value>
+  </data>
+  <data name="Details" xml:space="preserve">
+    <value>Подробности</value>
+  </data>
+  <data name="Did you passed" xml:space="preserve">
+    <value>Сдано</value>
+  </data>
+  <data name="DocNo" xml:space="preserve">
+    <value>№ документа</value>
+  </data>
+  <data name="Document number" xml:space="preserve">
+    <value>Номер документа</value>
+  </data>
+  <data name="Document number (optional)" xml:space="preserve">
+    <value>Номер документа</value>
+  </data>
+  <data name="Done" xml:space="preserve">
+    <value>Готово</value>
+  </data>
+  <data name="Download" xml:space="preserve">
+    <value>Скачать</value>
+  </data>
+  <data name="Draft" xml:space="preserve">
+    <value>В черновик</value>
+  </data>
+  <data name="Due date" xml:space="preserve">
+    <value>Дата завершения</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Редактировать</value>
+  </data>
+  <data name="End date" xml:space="preserve">
+    <value>Дата завершения</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Ошибка</value>
+  </data>
+  <data name="Error description" xml:space="preserve">
+    <value>Описание ошибка</value>
+  </data>
+  <data name="Error does not coused by provided program. Please try later again" xml:space="preserve">
+    <value>Ошибка не вызвана загруженной программой. Попробуйте позднее.</value>
+  </data>
+  <data name="Error occuried during programm execution. Message: {0}. Desc: {1}" xml:space="preserve">
+    <value>Произошла ошибка во время выполнения программы. Сообщение: {0}. Описание: {1}</value>
+  </data>
+  <data name="Execution failed" xml:space="preserve">
+    <value>Ошибка во время исполнения</value>
+  </data>
+  <data name="Expected file" xml:space="preserve">
+    <value>Ожидаемый файл</value>
+  </data>
+  <data name="Faculty" xml:space="preserve">
+    <value>Факультет</value>
+  </data>
+  <data name="Finish" xml:space="preserve">
+    <value>Завершить</value>
+  </data>
+  <data name="First name" xml:space="preserve">
+    <value>Имя</value>
+  </data>
+  <data name="I am" xml:space="preserve">
+    <value>Я</value>
+  </data>
+  <data name="Input file" xml:space="preserve">
+    <value>Файл с данными</value>
+  </data>
+  <data name="Internal service error" xml:space="preserve">
+    <value>Внутренняя ошибка</value>
+  </data>
+  <data name="Last attempt" xml:space="preserve">
+    <value>Последняя попытка</value>
+  </data>
+  <data name="Lectern" xml:space="preserve">
+    <value>Кафедра</value>
+  </data>
+  <data name="Lecturer" xml:space="preserve">
+    <value>Преподаватель</value>
+  </data>
+  <data name="Lecturer name" xml:space="preserve">
+    <value>Преподаватель</value>
+  </data>
+  <data name="Locked out" xml:space="preserve">
+    <value>Блокировка</value>
+  </data>
+  <data name="Log file" xml:space="preserve">
+    <value>Логи</value>
+  </data>
+  <data name="Log in" xml:space="preserve">
+    <value>Вход</value>
+  </data>
+  <data name="Log out" xml:space="preserve">
+    <value>Выход</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>Войти</value>
+  </data>
+  <data name="Logout" xml:space="preserve">
+    <value>Выйти</value>
+  </data>
+  <data name="Max attempts" xml:space="preserve">
+    <value>Макс. попыток</value>
+  </data>
+  <data name="N/A" xml:space="preserve">
+    <value>N/A</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Название</value>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>Следующая</value>
+  </data>
+  <data name="Output file" xml:space="preserve">
+    <value>Файл с выводом</value>
+  </data>
+  <data name="Output file not found" xml:space="preserve">
+    <value>Файл с выводом не найден</value>
+  </data>
+  <data name="Owner" xml:space="preserve">
+    <value>Владелец</value>
+  </data>
+  <data name="Passed" xml:space="preserve">
+    <value>Сдано</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Пароль</value>
+  </data>
+  <data name="Previus" xml:space="preserve">
+    <value>Предыдущая</value>
+  </data>
+  <data name="Profile" xml:space="preserve">
+    <value>Профиль</value>
+  </data>
+  <data name="Program does not produced output.txt file." xml:space="preserve">
+    <value>Программа не создала output.txt файл</value>
+  </data>
+  <data name="Program exceeded timeout. Programm has been terminated." xml:space="preserve">
+    <value>Превышен таймаут. Выполнение программы было остановленно</value>
+  </data>
+  <data name="Programming languages" xml:space="preserve">
+    <value>Языки программирования</value>
+  </data>
+  <data name="Reject" xml:space="preserve">
+    <value>Отклонить</value>
+  </data>
+  <data name="Remember me?" xml:space="preserve">
+    <value>Запомнить меня</value>
+  </data>
+  <data name="Result" xml:space="preserve">
+    <value>Результат</value>
+  </data>
+  <data name="Results" xml:space="preserve">
+    <value>Результаты</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Сохранить</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Поиск</value>
+  </data>
+  <data name="Search term" xml:space="preserve">
+    <value>Поисковый запрос</value>
+  </data>
+  <data name="Second name" xml:space="preserve">
+    <value>Фамилия</value>
+  </data>
+  <data name="Select expected file" xml:space="preserve">
+    <value>Выберите файл с ожидаемыми данными</value>
+  </data>
+  <data name="Select input file" xml:space="preserve">
+    <value>Выберите файл с данными</value>
+  </data>
+  <data name="Select programming langs." xml:space="preserve">
+    <value>Выберите язык программирования</value>
+  </data>
+  <data name="Select src file" xml:space="preserve">
+    <value>Выберите файл с исх. кодом</value>
+  </data>
+  <data name="Src file" xml:space="preserve">
+    <value>Файл с исх. кодом</value>
+  </data>
+  <data name="Src has been successfully compiled and executed. To see details download log file. If you overall result incorrect - contact your lecturer." xml:space="preserve">
+    <value>Исходный файл был успешно скомпилирован, полученная программа выполнена. Чтобы увидеть подробности — скачайте лог-файл. Если вам кажется, что результаты некорректны — свяжитесь с преподователем.</value>
+  </data>
+  <data name="Start" xml:space="preserve">
+    <value>Начать</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Статус</value>
+  </data>
+  <data name="Student" xml:space="preserve">
+    <value>Студент</value>
+  </data>
+  <data name="Students" xml:space="preserve">
+    <value>Студенты</value>
+  </data>
+  <data name="Submit" xml:space="preserve">
+    <value>Отправить</value>
+  </data>
+  <data name="Submit application" xml:space="preserve">
+    <value>Подать заявку</value>
+  </data>
+  <data name="Task name" xml:space="preserve">
+    <value>Название задачи</value>
+  </data>
+  <data name="Tasks" xml:space="preserve">
+    <value>Задачи</value>
+  </data>
+  <data name="This account has been locked out, please try again later." xml:space="preserve">
+    <value>Ваш аккаунт был заблокирован, попробуйте позднее</value>
+  </data>
+  <data name="Timeout exceeded" xml:space="preserve">
+    <value>Превышен таймаут</value>
+  </data>
+  <data name="To application" xml:space="preserve">
+    <value>В заявку</value>
+  </data>
+  <data name="Tournament name" xml:space="preserve">
+    <value>Название курса</value>
+  </data>
+  <data name="Tournaments run by you" xml:space="preserve">
+    <value>Ваши курсы</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>Тип</value>
+  </data>
+  <data name="Unlimited" xml:space="preserve">
+    <value>Неограниченно</value>
+  </data>
+  <data name="UserType" xml:space="preserve">
+    <value>Тип пользователя</value>
+  </data>
+  <data name="Year no" xml:space="preserve">
+    <value>Год обучения</value>
+  </data>
+  <data name="Year of education" xml:space="preserve">
+    <value>Год обучения</value>
+  </data>
+  <data name="Year of education (optional)" xml:space="preserve">
+    <value>Год обучения</value>
+  </data>
+  <data name="You have successfully logged out of the application." xml:space="preserve">
+    <value>Вы успешшно вышли из приложения</value>
+  </data>
+  <data name="© 2019 - Automated assignments verification" xml:space="preserve">
+    <value>© 2019 - Сервис автоматизированного проверки заданий</value>
+  </data>
+</root>

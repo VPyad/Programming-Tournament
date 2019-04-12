@@ -1,10 +1,11 @@
 ﻿@page "{id}"
+@inject LocService SL
 @model StudentsModel
 @using  Programming_Tournament.Areas.Lecturer.Pages.Tournaments
 @{
 }
 
-<h2>Add students to: @Model.ViewModel.TournamentName</h2>
+<h2>@SL.GetLocalizedHtmlString("Add students to") @Model.ViewModel.TournamentName</h2>
 
 <form method="post">
     <div class="btn-group" style="margin-top: 12pt">
@@ -12,37 +13,37 @@
                 asp-route-sortState="@Model.ViewModel.SortViewModel.Current"
                 asp-route-p="@Model.ViewModel.PageViewModel.PageNumber"
                 asp-page-handler="Apply" class="btn btn-success">
-            Apply
+            @SL.GetLocalizedHtmlString("Apply")
         </button>
         <a asp-area="Lecturer" asp-page="/Tournaments/Edit" asp-route-id="@Model.ViewModel.TournamentId" class="btn btn-primary">
-            Done
+            @SL.GetLocalizedHtmlString("Done")
         </a>
     </div>
 
     <table class="table" style="margin-top: 12pt">
         <tr>
-            <th>Add</th>
-            <th>Name</th>
-            <th>Second name</th>
+            <th>@SL.GetLocalizedHtmlString("Add")</th>
+            <th>@SL.GetLocalizedHtmlString("First name")</th>
+            <th>@SL.GetLocalizedHtmlString("Second name")</th>
             <th>
                 <a asp-page="./Students"
-                   asp-route-id="@Model.ViewModel.TournamentId" asp-route-sortState="@Model.ViewModel.SortViewModel.YearNo">Year no</a>
+                   asp-route-id="@Model.ViewModel.TournamentId" asp-route-sortState="@Model.ViewModel.SortViewModel.YearNo">@SL.GetLocalizedHtmlString("Year no")</a>
             </th>
             <th>
                 <a asp-page="./Students"
-                   asp-route-id="@Model.ViewModel.TournamentId" asp-route-sortState="@Model.ViewModel.SortViewModel.FacultyName">Faculty</a>
+                   asp-route-id="@Model.ViewModel.TournamentId" asp-route-sortState="@Model.ViewModel.SortViewModel.FacultyName">@SL.GetLocalizedHtmlString("Faculty")</a>
             </th>
             <th>
                 <a asp-page="./Students"
-                   asp-route-id="@Model.ViewModel.TournamentId" asp-route-sortState="@Model.ViewModel.SortViewModel.LecternName">Lectern</a>
+                   asp-route-id="@Model.ViewModel.TournamentId" asp-route-sortState="@Model.ViewModel.SortViewModel.LecternName">@SL.GetLocalizedHtmlString("Lectern")</a>
             </th>
             <th>
                 <a asp-page="./Students"
-                   asp-route-id="@Model.ViewModel.TournamentId" asp-route-sortState="@Model.ViewModel.SortViewModel.CurriculumName">Curriculum</a>
+                   asp-route-id="@Model.ViewModel.TournamentId" asp-route-sortState="@Model.ViewModel.SortViewModel.CurriculumName">@SL.GetLocalizedHtmlString("Curriculum")</a>
             </th>
             <th>
                 <a asp-page="./Students"
-                   asp-route-id="@Model.ViewModel.TournamentId" asp-route-sortState="@Model.ViewModel.SortViewModel.Degree">Degree</a>
+                   asp-route-id="@Model.ViewModel.TournamentId" asp-route-sortState="@Model.ViewModel.SortViewModel.Degree">@SL.GetLocalizedHtmlString("Degree")</a>
             </th>
         </tr>
         @for (int i = 0; i < Model.ViewModel.Students.Count(); i++)
@@ -70,7 +71,7 @@
            asp-route-sortState="@(Model.ViewModel.SortViewModel.Current)"
            asp-route-p="@(Model.ViewModel.PageViewModel.PageNumber - 1)"
            class="btn btn-default btn">
-            <i class="glyphicon glyphicon-chevron-left"></i>Previus
+            <i class="glyphicon glyphicon-chevron-left"></i>@SL.GetLocalizedHtmlString("Previus")
         </a>
     }
 
@@ -80,7 +81,7 @@
            asp-route-sortState="@(Model.ViewModel.SortViewModel.Current)"
            asp-route-p="@(Model.ViewModel.PageViewModel.PageNumber + 1)"
            class="btn btn-default btn">
-            Next <i class="glyphicon glyphicon-chevron-right"></i>
+            @SL.GetLocalizedHtmlString("Next") <i class="glyphicon glyphicon-chevron-right"></i>
         </a>
     }
 </form>

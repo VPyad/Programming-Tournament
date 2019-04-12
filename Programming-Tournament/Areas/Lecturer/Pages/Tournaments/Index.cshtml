@@ -1,40 +1,40 @@
 ﻿@page
+@inject LocService SL
 @model IndexModel
 @using Programming_Tournament.Areas.Lecturer.Pages.Tournaments
 @{
 }
 
-<h2>Tournaments run by you</h2>
+<h2>@SL.GetLocalizedHtmlString("Tournaments run by you")</h2>
 <br />
-@*<a asp-page="./Create">Create new</a>*@
 
 <form method="post">
-    <button type="submit" asp-page-handler="Create" class="btn btn-primary">Create new</button>
+    <button type="submit" asp-page-handler="Create" class="btn btn-primary">@SL.GetLocalizedHtmlString("Create")</button>
 </form>
 <br />
 <br />
 
 <table class="table">
     <tr>
-        <th>Name</th>
+        <th>@SL.GetLocalizedHtmlString("Name")</th>
         @if (User.IsInRole("Admin"))
         {
             <th>
                 <a asp-page="./Index"
-                   asp-route-sortState="@(Model.ViewModel.SortViewModel.Owner)">Owner</a>
+                   asp-route-sortState="@(Model.ViewModel.SortViewModel.Owner)">@SL.GetLocalizedHtmlString("Owner")</a>
             </th>
         }
         <th>
             <a asp-page="./Index"
-               asp-route-sortState="@(Model.ViewModel.SortViewModel.CreatedAt)">Created at</a>
+               asp-route-sortState="@(Model.ViewModel.SortViewModel.CreatedAt)">@SL.GetLocalizedHtmlString("Created at")</a>
         </th>
         <th>
             <a asp-page="./Index"
-               asp-route-sortState="@(Model.ViewModel.SortViewModel.DueDate)">Due date</a>
+               asp-route-sortState="@(Model.ViewModel.SortViewModel.DueDate)">@SL.GetLocalizedHtmlString("Due date")</a>
         </th>
         <th>
             <a asp-page="./Index"
-               asp-route-sortState="@(Model.ViewModel.SortViewModel.Status)">Status</a>
+               asp-route-sortState="@(Model.ViewModel.SortViewModel.Status)">@SL.GetLocalizedHtmlString("Status")</a>
         </th>
     </tr>
     @foreach (var item in Model.ViewModel.Tournaments)
@@ -61,7 +61,7 @@
        asp-route-sortState="@(Model.ViewModel.SortViewModel.Current)"
        asp-route-p="@(Model.ViewModel.PageViewModel.PageNumber - 1)"
        class="btn btn-default btn">
-        <i class="glyphicon glyphicon-chevron-left"></i>Previus
+        <i class="glyphicon glyphicon-chevron-left"></i>@SL.GetLocalizedHtmlString("Previus")
     </a>
 }
 
@@ -71,7 +71,7 @@
        asp-route-sortState="@(Model.ViewModel.SortViewModel.Current)"
        asp-route-p="@(Model.ViewModel.PageViewModel.PageNumber + 1)"
        class="btn btn-default btn">
-        Next <i class="glyphicon glyphicon-chevron-right"></i>
+        @SL.GetLocalizedHtmlString("Next") <i class="glyphicon glyphicon-chevron-right"></i>
     </a>
 }
 

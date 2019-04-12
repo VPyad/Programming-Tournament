@@ -1,11 +1,12 @@
 ﻿@page
+@inject LocService SL
 @model IndexModel
 @using  Programming_Tournament.Areas.Admin.Pages.Users
 @{
 }
 
-<h2>Users</h2>
-<h5><a asp-page="./Create">Create</a></h5>
+<h2>@SL.GetLocalizedHtmlString("Users")</h2>
+<h5><a asp-page="./Create">@SL.GetLocalizedHtmlString("Create")</a></h5>
 
 <div class="row">
     <form method="get">
@@ -13,36 +14,36 @@
             <label asp-for="ViewModel.SearchTerm"></label>
             @Html.TextBox("q", Model.ViewModel.SearchTerm, htmlAttributes: new { @class = "form-control" })
         </div>
-        <button type="submit" class="btn btn-default">Search</button>
-    </form>
+        <button type="submit" class="btn btn-default">@SL.GetLocalizedHtmlString("Search")</button>
+</form>
 </div>
 
 <table class="table">
     <tr>
-        <th>First name</th>
-        <th>Second name</th>
-        <th>Email</th>
+        <th>@SL.GetLocalizedHtmlString("First name")</th>
+        <th>@SL.GetLocalizedHtmlString("Second name")</th>
+        <th>@SL.GetLocalizedHtmlString("Email")</th>
         <th>
             <a asp-page="./Index"
                asp-route-sortState="@(Model.ViewModel.SortViewModel.StatusSort)"
-               asp-route-q="@(Model.ViewModel.SearchTerm)">Status</a>
+               asp-route-q="@(Model.ViewModel.SearchTerm)">@SL.GetLocalizedHtmlString("Status")</a>
         </th>
         <th>
             <a asp-page="./Index"
                asp-route-sortState="@(Model.ViewModel.SortViewModel.TypeSort)"
-               asp-route-q="@(Model.ViewModel.SearchTerm)">Type</a>
+               asp-route-q="@(Model.ViewModel.SearchTerm)">@SL.GetLocalizedHtmlString("Type")</a>
         </th>
         <th>
             <a asp-page="./Index"
                asp-route-sortState="@(Model.ViewModel.SortViewModel.CreatedAtSort)"
-               asp-route-q="@(Model.ViewModel.SearchTerm)">CreatedAt</a>
+               asp-route-q="@(Model.ViewModel.SearchTerm)">@SL.GetLocalizedHtmlString("CreatedAt")</a>
         </th>
-        <th>DocNo</th>
-        <th>Faculty</th>
-        <th>Lectern</th>
-        <th>Curriculum</th>
-        <th>Degree</th>
-        <th>Details</th>
+        <th>@SL.GetLocalizedHtmlString("DocNo")</th>
+        <th>@SL.GetLocalizedHtmlString("Faculty")</th>
+        <th>@SL.GetLocalizedHtmlString("Lectern")</th>
+        <th>@SL.GetLocalizedHtmlString("Curriculum")</th>
+        <th>@SL.GetLocalizedHtmlString("Degree")</th>
+        <th>@SL.GetLocalizedHtmlString("Details")</th>
     </tr>
     @foreach (var item in Model.ViewModel.Users)
     {
@@ -58,7 +59,7 @@
             <td>@(item.Lectern != null ? item.Lectern.Name : "")</td>
             <td>@(item.Сurriculum != null ? item.Сurriculum.Name : "")</td>
             <td>@item.DegreeType</td>
-            <td><a asp-page="./Details" asp-route-id="@(item.Id)">Details</a></td>
+            <td><a asp-page="./Details" asp-route-id="@(item.Id)">@SL.GetLocalizedHtmlString("Details")</a></td>
         </tr>
     }
 </table>
@@ -70,7 +71,7 @@
        asp-route-q="@(Model.ViewModel.SearchTerm)"
        asp-route-p="@(Model.ViewModel.PageViewModel.PageNumber - 1)"
        class="btn btn-default btn">
-        <i class="glyphicon glyphicon-chevron-left"></i>Previus
+        <i class="glyphicon glyphicon-chevron-left"></i>@SL.GetLocalizedHtmlString("Previus")
     </a>
 }
 
@@ -81,7 +82,7 @@
        asp-route-q="@(Model.ViewModel.SearchTerm)"
        asp-route-p="@(Model.ViewModel.PageViewModel.PageNumber + 1)"
        class="btn btn-default btn">
-       Next <i class="glyphicon glyphicon-chevron-right"></i>
+        @SL.GetLocalizedHtmlString("Next") <i class="glyphicon glyphicon-chevron-right"></i>
     </a>
 }
 

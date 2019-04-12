@@ -1,10 +1,11 @@
-﻿@{
+﻿@inject LocService SharedLocalizer
+@{
     ViewData["Title"] = "About";
 }
-<h2>@ViewData["Title"]</h2>
+<h2>@SharedLocalizer.GetLocalizedHtmlString("About")</h2>
 
-<h4>The service was developed as part of a master's thesis.</h4>
+<h4>@SharedLocalizer.GetLocalizedHtmlString("The service was developed as part of a master's thesis.")</h4>
 
-<a href="https://github.com/VPyad/Programming-Tournament"><h4>Source code</h4></a>
-<h4>Master: Vadim Pyadukhov, <a href="mailto:vpyadukhov@outlook.com">email</a></h4>
-<h4>Supervisor: Oleg Gorbenko Danilovich, <a href="mailto:oleg_dan@mail.com">email</a></h4>
+<a href="https://github.com/VPyad/Programming-Tournament"><h4>@SharedLocalizer.GetLocalizedHtmlString("Source code")</h4></a>
+<h4>@SharedLocalizer.GetLocalizedHtmlString("Master: Vadim Pyadukhov,") <a href="mailto:vpyadukhov@outlook.com">@SharedLocalizer.GetLocalizedHtmlString("email")</a></h4>
+<h4>@SharedLocalizer.GetLocalizedHtmlString("Supervisor: Oleg Gorbenko Danilovich,") <a href="mailto:oleg_dan@mail.com">@SharedLocalizer.GetLocalizedHtmlString("email")</a></h4>

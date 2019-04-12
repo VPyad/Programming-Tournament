@@ -3,13 +3,14 @@
 
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
+@inject LocService SharedLocalizer
 
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Programming_Tournament</title>
+    <title>@SharedLocalizer.GetLocalizedHtmlString("Automated assignments verification")</title>
 
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
@@ -32,27 +33,27 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">Programming_Tournament</a>
+                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">@SharedLocalizer.GetLocalizedHtmlString("Automated assignments verification")</a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="Index">@SharedLocalizer.GetLocalizedHtmlString("Home Page")</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="About">@SharedLocalizer.GetLocalizedHtmlString("About")</a></li>
                     @if (!SignInManager.IsSignedIn(User))
                     {
-                        <li> <a asp-area="Identity" asp-page="/Application/Index">Apply</a> </li>
+                        <li> <a asp-area="Identity" asp-page="/Application/Index">@SharedLocalizer.GetLocalizedHtmlString("Application")</a> </li>
                     }
                     @if (SignInManager.IsSignedIn(User) && User.IsInRole("Admin"))
                     {
-                        <li> <a asp-area="Admin" asp-page="/Users/Index">Users</a> </li>
+                        <li> <a asp-area="Admin" asp-page="/Users/Index">@SharedLocalizer.GetLocalizedHtmlString("Users")</a> </li>
                     }
                     @if (SignInManager.IsSignedIn(User) && (User.IsInRole("Admin") || User.IsInRole("Lecturer")))
                     {
-                        <li> <a asp-area="Lecturer" asp-page="/Tournaments/Index">Tournaments</a> </li>
+                        <li> <a asp-area="Lecturer" asp-page="/Tournaments/Index">@SharedLocalizer.GetLocalizedHtmlString("Tournaments")</a> </li>
                     }
-                    @if (SignInManager.IsSignedIn(User) &&User.IsInRole("Student"))
+                    @if (SignInManager.IsSignedIn(User) && User.IsInRole("Student"))
                     {
-                        <li> <a asp-area="Student" asp-page="/Tournaments/Index">Tournaments</a> </li>
+                        <li> <a asp-area="Student" asp-page="/Tournaments/Index">@SharedLocalizer.GetLocalizedHtmlString("Tournaments")</a> </li>
                     }
                 </ul>
                 <partial name="_LoginPartial" />
@@ -66,7 +67,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; 2019 - Programming_Tournament</p>
+            <p>@SharedLocalizer.GetLocalizedHtmlString("© 2019 - Automated assignments verification")</p>
         </footer>
     </div>
 

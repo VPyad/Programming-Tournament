@@ -1,10 +1,11 @@
 ﻿@page "{id}"
+@inject LocService SL
 @model DetailsModel
 @using Programming_Tournament.Areas.Student.Pages.Tasks
 @{
 }
 
-<h2>Details</h2>
+<h2>@SL.GetLocalizedHtmlString("Details")</h2>
 
 <div class="row">
     <div class="col-md-4">
@@ -45,7 +46,7 @@
             <dt>@Html.DisplayNameFor(x => x.DetailsViewModel.InputFilePath)</dt>
             <dd>
                 <form method="post">
-                    <button asp-page-handler="FileDownload" asp-route-filePath="@Model.DetailsViewModel.InputFilePath" type="submit" class="btn btn-default">Download</button>
+                    <button asp-page-handler="FileDownload" asp-route-filePath="@Model.DetailsViewModel.InputFilePath" type="submit" class="btn btn-default">@SL.GetLocalizedHtmlString("Download")</button>
                 </form>
             </dd>
         </dl>
@@ -63,9 +64,9 @@
 
 <div class="row">
     <div class="col-md-3">
-        <h4>Available programming langs.</h4>
+        <h4>@SL.GetLocalizedHtmlString("Available programming langs.")</h4>
         <table class="table">
-            <tr><th>Name</th></tr>
+            <tr><th>@SL.GetLocalizedHtmlString("Name")</th></tr>
             @foreach (var item in Model.DetailsViewModel.Langs)
             {
                 <tr>
@@ -102,13 +103,13 @@
             {
                 <dd>
                     <form method="post">
-                        <button asp-page-handler="FileDownload" asp-route-filePath="@Model.DetailsViewModel.OutputFilePath" type="submit" class="btn btn-default">Download</button>
+                        <button asp-page-handler="FileDownload" asp-route-filePath="@Model.DetailsViewModel.OutputFilePath" type="submit" class="btn btn-default">@SL.GetLocalizedHtmlString("Download")</button>
                     </form>
                 </dd>
             }
             else
             {
-                <dd>N/A</dd>
+                <dd>@SL.GetLocalizedHtmlString("N/A")</dd>
             }
         </dl>
     </div>
@@ -119,13 +120,13 @@
             {
                 <dd>
                     <form method="post">
-                        <button asp-page-handler="FileDownload" asp-route-filePath="@Model.DetailsViewModel.LogFilePath" type="submit" class="btn btn-default">Download</button>
+                        <button asp-page-handler="FileDownload" asp-route-filePath="@Model.DetailsViewModel.LogFilePath" type="submit" class="btn btn-default">@SL.GetLocalizedHtmlString("Download")</button>
                     </form>
                 </dd>
             }
             else
             {
-                <dd>N/A</dd>
+                <dd>@SL.GetLocalizedHtmlString("N/A")</dd>
             }
         </dl>
     </div>
@@ -136,13 +137,13 @@
             {
                 <dd>
                     <form method="post">
-                        <button asp-page-handler="FileDownload" asp-route-filePath="@Model.DetailsViewModel.SrcFilePath" type="submit" class="btn btn-default">Download</button>
+                        <button asp-page-handler="FileDownload" asp-route-filePath="@Model.DetailsViewModel.SrcFilePath" type="submit" class="btn btn-default">@SL.GetLocalizedHtmlString("Download")</button>
                     </form>
                 </dd>
             }
             else
             {
-                <dd>N/A</dd>
+                <dd>@SL.GetLocalizedHtmlString("N/A")</dd>
             }
         </dl>
     </div>
@@ -183,11 +184,11 @@
             <input type="file" id="fileInputControl" asp-for="InputViewModel.SrcFile" />
         </div>
         <div class="col-md-1">
-            <button type="submit" asp-route-id="@Model.DetailsViewModel.Id" asp-page-handler="Submit" class="btn btn-primary" style="margin-top:10pt;">Submit</button>
+            <button type="submit" asp-route-id="@Model.DetailsViewModel.Id" asp-page-handler="Submit" class="btn btn-primary" style="margin-top:10pt;">@SL.GetLocalizedHtmlString("Submit")</button>
         </div>
         <div class="col-md-5">
             <div class="alert alert-info" role="alert">
-                After submitting programm file, please do not reload page or submit new file. Wait till result.
+                @SL.GetLocalizedHtmlString("After submitting programm file, please do not reload page or submit new file. Wait till result.")
             </div>
         </div>
     </form>

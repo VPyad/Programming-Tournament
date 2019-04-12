@@ -1,5 +1,6 @@
 ﻿using ProcessManagment.BuildSystem;
 using ProcessManagment.Errors;
+using Programming_Tournament.Resources;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,12 +10,13 @@ namespace Programming_Tournament.Helpers
 {
     public class ProcessResultHelper
     {
-
+        private readonly LocService locService;
         private readonly Dictionary<Type, ProceesResultErrorType> ERROR2ENUM_DIC;
 
-        public ProcessResultHelper()
+        public ProcessResultHelper(LocService locService)
         {
             ERROR2ENUM_DIC = PopulateErrorToEnumDic();
+            this.locService = locService;
         }
 
         public Tuple<string, string, string> GetResultsTexts(ProcessResult processResult)
@@ -24,10 +26,10 @@ namespace Programming_Tournament.Helpers
             string errorDesc = "";
 
             if (processResult.State == ProcessState.Completed && processResult.Status == BuildStatus.Complete)
-                resultText = "Src has been successfully compiled and executed. To see details download log file. If you overall result incorrect - contact your lecturer.";
+                resultText = locService.GetLocalizedHtmlString("Src has been successfully compiled and executed. To see details download log file. If you overall result incorrect - contact your lecturer.");
             else if (processResult.State == ProcessState.Error)
             {
-                resultText = "An error occuried. See description, or download log file";
+                resultText = locService.GetLocalizedHtmlString("An error occuried. See description, or download log file");
                 var errors = GetErrorsText(GetErrorType(processResult.Error), processResult.Error);
                 errorText = errors.Item1;
                 errorDesc = errors.Item2;
@@ -54,30 +56,30 @@ namespace Programming_Tournament.Helpers
             switch (errorType)
             {
                 case ProceesResultErrorType.Internal:
-                    errorText = "Internal service error";
-                    errorDesc = "Error does not coused by provided program. Please try later again";
+                    errorText = locService.GetLocalizedHtmlString("Internal service error");
+                    errorDesc = locService.GetLocalizedHtmlString("Error does not coused by provided program. Please try later again");
                     break;
                 case ProceesResultErrorType.OutputFileNotFound:
-                    errorText = "Output file not found";
-                    errorDesc = "Program does not produced output.txt file.";
+                    errorText = locService.GetLocalizedHtmlString("Output file not found");
+                    errorDesc = locService.GetLocalizedHtmlString("Program does not produced output.txt file.");
                     break;
                 case ProceesResultErrorType.BuildFailed:
-                    errorText = "Build failed";
+                    errorText = locService.GetLocalizedHtmlString("Build failed");
                     var buildError = (BuildFailed)error;
-                    errorDesc = $"Build failed. Message: {buildError.Message}. Desc: {buildError.Desc}";
+                    errorDesc = locService.GetLocalizedHtmlString(string.Format("Build failed. Message: {0}. Desc: {1}", buildError.Message, buildError.Desc));
                     break;
                 case ProceesResultErrorType.ExecutionFailed:
-                    errorText = "Execution failed";
+                    errorText = locService.GetLocalizedHtmlString("Execution failed");
                     var execFailed = (BuildFailed)error;
-                    errorDesc = $"Error occuried during programm execution. Message: {execFailed.Message}. Desc: {execFailed.Desc}";
+                    errorDesc = locService.GetLocalizedHtmlString(string.Format("Error occuried during programm execution. Message: {0}. Desc: {1}", execFailed.Message, execFailed.Desc));
                     break;
                 case ProceesResultErrorType.ProcessExecutionTimeouted:
-                    errorText = "Timeout exceeded";
-                    errorDesc = "Program exceeded timeout. Programm has been terminated.";
+                    errorText = locService.GetLocalizedHtmlString("Timeout exceeded");
+                    errorDesc = locService.GetLocalizedHtmlString("Program exceeded timeout. Programm has been terminated.");
                     break;
                 case ProceesResultErrorType.Unknown:
-                    errorText = "Internal service error";
-                    errorDesc = "Error does not coused by provided program. Please try later again";
+                    errorText = locService.GetLocalizedHtmlString("Internal service error");
+                    errorDesc = locService.GetLocalizedHtmlString("Error does not coused by provided program. Please try later again");
                     break;
             }
 

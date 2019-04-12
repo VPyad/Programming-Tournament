@@ -1,10 +1,10 @@
 ﻿@page
+@inject LocService SL
 @model ApplicationSentModel
 @{
-    ViewData["Title"] = "Application sent";
 }
 
-<h2>@ViewData["Title"]</h2>
+<h2>@SL.GetLocalizedHtmlString("Application sent")</h2>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />

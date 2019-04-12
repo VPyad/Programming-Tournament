@@ -1,11 +1,12 @@
 ﻿@page  "{id}"
+@inject LocService SL
 @model EditModel
 @using Programming_Tournament.Areas.Lecturer.Pages.Tournaments
 @using Programming_Tournament.Models.Domain.Tournaments
 @{
 }
 
-<h2>Edit</h2>
+<h2>@SL.GetLocalizedHtmlString("Edit")</h2>
 
 <div class="row">
     <div class="col-md-4">
@@ -51,23 +52,23 @@
         </div>
     </div>
     <div class="btn-group" role="group" style="margin-top: 12pt">
-        <button type="submit" asp-route-id="@Model.ViewModel.Id" asp-page-handler="Save" class="btn btn-default">Save</button>
+        <button type="submit" asp-route-id="@Model.ViewModel.Id" asp-page-handler="Save" class="btn btn-default">@SL.GetLocalizedHtmlString("Save")</button>
 
         @if (Model.ViewModel.Status == TournamentStatus.Draft)
         {
-            <button type="submit" asp-route-id="@Model.ViewModel.Id" asp-page-handler="Start" class="btn btn-primary">Start</button>
+            <button type="submit" asp-route-id="@Model.ViewModel.Id" asp-page-handler="Start" class="btn btn-primary">@SL.GetLocalizedHtmlString("Start")</button>
         }
         @if (Model.ViewModel.Status == TournamentStatus.Active)
         {
-            <button type="submit" asp-route-id="@Model.ViewModel.Id" asp-page-handler="Finish" class="btn btn-primary">Finish</button>
+            <button type="submit" asp-route-id="@Model.ViewModel.Id" asp-page-handler="Finish" class="btn btn-primary">@SL.GetLocalizedHtmlString("Finish")</button>
         }
         @if (Model.ViewModel.Status == TournamentStatus.Completed)
         {
-            <button type="submit" asp-route-id="@Model.ViewModel.Id" asp-page-handler="Deactivate" class="btn btn-primary">Close</button>
+            <button type="submit" asp-route-id="@Model.ViewModel.Id" asp-page-handler="Deactivate" class="btn btn-primary">@SL.GetLocalizedHtmlString("Close")</button>
         }
         @if (User.IsInRole("Admin"))
         {
-            <button type="submit" asp-route-id="@Model.ViewModel.Id" asp-page-handler="Draft" class="btn btn-primary">Draft</button>
+            <button type="submit" asp-route-id="@Model.ViewModel.Id" asp-page-handler="Draft" class="btn btn-primary">@SL.GetLocalizedHtmlString("Draft")</button>
         }
     </div>
 </form>
@@ -77,24 +78,24 @@
         <div class="row">
             <div class="form-inline">
                 <div class="form-group">
-                    <h3>Tasks</h3>
+                    <h3>@SL.GetLocalizedHtmlString("Tasks")</h3>
                 </div>
                 <form method="post" class="form-group">
-                    <button type="submit" asp-route-id="@Model.ViewModel.Id" asp-page-handler="AddTask" class="btn btn-default" style="margin-left: 10pt; margin-top: 6pt">Add</button>
+                    <button type="submit" asp-route-id="@Model.ViewModel.Id" asp-page-handler="AddTask" class="btn btn-default" style="margin-left: 10pt; margin-top: 6pt">@SL.GetLocalizedHtmlString("Add")</button>
                 </form>
             </div>
         </div>
         <div class="row">
             <table class="table">
                 <tr>
-                    <th>Name</th>
-                    <td>Edit</td>
+                    <th>@SL.GetLocalizedHtmlString("Name")</th>
+                    <td>@SL.GetLocalizedHtmlString("Edit")</td>
                 </tr>
                 @foreach (var item in Model.ViewModel.Tasks)
                 {
                 <tr>
                     <td><a asp-area="Lecturer" asp-page="/Tasks/Details" asp-route-id="@item.TournamentTaskId"> @item.Name </a></td>
-                    <td><a asp-area="Lecturer" asp-page="/Tasks/Edit" asp-route-id="@item.TournamentTaskId"> Edit </a></td>
+                    <td><a asp-area="Lecturer" asp-page="/Tasks/Edit" asp-route-id="@item.TournamentTaskId">@SL.GetLocalizedHtmlString("Edit")</a></td>
                 </tr>
                 }
             </table>
@@ -104,21 +105,21 @@
         <div class="row">
             <div class="form-inline">
                 <div class="form-group">
-                    <h3>Students</h3>
+                    <h3>@SL.GetLocalizedHtmlString("Students")</h3>
                 </div>
                 <div class="form-group">
-                    <a asp-page="./Students" asp-rout-id="@Model.ViewModel.Id" class="btn btn-default" style="margin-left: 10pt; margin-top: 6pt">Change</a>
+                    <a asp-page="./Students" asp-rout-id="@Model.ViewModel.Id" class="btn btn-default" style="margin-left: 10pt; margin-top: 6pt">@SL.GetLocalizedHtmlString("Change")</a>
                 </div>
             </div>
         </div>
         <div class="row">
             <table class="table">
                 <tr>
-                    <th>Name</th>
-                    <th>Second name</th>
-                    <th>Lectern</th>
-                    <th>Curriculum</th>
-                    <th>Year no</th>
+                    <th>@SL.GetLocalizedHtmlString("First name")</th>
+                    <th>@SL.GetLocalizedHtmlString("Second name")</th>
+                    <th>@SL.GetLocalizedHtmlString("Lectern")</th>
+                    <th>@SL.GetLocalizedHtmlString("Curriculum")</th>
+                    <th>@SL.GetLocalizedHtmlString("Year no")</th>
                 </tr>
                 @foreach (var item in Model.ViewModel.Students)
                 {

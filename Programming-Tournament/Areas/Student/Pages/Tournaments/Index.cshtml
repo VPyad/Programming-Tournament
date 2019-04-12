@@ -1,18 +1,19 @@
 ﻿@page
+@inject LocService LS
 @model IndexModel
 @using Programming_Tournament.Areas.Student.Pages.Tournaments
 @{
 }
 
-<h2>Tournaments</h2>
+<h2>@LS.GetLocalizedHtmlString("Tournaments")</h2>
 
 <div class="row">
     <table class="table">
         <tr>
-            <th>Name</th>
-            <th>Lecturer</th>
-            <th><a asp-page="./Index" asp-route-sortState="@(Model.ViewModel.SortViewModel.DueDate)">Due date</a></th>
-            <th><a asp-page="./Index" asp-route-sortState="@(Model.ViewModel.SortViewModel.DueDate)">Status</a></th>
+            <th>@LS.GetLocalizedHtmlString("Name")</th>
+            <th>@LS.GetLocalizedHtmlString("Lecturer")</th>
+            <th><a asp-page="./Index" asp-route-sortState="@(Model.ViewModel.SortViewModel.DueDate)">@LS.GetLocalizedHtmlString("Due date")</a></th>
+            <th><a asp-page="./Index" asp-route-sortState="@(Model.ViewModel.SortViewModel.DueDate)">@LS.GetLocalizedHtmlString("Status")</a></th>
         </tr>
         @foreach (var item in Model.ViewModel.Tournaments)
         {
