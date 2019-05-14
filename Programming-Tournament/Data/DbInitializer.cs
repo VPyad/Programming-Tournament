@@ -15,8 +15,7 @@ namespace Programming_Tournament.Data
             {
                 var faculties = new Faculty[]
                 {
-                    new Faculty { Name = "ПММ" },
-                    new Faculty { Name = "ФКН" }
+                    new Faculty { Name = "ПММ" }
                 };
 
                 foreach (var item in faculties)
@@ -32,11 +31,6 @@ namespace Programming_Tournament.Data
                 context.Lecterns.Add(new Lectern { Name = "Математические Методы Исследования Операций" });
                 context.Lecterns.Add(new Lectern { Name = "Математический и Прикладной Анализ" });
 
-                // ФКН
-                context.Lecterns.Add(new Lectern { Name = "Информационные системы" });
-                context.Lecterns.Add(new Lectern { Name = "Программирование и информационные системы" });
-                context.Lecterns.Add(new Lectern { Name = "Цифровые технологии" });
-
                 context.SaveChanges();
             }
 
@@ -46,11 +40,6 @@ namespace Programming_Tournament.Data
                 context.Сurriculums.Add(new Curriculum { Name = "ФИИТ" });
                 context.Сurriculums.Add(new Curriculum { Name = "ПМИ" });
                 context.Сurriculums.Add(new Curriculum { Name = "Бизнес информатика" });
-
-                // ФКН
-                context.Сurriculums.Add(new Curriculum { Name = "Корпоративные информационные системы с базами данных" });
-                context.Сurriculums.Add(new Curriculum { Name = "Параллельные и распределенные вычислительные системы" });
-                context.Сurriculums.Add(new Curriculum { Name = "Технические средства и методы защиты информации" });
 
                 context.SaveChanges();
             }
