@@ -13,7 +13,7 @@
             <th>@LS.GetLocalizedHtmlString("Name")</th>
             <th>@LS.GetLocalizedHtmlString("Lecturer")</th>
             <th><a asp-page="./Index" asp-route-sortState="@(Model.ViewModel.SortViewModel.DueDate)">@LS.GetLocalizedHtmlString("Due date")</a></th>
-            <th><a asp-page="./Index" asp-route-sortState="@(Model.ViewModel.SortViewModel.DueDate)">@LS.GetLocalizedHtmlString("Status")</a></th>
+            <th><a asp-page="./Index" asp-route-sortState="@(Model.ViewModel.SortViewModel.Status)">@LS.GetLocalizedHtmlString("Status")</a></th>
         </tr>
         @foreach (var item in Model.ViewModel.Tournaments)
         {
