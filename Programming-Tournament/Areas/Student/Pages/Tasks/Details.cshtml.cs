@@ -65,7 +65,6 @@ namespace Programming_Tournament.Areas.Student.Pages.Tasks
             DetailsViewModel = new StudentTaskDetailsViewModel(task, userId);
             InputViewModel = new StudentTaskInputViewModel(task.SupportedLanguages);
 
-
             var assignee = task.Assignees.FirstOrDefault(x => x.User.Id == userId);
             
             DetailsViewModel.SrcFilePath = storageManager.GetSrcFilePath(assignee.WorkDir);
