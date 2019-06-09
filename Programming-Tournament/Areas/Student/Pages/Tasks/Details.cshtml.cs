@@ -178,7 +178,7 @@ namespace Programming_Tournament.Areas.Student.Pages.Tasks
             {
                 assignee.Attempts += 1;
                 assignee.LastAttemptedAt = DateTime.Now;
-                bool isEqual = storageManager.CompareFiles(task.InputFilePath, processResult.OutputFilePath);
+                bool isEqual = storageManager.CompareFiles(task.ExpectedFilePath, processResult.OutputFilePath);
                 assignee.IsPassed = isEqual;
                 taskRepository.Update(task);
             }

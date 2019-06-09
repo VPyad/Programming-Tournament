@@ -7,7 +7,7 @@ using System.Text;
 namespace ProcessManagmentUnitTests
 {
     internal class WorkingDirPathsHelper
-    {
+    { 
         public const string ROOT_PROJECTS_REPO_DIR = LAPTOP_ROOT_DIR;
 
         private const string LAPTOP_ROOT_DIR = @"D:\Repos\in-rush-sample-projects\";
